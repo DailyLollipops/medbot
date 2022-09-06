@@ -26,4 +26,8 @@ class MainController extends Controller
     public function redirectToUploadQRCodePage(){
         return view('main.upload');
     }
+
+    public function redirectToIndexPage(){
+        return view('main.index');
+    }
 }

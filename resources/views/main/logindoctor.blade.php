@@ -6,11 +6,11 @@
       <div class="u-container-style u-group u-radius-50 u-shape-round u-white u-group-1">
         <div class="u-container-layout u-container-layout-1">
           <span class="u-border-8 u-border-white u-file-icon u-icon u-icon-circle u-icon-1">
-            <img src="images/3408455-7.png" alt="">
+            <img src="{{ asset('images/login1.png') }}" alt="">
           </span>
           <h2 class="u-align-center u-text u-text-default u-text-palette-2-base u-text-1">Login Now</h2>
           <div class="u-form u-login-control u-form-1">
-            <form action="authenticate/doctor" method="POST">
+            <form action="/medbot/public/authenticate/doctor" method="POST">
               @csrf
               <div class="u-form-group u-form-name u-label-top">
                 <label for="username-a30d" class="u-label u-text-grey-30 u-label-1">Username *</label>
@@ -23,7 +23,7 @@
               </div>
               <div class="u-form-group u-form-password u-label-top">
                 <label for="password-a30d" class="u-label u-text-grey-30 u-label-2">Password *</label>
-                <input type="text" placeholder="Enter your Password" name="password" class="u-border-10 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius-50 u-input-2">
+                <input type="password" value="***********" placeholder="Enter your Password" name="password" class="u-border-10 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius-50 u-input-2">
                 
                 @error('password')
                   <p class="u-text u-text-custom-color-1 u-text-2 u-text-color-2">{{$message}}</p>
@@ -41,7 +41,7 @@
               <input type="hidden" value="" name="recaptchaResponse">
             </form>
           </div>
-          <a href="login_user" data-page-id="36626688" class="u-border-active-palette-2-base u-border-hover-palette-2-base u-border-none u-btn u-button-style u-login-control u-login-create-account u-none u-text-palette-2-base u-btn-2">Login as User?</a>
+          <a href="/medbot/public/login/user" data-page-id="36626688" class="u-border-active-palette-2-base u-border-hover-palette-2-base u-border-none u-btn u-button-style u-login-control u-login-create-account u-none u-text-palette-2-base u-btn-2">Login as User?</a>
         </div>
       </div>
     </div>

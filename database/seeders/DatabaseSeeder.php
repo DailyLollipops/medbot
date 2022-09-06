@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //User::factory(3)->create();
+        // User::factory(3)->create();
 
         Reading::factory(15)->create([
             'user_id' => User::all()->random()

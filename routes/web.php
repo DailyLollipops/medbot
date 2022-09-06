@@ -15,7 +15,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [UserController::class, 'redirect']);
+Route::get('/', [MainController::class, 'redirectToIndexPage']);
 
 Route::get('/login/upload', [MainController::class, 'redirectToUploadQRCodePage']);
 
@@ -30,3 +30,7 @@ Route::post('/authenticate/doctor', [UserController::class, 'authenticateDoctor'
 Route::post('/authenticate/user', [UserController::class, 'authenticateUser']);
 
 Route::get('/logout', [UserController::class, 'logout']);
+
+Route::get('/test', function(){
+    return view('auth.userpage');
+});
