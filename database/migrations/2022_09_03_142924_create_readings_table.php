@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('readings', function (Blueprint $table) {
             $table->id();
             $table->foreignID('user_id')->constrained()->onDelete('cascade');
+            $table->date('date');
             $table->integer('pulse_rate');
             $table->integer('blood_saturation');
             $table->integer('systolic');

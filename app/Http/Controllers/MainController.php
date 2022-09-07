@@ -6,12 +6,6 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-
-    //Redirects to About page
-    public function redirectToAboutPage(){
-        return view('main.about');
-    }
-
     //Redirects to User Login page
     public function redirectToUserLoginPage(){
         return view('main.loginuser');

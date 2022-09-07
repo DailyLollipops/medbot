@@ -19,6 +19,7 @@ class ReadingFactory extends Factory
     {
 
         return [
+            'date' => fake()->date('Y-m-d'),
             'pulse_rate' => fake()->numberBetween(1,120),
             'blood_saturation' => fake()->numberBetween(70,100),
             'systolic' => fake()->numberBetween(70,190),

@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
@@ -15,7 +17,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [MainController::class, 'redirectToIndexPage']);
+Route::get('/', [UserController::class, 'redirect']);
 
 Route::get('/login/upload', [MainController::class, 'redirectToUploadQRCodePage']);
 
@@ -31,6 +33,8 @@ Route::post('/authenticate/user', [UserController::class, 'authenticateUser']);
 
 Route::get('/logout', [UserController::class, 'logout']);
 
-Route::get('/test', function(){
-    return view('auth.userpage');
-});
+// Route::get('/test', function(){
+//     return view('auth.userpage',[
+//         'readings' => User::find(Auth::id())->readings,
+//     ]);
+// });

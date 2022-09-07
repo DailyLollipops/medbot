@@ -73,7 +73,7 @@ class UserController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
  
-            $userID = Auth::id();
+            $id = Auth::id();
 
             return redirect()->intended('/');
         }
@@ -86,10 +86,12 @@ class UserController extends Controller
     public function redirect() {
         if(Auth::check()) {
             if(Auth::user()->type == 'doctor') {
-                return view('user.doctor');
+                return view('auth.doctorpage');
             }
             else {
-                return view('user.normal');
+                return view('auth.userpage',[
+                    'readings' => User::find(Auth::id())->readings,
+                ]);
             }
         }
         else {
