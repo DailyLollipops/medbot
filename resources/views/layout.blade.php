@@ -28,8 +28,12 @@
 
   <body class="u-body u-xl-mode" data-lang="en">
 
-    <x-headerUser/>
-
+    @auth
+      <x-headerAuth/>
+    @else
+      <x-header/>
+    @endauth
+    
     @yield('content')   
     
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-7727">
