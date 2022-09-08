@@ -32,9 +32,3 @@ Route::post('/authenticate/doctor', [UserController::class, 'authenticateDoctor'
 Route::post('/authenticate/user', [UserController::class, 'authenticateUser']);
 
 Route::get('/logout', [UserController::class, 'logout']);
-
-// Route::get('/test', function(){
-//     return view('auth.userpage',[
-//         'readings' => User::find(Auth::id())->readings,
-//     ]);
-// });
