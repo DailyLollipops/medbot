@@ -1,10 +1,12 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FilterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +34,9 @@ Route::post('/authenticate/doctor', [UserController::class, 'authenticateDoctor'
 Route::post('/authenticate/user', [UserController::class, 'authenticateUser']);
 
 Route::get('/logout', [UserController::class, 'logout']);
+
+Route::post('/list/order', [FilterController::class, 'getSelector']);
+
+Route::get('/list/order-by-{filter}-{order}', [FilterController::class, 'order']);
+
+Route::get('/list', [UserController::class, 'showReadingList']);

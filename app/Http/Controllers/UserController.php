@@ -6,6 +6,7 @@ require $_SERVER['DOCUMENT_ROOT'] . "\medbot\\vendor\autoload.php";
 
 use Zxing\QrReader;
 use App\Models\User;
+use App\Models\Reading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -89,14 +90,32 @@ class UserController extends Controller
                 return view('auth.doctorpage');
             }
             else {
-                return view('auth.userpage',[
-                    'readings' => User::find(Auth::id())->readings,
-                ]);
+                return view('auth.userpage');
             }
         }
         else {
             return view('main.index');
         }
+    }
+
+
+    public function showReadingList(){
+        $filter = 'date';
+        $filterString = 'Date';
+        $orderString = "Descending";
+
+        $readings = Reading::where('user_id',Auth::id())->paginate(9);
+        $readings->setCollection(
+            collect(
+                collect($readings->items())->sortByDesc($filter)
+            )->values()
+        );
+        
+        return view('user.readinglist',[
+            'readings' => $readings,
+            'filter' => $filterString,
+            'order' => $orderString,
+        ]);
     }
 
     public function logout(Request $request){

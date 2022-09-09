@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date');
             $table->integer('pulse_rate');
             $table->integer('blood_saturation');
+            $table->integer('blood_pressure');
             $table->integer('systolic');
             $table->integer('diastolic');
             $table->timestamps();

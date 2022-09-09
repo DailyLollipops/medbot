@@ -8,7 +8,7 @@
           <h2 class="u-text u-text-default u-text-1">Med-bot</h2>
           <p class="u-text u-text-2">Med-bot aims to provide healthcare assistance that lessens contact between patients and doctors to help lessen the infection of COVID-19 virus. It was made by a team of three and presented as a thesis for Marinduque State College. If ever someone wants to maintain or fork this project its source code is available at the github repository :)<br>
             <br>
-            <a href="https://github.com" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" target="_blank">-&gt; Github</a>
+            <a href="https://github.com/DailyLollipops/medbot" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" target="_blank">-&gt; Github</a>
             <br>
           </p>
         </div>

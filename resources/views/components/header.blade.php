@@ -8,7 +8,7 @@
   <a href="/medbot/public/" class="u-image u-logo u-image-1" data-image-width="229" data-image-height="220">
     <img src="{{ asset ('images/logo.png')}}" class="u-logo-image u-logo-image-1">
   </a>
-  <p class="u-custom-font u-font-lobster u-text u-text-default u-text-1">Med-bot</p>
+  {{-- <p class="u-custom-font u-font-lobster u-text u-text-default u-text-1">Med-bot</p> --}}
   <nav class="u-align-left u-menu u-menu-one-level u-offcanvas u-menu-1">
     <div class="menu-collapse">
       <a class="u-button-style u-nav-link" href="#">

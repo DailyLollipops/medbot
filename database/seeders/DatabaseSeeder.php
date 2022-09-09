@@ -18,8 +18,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(3)->create();
 
-        // Reading::factory(10)->create([
-        //     'user_id' => User::find(3)->id
-        // ]);
+        foreach(User::all() as $user) {
+            Reading::factory(10)->create([
+                'user_id' => $user->id,
+            ]);
+        }
     }
 }

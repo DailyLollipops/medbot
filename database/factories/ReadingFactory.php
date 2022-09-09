@@ -17,13 +17,16 @@ class ReadingFactory extends Factory
      */
     public function definition()
     {
-
+        $systolic = fake()->numberBetween(71,190);
+        $diastolic = fake()->numberBetween(41,100);
+        $blood_pressure = ($systolic-70)/($diastolic-40);
         return [
             'date' => fake()->date('Y-m-d'),
             'pulse_rate' => fake()->numberBetween(1,120),
             'blood_saturation' => fake()->numberBetween(70,100),
-            'systolic' => fake()->numberBetween(70,190),
-            'diastolic' => fake()->numberBetween(40,100)
+            'systolic' => $systolic,
+            'diastolic' => $diastolic,
+            'blood_pressure' => $blood_pressure,
         ];
     }
 }
