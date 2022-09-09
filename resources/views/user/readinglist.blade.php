@@ -73,7 +73,7 @@
               <p class="u-custom-font u-heading-font u-text u-text-3">
                 <span class="u-file-icon u-icon">
                   <img src="{{ asset('images/clock.png') }}" alt=""></span>
-                <span style="font-weight: 700;">&nbsp;Time Here
+                <span style="font-weight: 700;">&nbsp;{{$reading->time}}
                   <span style="font-size: 1.125rem;">
                   </span>
                 </span>
