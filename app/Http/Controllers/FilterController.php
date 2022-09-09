@@ -18,11 +18,20 @@ class FilterController extends Controller
 
     //Order the readings
     public function order($filter, $order) {
-        if($order == 'asc'){
-            $readings = Reading::where('user_id',Auth::id())->paginate(9)->sortBy($filter);
+        $readings = Reading::where('user_id',Auth::id())->paginate(9);
+        if($order == 'desc'){
+            $readings->setCollection(
+                collect(
+                    collect($readings->items())->sortByDesc($filter)
+                )->values()
+            );
         }
-        else {
-            $readings = Reading::where('user_id',Auth::id())->paginate(9)->sortByDesc($filter);
+        else{
+            $readings->setCollection(
+                collect(
+                    collect($readings->items())->sortBy($filter)
+                )->values()
+            );
         }
 
         $filterString = ucfirst(str_replace("_", " ", $filter));
