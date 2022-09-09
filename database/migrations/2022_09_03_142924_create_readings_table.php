@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignID('user_id')->constrained()->onDelete('cascade');
             $table->date('date');
+            $table->time('time');
             $table->integer('pulse_rate');
             $table->integer('blood_saturation');
             $table->integer('blood_pressure');

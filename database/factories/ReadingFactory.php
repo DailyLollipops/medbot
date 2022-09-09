@@ -22,6 +22,7 @@ class ReadingFactory extends Factory
         $blood_pressure = ($systolic-70)/($diastolic-40);
         return [
             'date' => fake()->date('Y-m-d'),
+            'time' => fake()->time(),
             'pulse_rate' => fake()->numberBetween(1,120),
             'blood_saturation' => fake()->numberBetween(70,100),
             'systolic' => $systolic,
