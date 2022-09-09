@@ -4,7 +4,7 @@
  * Copyright 2014-2021 Froala Labs
  */
 
-.fr-clearfix::after {
+ .fr-clearfix::after {
   clear: both;
   display: block;
   content: "";
@@ -39328,7 +39328,7 @@ a.u-link.u-text-hover-grey-90:hover {
 /*end-variables sitestylecss*/
  .u-header {
   background-image: none;
-  min-height: 56px;
+  min-height: 55px;
 }
 
 .u-header .u-image-1 {
@@ -39343,7 +39343,7 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 
 .u-header .u-menu-1 {
-  margin: -42px calc(((100% - 1140px) / 2)) 10px auto;
+  margin: -42px calc(((100% - 1140px) / 2)) 0 auto;
 }
 
 .u-header .u-nav-1 {
@@ -39353,6 +39353,12 @@ a.u-link.u-text-hover-grey-90:hover {
 .u-header .u-nav-2 {
   font-size: 1rem;
 }
+
+.u-header .u-text-1 {
+  width: 93px;
+  background-image: none;
+  margin: -36px auto 10px;
+}
 @media (max-width: 1199px) {
   .u-header .u-image-1 {
     margin-left: calc(((100% - 1140px) / 2) + 100px);
@@ -39361,28 +39367,51 @@ a.u-link.u-text-hover-grey-90:hover {
   .u-header .u-menu-1 {
     margin-top: -42px;
     margin-right: calc(((100% - 1140px) / 2) + 100px);
-    margin-bottom: 10px;
+  }
+
+  .u-header .u-text-1 {
+    width: 93px;
   }
 }
 @media (max-width: 991px) {
+   .u-header {
+    min-height: 57px;
+  }
+
   .u-header .u-image-1 {
+    margin-top: 5px;
     margin-left: calc(((100% - 1140px) / 2) + 210px);
   }
 
   .u-header .u-menu-1 {
-    margin-top: 20px;
-    margin-right: calc(((100% - 1140px) / 2) + 210px);
-    margin-bottom: 10px;
+    width: auto;
+    margin-top: -40px;
+    margin-right: calc(((100% - 720px) / 2));
+  }
+
+  .u-header .u-text-1 {
+    margin-top: -34px;
+    margin-bottom: 11px;
   }
 }
 @media (max-width: 767px) {
+   .u-header {
+    min-height: 59px;
+  }
+
   .u-header .u-image-1 {
+    margin-top: 6px;
     margin-left: calc(((100% - 1140px) / 2) + 300px);
   }
 
   .u-header .u-menu-1 {
     margin-right: calc(((100% - 1140px) / 2) + 300px);
-    margin-bottom: 10px;
+  }
+
+  .u-header .u-text-1 {
+    width: 93px;
+    margin-top: -34px;
+    margin-bottom: 12px;
   }
 }
 @media (max-width: 575px) {
@@ -39391,7 +39420,12 @@ a.u-link.u-text-hover-grey-90:hover {
   }
 
   .u-header .u-menu-1 {
-    margin-right: calc(((100% - 1140px) / 2) + 400px);
+    margin-right: calc(((100% - 340px) / 2));
+  }
+
+  .u-header .u-text-1 {
+    margin-top: -34px;
+    width: 93px;
   }
 }
  .u-footer {
