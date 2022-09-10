@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(3)->create();
 
         // foreach(User::all() as $user) {
-        //     Reading::factory(30)->create([
+        //     Reading::factory(20)->create([
         //         'user_id' => $user->id,
         //     ]);
         // }
