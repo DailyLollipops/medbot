@@ -97,7 +97,7 @@ class ChartController extends Controller
         // For Ratings Chart
         $count = Reading::where('user_id', $user_id)->count();
 
-        // Pulse Rates
+        // Pulse Rates Ratings
         $pulse_rate_ratings = array();
         $below_normal = 0;
         $normal = 0;
@@ -116,7 +116,7 @@ class ChartController extends Controller
         }
         array_push($pulse_rate_ratings, $below_normal, $normal, $above_normal);
 
-        // Blood Pressure
+        // Blood Pressure Ratings
         $blood_pressure_ratings = array();
         $below_normal = 0;
         $normal = 0;
@@ -191,10 +191,12 @@ class ChartController extends Controller
 
         // For Year Readings Chart
         $pulse_rates_year = array();
+        $systolics_year = array();
+        $diastolics_year = array();
         $blood_pressures_year = array();
         $blood_saturations_year = array();
         for($month = 1; $month <= 12; $month++){
-            $pulse_rates_curr = Reading::whereYear('created_at', date('Y'))->whereMonth('created_at', 7)->pluck('pulse_rate')->toArray();
+            $pulse_rates_curr = Reading::whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->pluck('pulse_rate')->toArray();
             if(count($pulse_rates_curr) != 0){
                 $average_pulse_rates_curr = round(array_sum($pulse_rates_curr)/count($pulse_rates_curr));
             }
@@ -203,7 +205,25 @@ class ChartController extends Controller
             }
             array_push($pulse_rates_year, $average_pulse_rates_curr);
 
-            $blood_pressures_curr = Reading::whereYear('created_at', date('Y'))->whereMonth('created_at', 7)->pluck('blood_pressure')->toArray();
+            $systolics_curr = Reading::whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->pluck('systolic')->toArray();
+            if(count($systolics_curr) != 0){
+                $average_systolics_curr = round(array_sum($systolics_curr)/count($systolics_curr));
+            }
+            else{
+                $average_systolics_curr = 0;
+            }
+            array_push($systolics_year, $average_systolics_curr);
+
+            $diastolics_curr = Reading::whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->pluck('diastolic')->toArray();
+            if(count($diastolics_curr) != 0){
+                $average_diastolics_curr = round(array_sum($diastolics_curr)/count($diastolics_curr));
+            }
+            else{
+                $average_diastolics_curr = 0;
+            }
+            array_push($diastolics_year, $average_diastolics_curr);
+
+            $blood_pressures_curr = Reading::whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->pluck('blood_pressure')->toArray();
             if(count($blood_pressures_curr) != 0){
                 $average_blood_pressures_curr = round(array_sum($blood_pressures_curr)/count($blood_pressures_curr));
             }
@@ -212,7 +232,7 @@ class ChartController extends Controller
             }
             array_push($blood_pressures_year, $average_blood_pressures_curr);
 
-            $blood_saturations_curr = Reading::whereYear('created_at', date('Y'))->whereMonth('created_at', 7)->pluck('blood_saturation')->toArray();
+            $blood_saturations_curr = Reading::whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->pluck('blood_saturation')->toArray();
             if(count($blood_saturations_curr) != 0){
                 $average_blood_saturations_curr = round(array_sum($blood_saturations_curr)/count($blood_saturations_curr));
             }
@@ -221,7 +241,7 @@ class ChartController extends Controller
             }
             array_push($blood_saturations_year, $average_blood_saturations_curr);
         }
-
+        
         return view('user.dashboard',compact(
             'average_pulse_rate_month',
             'average_systolic_month',
@@ -247,6 +267,8 @@ class ChartController extends Controller
             'average_diastolic_all',
             'average_blood_saturation_all',
             'pulse_rates_year',
+            'systolics_year',
+            'diastolics_year',
             'blood_pressures_year',
             'blood_saturations_year'
         ));

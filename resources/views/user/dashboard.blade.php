@@ -144,7 +144,7 @@
             <span class="u-file-icon u-icon u-icon-1">
               <img src="{{ asset('images/monitor.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-2">125</p>
+            <p class="u-custom-item u-heading-font u-text u-text-2">{{$count}}</p>
             <h5 class="u-text u-text-3">Total Reading<br>
             </h5>
           </div>
@@ -154,7 +154,7 @@
             <span class="u-file-icon u-icon u-icon-2">
               <img src="{{ asset('images/pulse_rate.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-4">125 bpm</p>
+            <p class="u-custom-item u-heading-font u-text u-text-4">{{$average_pulse_rate_all}} bpm</p>
             <h5 class="u-text u-text-5">Pulse Rate<br>
             </h5>
           </div>
@@ -164,7 +164,7 @@
             <span class="u-file-icon u-icon u-icon-3">
               <img src="{{ asset('images/blood_pressure.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-6">125/130 mmHg </p>
+            <p class="u-custom-item u-heading-font u-text u-text-6">{{$average_systolic_all}}/{{$average_diastolic_all}} mmHg </p>
             <h5 class="u-text u-text-7">Blood Pressure<br>
             </h5>
           </div>
@@ -174,7 +174,7 @@
             <span class="u-file-icon u-icon u-icon-4">
               <img src="{{ asset('images/blood_saturation.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-8">96%</p>
+            <p class="u-custom-item u-heading-font u-text u-text-8">{{$average_blood_saturation_all}}%</p>
             <h5 class="u-text u-text-9">Sp02<br>
             </h5>
           </div>
@@ -195,6 +195,7 @@
     <div class="u-border-1 u-border-grey-15 u-container-style u-expanded-width-xs u-grey-5 u-group u-radius-14 u-shape-round u-group-2">
       <div class="u-container-layout u-container-layout-2">
         {{-- Year Reading Chart here --}}
+        <canvas id="yearlyReadingsChart"></canvas>
       </div>
     </div>
   </div>
@@ -207,70 +208,101 @@
 
   // Monthly Readings Chart Variables
   const ids = {{ Js::from($labels) }};
-  const pulseRates = {{ Js::from($pulse_rates) }};
-  const systolics = {{ Js::from($systolics) }};
-  const diastolics = {{ Js::from($diastolics) }};
-  const bloodPressures = {{ Js::from($blood_pressures) }};
-  const bloodSaturations = {{ Js::from($blood_saturations) }};
+  const monthlyPulseRates = {{ Js::from($pulse_rates) }};
+  const monthlySystolics = {{ Js::from($systolics) }};
+  const monthlyDiastolics = {{ Js::from($diastolics) }};
+  const monthlyBloodPressures = {{ Js::from($blood_pressures) }};
+  const monthlyBloodSaturations = {{ Js::from($blood_saturations) }};
   const dates = {{ Js::from($dates) }};
   const times = {{ Js::from($times) }};
 
   // Monthly Rating Chart Variables
   const types = ['Pulse Rate', 'Blood Pressure', 'Blood Saturation'];
-  const pulseRateRatings = {{ Js::from($pulse_rate_ratings) }};
-  const bloodPressureRatings = {{ Js::from($blood_pressure_ratings) }};
-  const bloodSaturationRatings = {{ Js::from($blood_saturation_ratings) }};
+  const monthlyPulseRateRatings = {{ Js::from($pulse_rate_ratings) }};
+  const monthlyBloodPressureRatings = {{ Js::from($blood_pressure_ratings) }};
+  const monthlyBloodSaturationRatings = {{ Js::from($blood_saturation_ratings) }};
+
+  // Year Readings Chart
+  const months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sep','Oct','Nov','Dec'];
+  const yearlyPulseRates = {{ Js::from($pulse_rates_year) }};
+  const yearlySystolics = {{ Js::from($systolics_year) }};
+  const yearlyDiastolics = {{ Js::from($diastolics_year) }};
+  const yearlyBloodPressures = {{ Js::from($blood_pressures_year) }};
+  const yearlyBloodSaturations = {{ Js::from($blood_saturations_year) }};
 
   // Monthly Readings Chart Datasets
-  const data1 = {
+  const monthlyReadingsData = {
     labels: ids,
     datasets: [{
       label: 'Pulse Rate',
       backgroundColor: '#94ca74',
       borderColor: '#ced96c',
-      data: pulseRates,
+      data: monthlyPulseRates,
     },
     {
       label: 'Blood Pressure',
       backgroundColor: '#e88a41',
       borderColor: '#ff752f',
-      data: bloodPressures,
+      data: monthlyBloodPressures,
     },
     {
       label: 'Blood Saturation',
       backgroundColor: '#70f1fa',
       borderColor: '#33647e',
-      data: bloodSaturations,
+      data: monthlyBloodSaturations,
     }]
   };
 
   // Monthly Rating Chart Datasets
-  const data2 = {
+  const monthlyRatingsData = {
     labels: types,
     datasets: [{
       label: 'Below Normal',
       backgroundColor: '#94ca74',
       borderColor: '#ced96c',
-      data: [pulseRateRatings[0],bloodPressureRatings[0],bloodSaturationRatings[0]]
+      data: [monthlyPulseRateRatings[0],monthlyBloodPressureRatings[0],monthlyBloodSaturationRatings[0]]
     },
     {
       label: 'Normal',
       backgroundColor: '#e88a41',
       borderColor: '#ff752f',
-      data: [pulseRateRatings[1],bloodPressureRatings[1],bloodSaturationRatings[1]]
+      data: [monthlyPulseRateRatings[1],monthlyBloodPressureRatings[1],monthlyBloodSaturationRatings[1]]
     },
     {
       label: 'Above Normal',
       backgroundColor: '#70f1fa',
       borderColor: '#33647e',
-      data: [pulseRateRatings[2],bloodPressureRatings[2],bloodSaturationRatings[2]]
+      data: [monthlyPulseRateRatings[2],monthlyBloodPressureRatings[2],monthlyBloodSaturationRatings[2]]
     },
     ]
   };
-  
-  const config1 = {
+
+  // Yearly Readings Chart
+  const yearlyReadingsData = {
+    labels: months,
+    datasets: [{
+      label: 'Pulse Rate',
+      backgroundColor: '#94ca74',
+      borderColor: '#ced96c',
+      data: yearlyPulseRates,
+    },
+    {
+      label: 'Blood Pressure',
+      backgroundColor: '#e88a41',
+      borderColor: '#ff752f',
+      data: yearlyBloodPressures,
+    },
+    {
+      label: 'Blood Saturation',
+      backgroundColor: '#70f1fa',
+      borderColor: '#33647e',
+      data: yearlyBloodSaturations,
+    }]
+  };
+
+  const monthlyReadingsConfig = {
     type: 'line',
-    data: data1,
+    data: monthlyReadingsData,
     options: {
       plugins: {
         title: {
@@ -309,7 +341,7 @@
             },
             afterLabel: function(context) {
               if (context.dataset.label == "Blood Pressure") {
-                return systolics[context.dataIndex] + '/' + diastolics[context.dataIndex] + ' mmHg';
+                return monthlySystolics[context.dataIndex] + '/' + monthlyDiastolics[context.dataIndex] + ' mmHg';
               }
             },
             afterBody: function(context) {
@@ -330,9 +362,9 @@
     }
   };
 
-  const config2 = {
+  const monthlyRatingsConfig = {
     type: 'bar',
-    data: data2,
+    data: monthlyRatingsData,
     options: {
       plugins: {
         title: {
@@ -341,16 +373,74 @@
         }
       }
     }
-  }
+  };
+
+  const yearlyReadingsConfig = {
+    type: 'line',
+    data: yearlyReadingsData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Average Readings This Year'
+        },
+        tooltip: {
+          yAlign: 'bottom',
+          titleAlign: 'center',
+          callbacks: {
+            beforeTitle: function(context) {
+              return '=================';
+            },
+            title: function(context) {
+              console.log(context[0]);
+              return `Reading #${context[0].label}`;
+            },
+            label: function(context) {
+              let label = context.dataset.label || '';
+
+              if (label) {
+                label += ': ';
+              }
+              if (context.parsed.y !== null) {
+                if (context.dataset.label == "Pulse Rate") {
+                  label += context.parsed.y + ' bpm';
+                }
+                else if (context.dataset.label == "Blood Saturation") {
+                  label += context.parsed.y + ' %';
+                }
+                else if (context.dataset.label == "Blood Pressure") {
+                  // label += systolics[context.dataIndex] + '/' + diastolics[context.dataIndex] + ' mmHg';
+                }
+              }
+              return label;
+            },
+            afterLabel: function(context) {
+              if (context.dataset.label == "Blood Pressure") {
+                return yearlySystolics[context.dataIndex] + '/' + yearlyDiastolics[context.dataIndex] + ' mmHg';
+              }
+            },
+            afterBody: function(context) {
+              return '=================';
+            }
+          }
+        }
+      }
+    }
+  };
+
 </script>
 <script>
-  const readingsChart = new Chart(
+  const monthlyReadingsChart = new Chart(
     document.getElementById('monthlyReadingsChart'),
-    config1
+    monthlyReadingsConfig
   );
-  const testChart = new Chart(
+  const monthlyRatingsChart = new Chart(
     document.getElementById('monthlyRatingsChart'),
-    config2
+    monthlyRatingsConfig
+  );
+  const yearlyReadingsChart = new Chart(
+    document.getElementById('yearlyReadingsChart'),
+    yearlyReadingsConfig
   );
 </script>
 @endsection
