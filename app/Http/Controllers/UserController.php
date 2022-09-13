@@ -50,7 +50,7 @@ class UserController extends Controller
  
                 $userID = Auth::id();
     
-                return redirect()->intended('/');
+                return redirect()->intended('/dashboard');
             }
             else {
                 return back()->withErrors([
@@ -90,7 +90,7 @@ class UserController extends Controller
                 return view('auth.doctorpage');
             }
             else {
-                return view('auth.userpage');
+                return redirect('/dashboard');
             }
         }
         else {

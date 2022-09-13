@@ -1,4 +1,6 @@
 @extends('layout',[$style = 'readinglist', $title = 'Reading List'])
+
+@section('content')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 <style>
   .page-item.active .page-link{
@@ -31,7 +33,6 @@
       opacity: 0.5 !important;
   }
 </style>
-@section('content')
 <section class="u-clearfix u-section-1" id="sec-c6d7">
   <div class="u-clearfix u-sheet u-sheet-1">
     <div class="u-expanded-width-xs u-form u-form-1">

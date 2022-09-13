@@ -1,11 +1,13 @@
 <?php
 
 use App\Models\User;
+use App\Models\Reading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\FilterController;
 
 /*
@@ -40,3 +42,5 @@ Route::post('/list/order', [FilterController::class, 'getSelector']);
 Route::get('/list/order-by-{filter}-{order}', [FilterController::class, 'order']);
 
 Route::get('/list', [UserController::class, 'showReadingList']);
+
+Route::get('/dashboard', [ChartController::class, 'renderCharts']);

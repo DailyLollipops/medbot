@@ -16,12 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // User::factory(3)->create();
+        User::factory(3)->create();
 
-        // foreach(User::all() as $user) {
-        //     Reading::factory(20)->create([
-        //         'user_id' => $user->id,
-        //     ]);
-        // }
+        foreach(User::all() as $user) {
+            Reading::factory(50)->create([
+                'user_id' => $user->id
+            ]);
+        }
     }
 }

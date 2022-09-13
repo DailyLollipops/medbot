@@ -15,14 +15,24 @@ class ReadingFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    
     public function definition()
     {
-        $systolic = fake()->numberBetween(71,190);
-        $diastolic = fake()->numberBetween(41,100);
-        $blood_pressure = ($systolic-70)/($diastolic-40);
+        $systolic = fake()->numberBetween(71,160);
+        if($systolic <= 120){
+            $diastolic = fake()->numberBetween(40,80);
+        }
+        else if($systolic <= 140){
+            $diastolic = fake()->numberBetween(81,90);
+        }
+        else{
+            $diastolic = fake()->numberBetween(91,120);
+        }
 
-        $start = strtotime("2012-10-01 00:00:00");
-        $end =  strtotime("2012-12-31 23:59:59");
+        $blood_pressure = $diastolic + (($systolic - $diastolic) / 3);
+
+        $start = strtotime("2022-6-01 00:00:00");
+        $end =  strtotime("2022-9-11 23:59:59");
         
         $created = date("Y-m-d H:i:s", rand($start, $end));
         
