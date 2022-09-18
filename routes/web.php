@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\FilterController;
 
 /*
@@ -21,7 +22,7 @@ use App\Http\Controllers\FilterController;
 |
 */
 
-Route::get('/', [UserController::class, 'redirect']);
+Route::get('/', [MainController::class, 'redirect']);
 
 Route::get('/login/upload', [MainController::class, 'redirectToUploadQRCodePage']);
 
@@ -31,16 +32,18 @@ Route::get('/login/user', [MainController::class, 'redirectToUserLoginPage']);
 
 Route::get('/about', [MainController::class, 'redirectToAboutPage']);
 
-Route::post('/authenticate/doctor', [UserController::class, 'authenticateDoctor']);
+Route::post('/authenticate/doctor', [LoginController::class, 'authenticateDoctor']);
 
-Route::post('/authenticate/user', [UserController::class, 'authenticateUser']);
+Route::post('/authenticate/user', [LoginController::class, 'authenticateUser']);
 
-Route::get('/logout', [UserController::class, 'logout']);
+Route::get('/logout', [LoginController::class, 'logout']);
+
+Route::get('/dashboard', [UserController::class, 'redirectToUserDashboard']);
+
+Route::get('/list', [UserController::class, 'redirectToReadingList']);
 
 Route::post('/list/order', [FilterController::class, 'getSelector']);
 
 Route::get('/list/order-by-{filter}-{order}', [FilterController::class, 'order']);
 
-Route::get('/list', [UserController::class, 'showReadingList']);
-
-Route::get('/dashboard', [ChartController::class, 'renderCharts']);
+Route::get('/manage', [UserController::class, 'redirectToManagePage']);
