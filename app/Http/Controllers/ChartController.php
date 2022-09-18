@@ -94,8 +94,6 @@ class ChartController extends Controller
         $blood_pressure_diff = round((($average_blood_pressure_month - $average_blood_pressure_prev)/abs($average_blood_pressure_prev)) * 100);
         $blood_saturation_diff = round((($average_blood_saturation_month - $average_blood_saturation_prev)/abs($average_blood_saturation_prev)) * 100);
 
-        // For Ratings Chart
-        $count = Reading::where('user_id', $user_id)->count();
 
         // Pulse Rates Ratings
         $pulse_rate_ratings = array();
@@ -242,6 +240,67 @@ class ChartController extends Controller
             array_push($blood_saturations_year, $average_blood_saturations_curr);
         }
         
+        // For all time ratings chart
+        
+        // Pulse Rates Ratings
+        $all_pulse_rate_ratings = array();
+        $below_normal = 0;
+        $normal = 0;
+        $above_normal = 0;
+        foreach($all_pulse_rates as $all_pulse_rate){
+            $rating = $this->determinePulseRate($user_age, $all_pulse_rate);
+            if($rating == 'Below Normal'){
+                $below_normal++;
+            }
+            else if($rating == 'Normal'){
+                $normal++;
+            }
+            else{
+                $above_normal++;
+            }
+        }
+        array_push($all_pulse_rate_ratings, $below_normal, $normal, $above_normal);
+
+        // Blood Pressure Ratings
+        $all_blood_pressure_ratings = array();
+        $below_normal = 0;
+        $normal = 0;
+        $above_normal = 0;
+        foreach(array_combine($all_systolics, $all_diastolics) as $all_systolic => $all_diastolic){
+            $rating = $this->determineBloodPressure($user_age, $all_systolic, $all_diastolic);
+            if($rating == 'Below Normal'){
+                $below_normal++;
+            }
+            else if($rating == 'Normal'){
+                $normal++;
+            }
+            else if($rating == 'Above Normal'){
+                $above_normal++;
+            }
+            else{
+                dd('all rating'.$user_id.' '.$user_age.' '.$rating.' '.$all_systolic.' '.$all_diastolic);
+            }
+        }
+        array_push($all_blood_pressure_ratings, $below_normal, $normal, $above_normal);
+
+        // Blood Saturation
+        $all_blood_saturation_ratings = array();
+        $below_normal = 0;
+        $normal = 0;
+        $above_normal = 0;
+        foreach($all_blood_saturations as $all_blood_saturation){
+            if($all_blood_saturation < 95){
+                $below_normal++;
+            }
+            else if($all_blood_saturation <= 100){
+                $normal++;
+            }
+            else{
+                $above_normal++;
+            }
+        }
+        array_push($all_blood_saturation_ratings, $below_normal, $normal, $above_normal);
+
         return view('user.dashboard',compact(
             'average_pulse_rate_month',
             'average_systolic_month',
@@ -270,7 +329,10 @@ class ChartController extends Controller
             'systolics_year',
             'diastolics_year',
             'blood_pressures_year',
-            'blood_saturations_year'
+            'blood_saturations_year',
+            'all_pulse_rate_ratings',
+            'all_blood_pressure_ratings',
+            'all_blood_saturation_ratings',
         ));
     }
 
