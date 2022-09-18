@@ -42,8 +42,8 @@
           <div class="u-form-select-wrapper">
             <select id="select-9d42" onchange="this.form.submit()" name="filter" class="u-border-3 u-border-palette-5-light-1 u-custom-font u-input u-input-rectangle u-radius-31 u-text-black u-text-font u-white u-input-1">
               <option value="Latest">Order by...</option>
-              <option value="date-desc">Latest</option>
-              <option value="date-asc">Oldest</option>
+              <option value="created_at-desc">Latest</option>
+              <option value="created_at-asc">Oldest</option>
               <option value="pulse_rate-desc">Highest Pulse Rate</option>
               <option value="pulse_rate-asc">Lowest Pulse Rate</option>
               <option value="blood_pressure-desc">Highest Blood Pressure</option>
