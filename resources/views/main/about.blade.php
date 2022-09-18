@@ -1,4 +1,4 @@
-@extends('layout',[$style = 'about', $title = 'About'])
+@extends('layout',[$style = 'main/about', $title = 'About'])
 
 @section('content')
   <section class="u-align-center u-clearfix u-section-1" id="sec-0ffd">

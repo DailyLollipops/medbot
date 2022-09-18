@@ -1,4 +1,4 @@
-@extends('layout',[$style = 'upload', $title = 'Upload QRCode'])
+@extends('layout',[$style = 'main/upload', $title = 'Upload QRCode'])
 
 @section('content')
 <section class="u-clearfix u-section-1" id="sec-77cd">
