@@ -189,13 +189,24 @@
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-border-1 u-border-grey-15 u-container-style u-grey-5 u-group u-radius-14 u-shape-round u-group-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
       <div class="u-container-layout u-container-layout-1">
-        <button id="allTimeBloodPressureRatings" class="u-btn u-btn-round u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1"><span class="u-file-icon u-icon"><img src="{{ asset('images/blood_pressure.png' ) }}" alt=""></span>&nbsp;BP
+        <button id="allTimeBloodPressureRatings" class="u-btn u-btn-round u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-1">
+          <span class="u-file-icon u-icon">
+            <img src="{{ asset('images/blood_pressure.png' ) }}" alt="">
+          </span>
+          &nbsp;BP
         </button>
-        <button id="allTimePulseRateRatings" class="u-btn u-btn-round u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-2"><span class="u-file-icon u-icon"><img src="{{ asset('images/pulse_rate.png' ) }}" alt=""></span>&nbsp;PR
+        <button id="allTimePulseRateRatings" class="u-btn u-btn-round u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-2">
+          <span class="u-file-icon u-icon">
+            <img src="{{ asset('images/pulse_rate.png' ) }}" alt="">
+          </span>
+          &nbsp;PR
         </button>
-        <button id="allTimeBloodSaturationRatings" class="u-btn u-btn-round u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-3"><span class="u-file-icon u-icon"><img src="{{ asset('images/blood_saturation.png' ) }}" alt=""></span>&nbsp;SP02
+        <button id="allTimeBloodSaturationRatings" class="u-btn u-btn-round u-button-style u-gradient u-none u-radius-4 u-text-body-alt-color u-btn-3">
+          <span class="u-file-icon u-icon">
+            <img src="{{ asset('images/blood_saturation.png' ) }}" alt="">
+          </span>
+          &nbsp;SP02
         </button>
-        
       </div>
     </div>
     <div class="u-align-center u-border-1 u-border-grey-15 u-container-style u-grey-5 u-group u-radius-14 u-shape-round u-group-2">
