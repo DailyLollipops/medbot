@@ -39545,7 +39545,7 @@ a.u-link.u-text-hover-grey-90:hover {
 /*end-variables sitestylecss*/
  .u-header {
   background-image: none;
-  min-height: 55px;
+  min-height: 56px;
 }
 
 .u-header .u-image-1 {
@@ -39632,11 +39632,16 @@ a.u-link.u-text-hover-grey-90:hover {
 }
 @media (max-width: 575px) {
   .u-header .u-image-1 {
+    margin-top: 9px;
     margin-left: calc(((100% - 1140px) / 2) + 400px);
   }
 
   .u-header .u-menu-1 {
     margin-right: calc(((100% - 340px) / 2));
+  }
+
+  .u-header .u-text-1 {
+    margin-bottom: 23px;
   }
 }
  .u-footer {
