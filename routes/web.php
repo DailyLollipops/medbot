@@ -9,6 +9,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\FilterController;
 
 /*
@@ -47,3 +48,7 @@ Route::post('/list/order', [FilterController::class, 'getSelector']);
 Route::get('/list/order-by-{filter}-{order}', [FilterController::class, 'order']);
 
 Route::get('/manage', [UserController::class, 'redirectToManagePage']);
+
+Route::post('/manage/export', [ReportController::class, 'exportCsv']);
+
+Route::post('/manage/generate', [ReportController::class, 'generateReport']);

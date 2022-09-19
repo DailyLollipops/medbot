@@ -1,0 +1,33 @@
+{
+    "open sans": {
+        "300_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_300_italic_af0715144c0c200a9c3cd7732b829537",
+        "italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_italic_e06e4ac228fd79b0b20f89dbb44804b7",
+        "500_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_500_italic_6cf3ca73f8298b2585bc789d7fc1093a",
+        "600_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_600_italic_2e5a8594d8a1512dc57655d738725c1d",
+        "bold_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_bold_italic_65511fc8ddc09c8f95b7f4387b2be798",
+        "800_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_800_italic_1fd0cce58327113124dfe16f5a7738c0",
+        "300": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_300_3991bff746d3377656ad3cf53b24fe9e",
+        "normal": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_normal_0c50822862df0e4bc3da7bec4af72b54",
+        "500": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_500_57eeba9ef307f9b3d1a698f8ac69091b",
+        "600": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_600_75341019d0aad9d730980a0320d86ab8",
+        "bold": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/open_sans_bold_16020d134f3ca847d8cdba64e3e9ca33",
+        "800": "open_sans_800_54e4dbec225310932e45306345a8c89d"
+    },
+    "roboto": {
+        "100_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_100_italic_f11cf67fa184ec5467ecdf37c629d86f",
+        "300_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_300_italic_60fd1c5c48964f53c185886d78f6dd92",
+        "italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_italic_d5c10dd70a66238a4d11751aca1ac2f6",
+        "500_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_500_italic_cb3389574fec6f0962ed3b8e8df3657a",
+        "bold_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_bold_italic_3c4c982d93d98be963531fd17b72c633",
+        "900_italic": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_900_italic_88fdfb383ea3335a2ea849c31af79315",
+        "100": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_100_d876775dd3daf87873e6dd250e9c4c9e",
+        "300": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_300_21960201651f2ea862182ff34dfd5ead",
+        "normal": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_normal_9fa47a070a8b30b595086d70bb7ac78c",
+        "500": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_500_d0dcda9e813eb9b854a1cc044831f6fe",
+        "bold": "C:\\xampp\\htdocs\\medbot\\storage\\fonts\/roboto_bold_3d0ad20d45ace845335f9e6c390a09d9",
+        "900": "roboto_900_509a5e5b153550862359e315131088d5"
+    },
+    "lobster": {
+        "normal": "lobster_normal_ac961361aef911f54a44354bdfb3054a"
+    }
+}

@@ -571,6 +571,11 @@ class UserController extends Controller
         return $all_time_blood_saturation_ratings;
     }
 
+    private function getAllReadingId($user_id){
+        $ids = Reading::where('user_id',$user_id)->pluck('id');
+        return $ids;
+    }
+
     public function redirectToReadingList(){
         $filter = 'date';
         $filterString = 'Date';
@@ -628,6 +633,9 @@ class UserController extends Controller
     }
 
     public function redirectToManagePage(){
-        return view('user.manage');
+        $user_id = Auth::id();
+        return view('user.manage',[
+            'ids' => $this->getAllReadingId($user_id)
+        ]);
     }
 }
