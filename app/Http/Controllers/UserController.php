@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Reading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -633,20 +635,40 @@ class UserController extends Controller
     }
 
     public function redirectToManagePage(){
-        $user = User::find(Auth::id())->first();
+        $user = User::where('id',Auth::id())->first();
         $user_id = $user->id;
-        $user_name = $user->name;
-        $user_age = Carbon::parse($user->birthday)->age;
         return view('user.manage',[
             'ids' => $this->getAllReadingId($user_id),
-            'user_name' => $user_name,
-            'user_age' => $user_age
+            'user_name' => $user->name,
+            'user_age' => $user_age = Carbon::parse($user->birthday)->age
         ]);
     }
 
     public function redirectToUpdateInformationPage(){
-        $user = User::find(Auth::id())->first();
-        $user_profile_picture_path = $user->profile_picture_path;
-        return view('user.update');
+        $user = User::where('id',Auth::id())->first();
+        return view('user.update',[
+            'user_profile' => $user->profile_picture_path,
+            'user_name' => $user->name,
+            'user_gender' => $user->gender,
+            'user_birthday' => date("M/d/Y",strtotime($user->birthday)),
+            'user_address' => $user->address,
+            'user_email' => $user->email,
+            'user_bio' => $user->bio,
+        ]);
+    }
+
+    public function updateProfilePicture(Request $request){
+        $profile_picture = $request->file('profile_picture');
+        $extension = $profile_picture->getClientOriginalExtension();
+        $user = User::find(Auth::id());
+        $file_name = Auth::id().'.'.$extension;
+        // need deletion
+        $destination_path = public_path().'\images\profiles';
+        $profile_picture->move($destination_path, $file_name);
+        $profile_picture_path = 'images/profiles/'.$file_name;
+        $user = User::find(Auth::id());
+        $user->profile_picture_path = $profile_picture_path;
+        $user->update();
+        return redirect()->back()->with('status','Profile Picture Update Successfully');
     }
 }

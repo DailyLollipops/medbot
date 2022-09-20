@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "consoletvs/charts": "6.*",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^2.7",
         "khanamiryan/qrcode-detector-decoder": "^2.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",

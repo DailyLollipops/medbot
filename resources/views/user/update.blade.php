@@ -12,13 +12,13 @@
           @csrf  
             <div class="u-form-group u-form-name u-label-top">
               <label for="name-f29d" class="u-label u-label-1">Name</label>
-              <input type="text" placeholder="Enter your Name" id="name-f29d" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" required="">
+              <input type="text" placeholder="Enter your Name" value="{{$user_name}}" id="name-f29d" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" required="">
             </div>
             <div class="u-form-group u-form-partition-factor-2 u-form-select u-label-top u-form-group-2">
               <label for="select-4497" class="u-label u-label-2">Gender</label>
               <div class="u-form-select-wrapper">
-                <select id="select-4497" name="select" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
-                  <option value="--Select Gender--">--Select Gender--</option>
+                <select id="select-4497" name="select" value="{{$user_gender}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+                  {{-- <option value="--Select Gender--">--Select Gender--</option> --}}
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
@@ -26,12 +26,12 @@
               </div>
             </div>
             <div class="u-form-date u-form-group u-form-partition-factor-2 u-label-top u-form-group-3">
-              <label for="date-55ed" class="u-label u-label-3">Birthdate</label>
-              <input type="date" placeholder="MM/DD/YYYY" id="date-55ed" name="date" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" required="">
+              <label for="date-55ed" class="u-label u-label-3">Birthday</label>
+              <input type="date" placeholder="MM/DD/YYYY" value="{{$user_birthday}}"id="date-55ed" name="date" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" required="">
             </div>
             <div class="u-form-email u-form-group u-form-partition-factor-2 u-label-top">
               <label for="email-f29d" class="u-label u-label-4">Address</label>
-              <input type="email" placeholder="Enter your current home address" id="email-f29d" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" required="">
+              <input type="email" placeholder="Enter your current home address" value="{{$user_address}}" id="email-f29d" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" required="">
             </div>
             <div class="u-form-group u-form-partition-factor-2 u-form-phone u-label-top u-form-group-5">
               <label for="phone-89f8" class="u-label u-label-5">Phone</label>
@@ -39,11 +39,11 @@
             </div>
             <div class="u-form-group u-label-top u-form-group-6">
               <label for="text-a66e" class="u-label u-label-6">Email Address</label>
-              <input type="text" id="text-a66e" name="text" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" placeholder="Enter a valid email address">
+              <input type="text" id="text-a66e" name="text" value="{{$user_email}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" placeholder="Enter a valid email address">
             </div>
             <div class="u-form-group u-form-message u-label-top u-form-group-7">
               <label for="message-c5d2" class="u-label u-label-7">Bio</label>
-              <textarea placeholder="Enter your message" rows="4" cols="50" id="message-c5d2" name="message" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""></textarea>
+              <textarea placeholder="Enter your message" value="{{$user_bio}}" rows="4" cols="50" id="message-c5d2" name="message" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""></textarea>
             </div>
             <div class="u-align-right u-form-group u-form-submit u-label-top">
               <input type="submit" value="submit" class="u-form-control-hidden">
@@ -53,14 +53,18 @@
             <div class="u-form-send-error u-form-send-message"> Error processing your request. Please try again later. </div>
           </form>
         </div>
+        <form action="/medbot/public/manage/update/profile_picture" method="POST" enctype="multipart/form-data">
+        @csrf
+          <input type="file" name="profile_picture" id="profile_picture" style="display:none" onchange="this.form.submit()"/>
 
-        @if(empty($user_profile_picture_path))
-        <img class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ asset('images/blank_profile.png') }}" alt="" data-image-width="128" data-image-height="128">
-        @else
-        <img class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ asset($user_profile_picture_path) }}" alt="" data-image-width="128" data-image-height="128">
-        @endif
-
-        <h4 class="u-text u-text-default u-text-2">Profile Picture</h4>
+            @if(empty($user_profile_picture_path))
+              <img class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ asset($user_profile) }}" alt="" data-image-width="128" data-image-height="128" style="cursor: pointer">
+            @else
+              <img class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ asset('images/blank_profile.png') }}" alt="" data-image-width="128" data-image-height="128" style="cursor: pointer">
+            @endif
+          
+          <a href="#" onclick="$('#profile_picture').trigger('click'); return false;" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-2">Update</a></label>
+        </form>
       </div>
     </div>
   </div>

@@ -54,3 +54,5 @@ Route::post('/manage/export', [ReportController::class, 'exportCsv']);
 Route::post('/manage/generate', [ReportController::class, 'generateReport']);
 
 Route::get('/manage/update', [UserController::class, 'redirectToUpdateInformationPage']);
+
+Route::post('/manage/update/profile_picture', [UserController::class, 'updateProfilePicture']);

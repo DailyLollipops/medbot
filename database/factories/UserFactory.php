@@ -21,12 +21,12 @@ class UserFactory extends Factory
         $start = strtotime("1960-1-01 00:00:00");
         $end =  strtotime("2016-12-31 23:59:59");
         
-        $created = date("Y-m-d H:i:s", rand($start, $end));
+        $random_date = date("Y-m-d H:i:s", rand($start, $end));
 
         return [
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
-            'birthday' => $created,
+            'birthday' => $random_date,
             'gender' => $this->faker->randomElement(['gender','male']),
             'address' => fake()->address(),
             'bio' => fake()->paragraph(3),
