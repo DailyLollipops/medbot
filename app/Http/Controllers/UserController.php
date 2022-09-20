@@ -304,7 +304,7 @@ class UserController extends Controller
     }
 
     private function getMonthlyPulseRateRatings($user_id){
-        $user_age = User::find($user_id)->age;
+        $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $pulse_rates = $this->getMonthlyPulseRates($user_id);
         $pulse_rate_ratings = array();
         $below_normal = 0;
@@ -327,7 +327,7 @@ class UserController extends Controller
     }
 
     private function getMonthlyBloodPressureRatings($user_id){
-        $user_age = User::find($user_id)->age;
+        $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $systolics = $this->getMonthlySystolics($user_id);
         $diastolics = $this->getMonthlyDiastolics($user_id);
         $blood_pressure_ratings = array();
@@ -354,7 +354,7 @@ class UserController extends Controller
     }
 
     private function getMonthlyBloodSaturationRatings($user_id){
-        $user_age = User::find($user_id)->age;
+        $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $blood_saturations = $this->getMonthlyBloodSaturations($user_id);
         $blood_saturation_ratings = array();
         $below_normal = 0;
@@ -501,7 +501,7 @@ class UserController extends Controller
     private function getallTimePulseRateRatings($user_id){
         $all_time_pulse_rate_ratings = array();
         $all_time_pulse_rates = Reading::where('user_id',$user_id)->pluck('pulse_rate')->toArray();
-        $user_age = User::find($user_id)->age;
+        $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $below_normal = 0;
         $normal = 0;
         $above_normal = 0;
@@ -525,7 +525,7 @@ class UserController extends Controller
         $all_time_systolics = Reading::where('user_id',$user_id)->pluck('systolic')->toArray();
         $all_time_diastolics = Reading::where('user_id',$user_id)->pluck('diastolic')->toArray();
         $all_time_blood_pressure_ratings = array();
-        $user_age = User::find($user_id)->age;
+        $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $below_normal = 0;
         $normal = 0;
         $above_normal = 0;
@@ -551,7 +551,7 @@ class UserController extends Controller
     private function getallTimeBloodSaturationRatings($user_id){
         $all_time_blood_saturation_ratings = array();
         $all_time_blood_saturations = Reading::where('user_id',$user_id)->pluck('blood_saturation')->toArray();
-        $user_age = User::find($user_id)->age;
+        $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $below_normal = 0;
         $normal = 0;
         $above_normal = 0;
@@ -633,9 +633,19 @@ class UserController extends Controller
     }
 
     public function redirectToManagePage(){
-        $user_id = Auth::id();
+        $user = User::find(Auth::id())->first();
+        $user_id = $user->id;
+        $user_name = $user->name;
+        $user_age = Carbon::parse($user->birthday)->age;
         return view('user.manage',[
-            'ids' => $this->getAllReadingId($user_id)
+            'ids' => $this->getAllReadingId($user_id),
+            'user_name' => $user_name,
+            'user_age' => $user_age
         ]);
+    }
+
+    public function redirectToUpdateInformationPage(){
+        $user = User::find(Auth::id())->first();
+        return view('user.update');
     }
 }

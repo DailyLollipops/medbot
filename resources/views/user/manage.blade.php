@@ -10,11 +10,11 @@
     <div class="u-border-3 u-border-palette-1-light-3 u-container-style u-expanded-width-xs u-group u-palette-5-light-3 u-radius-9 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
         <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
-        <h2 class="u-text u-text-default u-text-2">Clarence Madrigal
+        <h2 class="u-text u-text-default u-text-2">{{$user_name}}
           <span style="font-weight: 700;"></span>
         </h2>
-        <h5 class="u-text u-text-default u-text-3">29 years old</h5>
-        <a href="https://nicepage.one" class="u-border-1 u-border-grey-10 u-border-hover-grey-5 u-btn u-btn-round u-button-style u-grey-10 u-hover-grey-10 u-radius-21 u-text-black u-text-hover-grey-50 u-btn-1">
+        <h5 class="u-text u-text-default u-text-3">{{$user_age}} years old</h5>
+        <a href="/medbot/public/manage/update" class="u-border-1 u-border-grey-10 u-border-hover-grey-5 u-btn u-btn-round u-button-style u-grey-10 u-hover-grey-10 u-radius-21 u-text-black u-text-hover-grey-50 u-btn-1">
           <span class="u-file-icon u-icon u-icon-1">
               <img src="{{ asset('images/pencil.png') }}" alt="">
           </span>
