@@ -646,6 +646,7 @@ class UserController extends Controller
 
     public function redirectToUpdateInformationPage(){
         $user = User::find(Auth::id())->first();
+        $user_profile_picture_path = $user->profile_picture_path;
         return view('user.update');
     }
 }
