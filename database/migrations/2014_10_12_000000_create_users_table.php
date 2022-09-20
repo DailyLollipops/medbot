@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('email')->unique();
             $table->string('bio');
+            $table->string('profile_picture_path')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('type');
