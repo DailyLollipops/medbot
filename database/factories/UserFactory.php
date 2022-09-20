@@ -28,9 +28,9 @@ class UserFactory extends Factory
             'email' => fake()->safeEmail(),
             'birthday' => $created,
             'gender' => $this->faker->randomElement(['gender','male']),
-            'address' => fake()->cityName,
+            'address' => fake()->address(),
             'bio' => fake()->paragraph(3),
-            'phone_number' => fake()->phoneNumber(),
+            // 'phone_number' => $number,
             'email_verified_at' => now(),
             'password' => bcrypt('lollipop'), // password
             'remember_token' => Str::random(10),
