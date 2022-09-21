@@ -56,3 +56,15 @@ Route::post('/manage/generate', [ReportController::class, 'generateReport']);
 Route::get('/manage/update', [UserController::class, 'redirectToUpdateInformationPage']);
 
 Route::post('/manage/update/profile_picture', [UserController::class, 'updateProfilePicture']);
+
+Route::post('/manage/update/info', [UserController::class, 'updateInfo']);
+
+Route::post('/manage/update/password', [UserController::class, 'updatePassword']);
+
+Route::get('/manage/update/password/download', function(){
+    return view('user.qrcode');
+});
+
+Route::get('/manage/update/password/download/{path}', function($path){
+    return Storage::disk('local')->download('qrcodes/'.$path.'.png', 'QRCode.png');
+});

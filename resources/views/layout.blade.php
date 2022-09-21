@@ -25,7 +25,7 @@
     }
     </script>
   </head>
-
+    
   <body class="u-body u-xl-mode" data-lang="en">
 
     @auth
@@ -33,10 +33,9 @@
     @else
       <x-header/>
     @endauth
-    
     @yield('content')   
     
     <x-footer/>
-    
+  
   </body>
 </html>

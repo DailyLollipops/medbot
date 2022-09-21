@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 require $_SERVER['DOCUMENT_ROOT'] . "\medbot\\vendor\autoload.php";
 
+use Response;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Reading;
@@ -11,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserController extends Controller
 {
@@ -18,6 +21,19 @@ class UserController extends Controller
         $password = "MedbotPRBPM";
         $encrypted=openssl_encrypt($decrypted,"AES-128-ECB",$password);
         return $encrypted;
+    }
+
+    private function generateQRCode($user_id,$password){
+        $data = $this->encrypt('Medbot:'.$user_id.':'.$password);
+        $headers = array(
+            'Content-Type' => 'image/png'
+        );
+        $image = \QrCode::size(1023)
+                ->format('png')
+                ->generate($data);
+        $path = 'qrcodes/' . $user_id . '.png';
+        Storage::disk('local')->put($path, $image);
+        return $path;
     }
 
     private function determinePulseRate($age, $pulse_rate){
@@ -650,7 +666,8 @@ class UserController extends Controller
             'user_profile' => $user->profile_picture_path,
             'user_name' => $user->name,
             'user_gender' => $user->gender,
-            'user_birthday' => date("M/d/Y",strtotime($user->birthday)),
+            'user_phone' => $user->phone_number,
+            'user_birthday' => date("Y-m-d",strtotime($user->birthday)),
             'user_address' => $user->address,
             'user_email' => $user->email,
             'user_bio' => $user->bio,
@@ -658,17 +675,52 @@ class UserController extends Controller
     }
 
     public function updateProfilePicture(Request $request){
+        $user = User::find(Auth::id());
         $profile_picture = $request->file('profile_picture');
         $extension = $profile_picture->getClientOriginalExtension();
-        $user = User::find(Auth::id());
         $file_name = Auth::id().'.'.$extension;
-        // need deletion
-        $destination_path = public_path().'\images\profiles';
-        $profile_picture->move($destination_path, $file_name);
-        $profile_picture_path = 'images/profiles/'.$file_name;
-        $user = User::find(Auth::id());
-        $user->profile_picture_path = $profile_picture_path;
+        $path = $profile_picture->storeAs('profiles',$file_name,'public');
+        $user->profile_picture_path = $path;
         $user->update();
-        return redirect()->back()->with('status','Profile Picture Update Successfully');
+        return redirect()->back()->with('success','Profile Picture Update Successfully');
+    }
+
+    public function updateInfo(Request $request){
+        $user = User::find(Auth::id());
+        $user->name = $request->name;
+        $user->gender = $request->gender;
+        $user->birthday = $request->birthday;
+        $user->address = $request->address;
+        $user->phone_number = $request->phone_number;
+        $user->email = $request->email;
+        $user->bio = $request->bio;
+        $user->update();
+        return redirect()->back()->with('success','User Information Changed Successfully');
+    }
+
+    public function updatePassword(Request $request){
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|current_password',
+            'new_password' => 'required|regex:/^.*(?=[^A-Z\n]*[A-Z]).{8,}.*$/',
+            'password_confirmation' => 'required|same:new_password'
+        ],
+        [
+            'current_password.required' => 'Current Password field is required',
+            'current_password.password' => 'Does not match current password',
+            'new_password.required' => 'New Password field is required',
+            'new_password.regex' => 'Password should be at least 8 characters long and contain at least one uppercase letter',
+            'password_confirmation.required' => 'Confirm Password field is required',
+            'password_confirmation.same' => 'Passwords does not match'
+        ]);
+        if ($validator->fails()){
+            return redirect()->back()->withError($validator->messages()->all());
+        }
+        $new_password = $request->new_password;
+        $user = User::find(Auth::id());
+        // $user->password = bcrypt($new_password);
+        // $user->update();
+        $path = $this->generateQRCode($user->id,$new_password);
+        return redirect('/manage/update/password/download')->with('link',Auth::id());
+        // return Storage::disk('local')->download($path, 'QRCode.png');
     }
 }
