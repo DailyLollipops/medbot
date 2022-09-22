@@ -65,6 +65,4 @@ Route::get('/manage/update/password/download', function(){
     return view('user.qrcode');
 });
 
-Route::get('/manage/update/password/download/{path}', function($path){
-    return Storage::disk('local')->download('qrcodes/'.$path.'.png', 'QRCode.png');
-});
+Route::get('/manage/update/password/download/{path}', [ReportController::class, 'generateQRCode']);
