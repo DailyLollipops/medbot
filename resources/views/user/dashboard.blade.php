@@ -1,4 +1,4 @@
-@extends('layout',[$style = 'user/dashboard', $title = 'Dashboard'])
+@extends('layout',[$style = 'user/dashboards', $title = 'Dashboard'])
 
 @section('content')
 <section class="u-clearfix u-section-1" id="sec-33b1">
@@ -13,102 +13,82 @@
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-list u-list-1">
       <div class="u-repeater u-repeater-1">
-        <div class="u-container-style u-custom-item u-grey-5 u-list-item u-repeater-item u-shape-rectangle u-list-item-1">
-          <div class="u-container-layout u-similar-container u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-container-layout-1">
-            <h5 class="u-text u-text-default u-text-3">Pulse Rate</h5>
-            <p class="u-heading-font u-text u-text-default u-text-4">{{$average_pulse_rate_month}} bpm</p>
+        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
+          <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-1">
+            <h5 class="u-text u-text-3">Pulse Rate</h5>
             <span class="u-custom-item u-file-icon u-icon u-icon-2">
               <img src="{{ asset('images/pulse_rate.png') }}" alt="">
             </span>
+            <p class="u-custom-item u-heading-font u-text u-text-4">{{$average_pulse_rate_month}} bpm</p>
+            <p class="u-text u-text-5">
 
-            @if($pulse_rate_diff < 0)
-              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1 u-icon-5">
+              @if($pulse_rate_diff < 0)
+              <span class="u-file-icon u-icon u-text-custom-color-1">
                 <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-8">
-                <span class="u-text-custom-color-1">{{$pulse_rate_diff}}%</span> lower this month
-              </p>
-            @elseif($pulse_rate_diff > 0)
-              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9 u-icon-3">
+              </span>&nbsp;<span class="u-text-custom-color-1">{{$pulse_rate_diff}}%</span> lower this month
+              @elseif($pulse_rate_diff > 0)
+              <span class="u-file-icon u-icon u-text-custom-color-9">
                 <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-5">
-                <span class="u-text-custom-color-9">+{{$pulse_rate_diff}}%</span> higher this month
-              </p>
-            @else
-              <span class="u-custom-item u-file-icon u-icon u-text-palette-3-base u-icon-7">
+              </span>&nbsp;<span class="u-text-custom-color-9">+{{$pulse_rate_diff}}%</span> higher this month
+              @else
+              <span class="u-file-icon u-icon u-text-palette-3-base">
                 <img src="{{ asset('images/same_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-11">
-                <span class="u-text-palette-3-base">±0%</span> same this month
-              </p>
-            @endif
+              </span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
+              @endif
 
+            </p>
           </div>
         </div>
-        <div class="u-container-style u-custom-item u-grey-5 u-list-item u-repeater-item u-shape-rectangle u-list-item-2">
-          <div class="u-container-layout u-similar-container u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-container-layout-2">
-            <h5 class="u-text u-text-default u-text-6">Blood Pressure</h5>
-            <p class="u-heading-font u-text u-text-default u-text-7">{{$average_systolic_month}}/{{$average_diastolic_month}} mmHg</p>
+        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-2">
+          <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-2">
+            <h5 class="u-text u-text-6">Blood Pressure</h5>
             <span class="u-custom-item u-file-icon u-icon u-icon-4">
               <img src="{{ asset('images/blood_pressure.png') }}" alt="">
             </span>
+            <p class="u-custom-item u-heading-font u-text u-text-7">{{$average_systolic_month}}/{{$average_diastolic_month}} mmHg</p>
+            <p class="u-text u-text-8">
 
-            @if($blood_pressure_diff < 0)
-              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1 u-icon-5">
+              @if($blood_pressure_diff < 0)
+              <span class="u-file-icon u-icon u-text-custom-color-1">
                 <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-8">
-                <span class="u-text-custom-color-1">{{$blood_pressure_diff}}%</span> lower this month
-              </p>
-            @elseif($blood_pressure_diff > 0)
-              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9 u-icon-3">
+              </span>&nbsp;<span class="u-text-custom-color-1">{{$blood_pressure_diff}}%</span> lower this month
+              @elseif($blood_pressure_diff > 0)
+              <span class="u-file-icon u-icon u-text-custom-color-9">
                 <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-5">
-                <span class="u-text-custom-color-9">+{{$blood_pressure_diff}}%</span> higher this month
-              </p>
-            @else
-              <span class="u-custom-item u-file-icon u-icon u-text-palette-3-base u-icon-7">
+              </span>&nbsp;<span class="u-text-custom-color-9">+{{$blood_pressure_diff}}%</span> higher this month
+              @else
+              <span class="u-file-icon u-icon u-text-palette-3-base">
                 <img src="{{ asset('images/same_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-11">
-                <span class="u-text-palette-3-base">±0%</span> same this month
-              </p>
-            @endif
+              </span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
+              @endif
 
+            </p>
           </div>
         </div>
-        <div class="u-container-style u-custom-item u-grey-5 u-list-item u-repeater-item u-shape-rectangle u-list-item-3">
-          <div class="u-container-layout u-similar-container u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-container-layout-3">
-            <h5 class="u-text u-text-default u-text-9">Sp02</h5>
-            <p class="u-heading-font u-text u-text-default u-text-10">{{$average_blood_saturation_month}} %</p>
+        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-3">
+          <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-3">
+            <h5 class="u-text u-text-9">Blood Saturation</h5>
             <span class="u-custom-item u-file-icon u-icon u-icon-6">
               <img src="{{ asset('images/blood_saturation.png') }}" alt="">
             </span>
+            <p class="u-custom-item u-heading-font u-text u-text-10">{{$average_blood_saturation_month}} %</p>
+            <p class="u-text u-text-11">
 
-            @if($blood_saturation_diff < 0)
-              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1 u-icon-5">
+              @if($blood_saturation_diff < 0)
+              <span class="u-file-icon u-icon u-text-custom-color-1">
                 <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-8">
-                <span class="u-text-custom-color-1">{{$blood_saturation_diff}}%</span> lower this month
-              </p>
-            @elseif($blood_saturation_diff > 0)
-              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9 u-icon-3">
+              </span>&nbsp;<span class="u-text-custom-color-1">{{$blood_saturation_diff}}%</span> lower this month
+              @elseif($blood_saturation_diff > 0)
+              <span class="u-file-icon u-icon u-text-custom-color-9">
                 <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-5">
-                <span class="u-text-custom-color-9">+{{$blood_saturation_diff}}%</span> higher this month
-              </p>
-            @else
-              <span class="u-custom-item u-file-icon u-icon u-text-palette-3-base u-icon-7">
+              </span>&nbsp;<span class="u-text-custom-color-9">+{{$blood_saturation_diff}}%</span> higher this month
+              @else
+              <span class="u-file-icon u-icon u-text-palette-3-base">
                 <img src="{{ asset('images/same_trend.png') }}" alt="">
-              </span>
-              <p class="u-text u-text-default u-text-11">
-                <span class="u-text-palette-3-base">±0%</span> same this month
-              </p>
-            @endif
+              </span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
+              @endif
+
+            </p>
           </div>
         </div>
       </div>
@@ -116,19 +96,19 @@
   </div>
 </section>
 <section class="u-clearfix u-section-2" id="sec-1e9e">
-  <div class="u-clearfix u-sheet u-valign-middle-xl u-sheet-1">
+  <div class="u-clearfix u-sheet u-valign-middle-xl u-valign-middle-xs u-sheet-1">
     <h4 class="u-text u-text-default u-text-1">Readings This Month</h4>
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
-    <div class="u-border-1 u-border-grey-15 u-container-style u-expanded-width-xs u-grey-5 u-group u-radius-14 u-shape-round u-group-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+    <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
       <div class="u-container-layout u-container-layout-1">
         {{-- Monthly Ratings Chart --}}
         <canvas id="monthlyRatingsChart"></canvas>
       </div>
     </div>
-    <div class="u-border-1 u-border-grey-15 u-container-style u-expanded-width-xs u-grey-5 u-group u-radius-14 u-shape-round u-group-2">
+    <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-2">
       <div class="u-container-layout u-container-layout-2">
-        {{-- Monthly Readings Chart --}}
-        <canvas id="monthlyReadingsChart"></canvas>
+          {{-- Monthly Readings Chart --}}
+          <canvas id="monthlyReadingsChart"></canvas>
       </div>
     </div>
   </div>
@@ -139,9 +119,9 @@
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-list u-list-1">
       <div class="u-repeater u-repeater-1">
-        <div class="u-align-center u-container-style u-custom-item u-grey-5 u-list-item u-repeater-item u-shape-rectangle u-list-item-1">
-          <div class="u-container-layout u-similar-container u-valign-bottom-sm u-container-layout-1">
-            <span class="u-file-icon u-icon u-icon-1">
+        <div class="u-align-center u-border-1 u-border-palette-5-light-1 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
+          <div class="u-container-layout u-similar-container u-container-layout-1">
+            <span class="u-file-icon u-icon u-icon-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/monitor.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-2">{{$count}}</p>
@@ -149,9 +129,9 @@
             </h5>
           </div>
         </div>
-        <div class="u-align-center u-container-style u-custom-item u-grey-5 u-list-item u-repeater-item u-shape-rectangle u-list-item-2">
-          <div class="u-container-layout u-similar-container u-valign-bottom-sm u-container-layout-2">
-            <span class="u-file-icon u-icon u-icon-2">
+        <div class="u-align-center u-border-1 u-border-palette-5-light-1 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-2">
+          <div class="u-container-layout u-similar-container u-container-layout-2">
+            <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/pulse_rate.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-4">{{$average_pulse_rate_all}} bpm</p>
@@ -159,9 +139,9 @@
             </h5>
           </div>
         </div>
-        <div class="u-align-center u-container-style u-custom-item u-grey-5 u-list-item u-repeater-item u-shape-rectangle u-list-item-3">
-          <div class="u-container-layout u-similar-container u-valign-bottom-sm u-container-layout-3">
-            <span class="u-file-icon u-icon u-icon-3">
+        <div class="u-align-center u-border-1 u-border-palette-5-light-1 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-3">
+          <div class="u-container-layout u-similar-container u-container-layout-3">
+            <span class="u-file-icon u-icon u-icon-3" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/blood_pressure.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-6">{{$average_systolic_all}}/{{$average_diastolic_all}} mmHg </p>
@@ -169,12 +149,12 @@
             </h5>
           </div>
         </div>
-        <div class="u-align-center u-container-style u-custom-item u-grey-5 u-list-item u-repeater-item u-shape-rectangle u-list-item-4">
-          <div class="u-container-layout u-similar-container u-valign-bottom-sm u-container-layout-4">
+        <div class="u-align-center u-border-1 u-border-palette-5-light-1 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-4">
+          <div class="u-container-layout u-similar-container u-container-layout-4">
             <span class="u-file-icon u-icon u-icon-4">
               <img src="{{ asset('images/blood_saturation.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-8">{{$average_blood_saturation_all}}%</p>
+            <p class="u-custom-item u-heading-font u-text u-text-8">{{$average_blood_saturation_all}} %</p>
             <h5 class="u-text u-text-9">Sp02<br>
             </h5>
           </div>
@@ -183,7 +163,7 @@
     </div>
   </div>
 </section>
-<section class="u-clearfix u-section-4">
+<section class="u-clearfix u-section-4" id="carousel_4e22">
   <div class="u-clearfix u-sheet u-sheet-1">
     <h4 class="u-text u-text-default u-text-1">Compared to Previous Months</h4>
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
@@ -211,12 +191,14 @@
     </div>
     <div class="u-align-center u-border-1 u-border-grey-15 u-container-style u-grey-5 u-group u-radius-14 u-shape-round u-group-2">
       <div class="u-container-layout u-container-layout-2">
-        <canvas id="yearlyReadingsChart"></canvas>
+          {{-- All Time Rating Chart --}}
+          <canvas id="allTimeRatingsChart"></canvas>
       </div>
     </div>
-    <div class="u-align-center u-border-1 u-border-grey-15 u-container-style u-grey-5 u-group u-radius-14 u-shape-round u-group-3">
+    <div class="u-align-center u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-3">
       <div class="u-container-layout u-container-layout-3">
-        <canvas id="allTimeRatingsChart"></canvas>
+        {{-- Yearly Readings Chart --}}
+        <canvas id="yearlyReadingsChart"></canvas>
       </div>
     </div>
   </div>
