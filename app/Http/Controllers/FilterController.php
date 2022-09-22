@@ -33,10 +33,9 @@ class FilterController extends Controller
                 )->values()
             );
         }
-
         $filterString = ucfirst(str_replace("_", " ", $filter));
         $orderString = ucfirst($order."ending");
-
+        flash()->addInfo('Sorted by '.$filter.' '.$order);
         return view('user.readinglist',[
             'readings' => $readings,
             'filter' => $filterString,

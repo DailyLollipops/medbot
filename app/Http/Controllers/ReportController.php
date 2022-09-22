@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use File;
 use Response;
-use PDF;
 use Carbon\Carbon;
 use App\Models\User;
 
 use App\Models\Reading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ReportController extends Controller
 {
@@ -62,6 +63,7 @@ class ReportController extends Controller
         return Response::download($filename, $start_date.'-'.$end_date.'.csv', $headers);
     }
 
+    // Generate single reading report
     public function generateReport(Request $request){
         $user_id = Auth::id();
         $request->validate([
@@ -92,5 +94,10 @@ class ReportController extends Controller
         $report = PDF::loadView('user.report', $data);
 
         return $report->download('report.pdf');
+    }
+
+    public function generateQRCode($path){
+        flash()->addSuccess('Password Changed Successfully');
+        return Storage::disk('local')->download('qrcodes/'.$path.'.png', 'QRCode.png');
     }
 }

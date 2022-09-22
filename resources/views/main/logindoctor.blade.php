@@ -15,20 +15,10 @@
               <div class="u-form-group u-form-name u-label-top">
                 <label for="username-a30d" class="u-label u-text-grey-30 u-label-1">Username *</label>
                 <input type="text" value="{{old('email')}}" placeholder="Enter your Email" name="email" class="u-border-10 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius-50 u-input-1" />
-              
-                @error('email')
-                <p class="u-text u-text-custom-color-1 u-text-2 u-text-color-2">{{$message}}</p>
-                @enderror
-
               </div>
               <div class="u-form-group u-form-password u-label-top">
                 <label for="password-a30d" class="u-label u-text-grey-30 u-label-2">Password *</label>
-                <input type="password" value="***********" placeholder="Enter your Password" name="password" class="u-border-10 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius-50 u-input-2">
-                
-                @error('password')
-                  <p class="u-text u-text-custom-color-1 u-text-2 u-text-color-2">{{$message}}</p>
-                @enderror 
-
+                <input type="password" value="" placeholder="Enter your Password" name="password" class="u-border-10 u-border-grey-10 u-grey-10 u-input u-input-rectangle u-radius-50 u-input-2">
               </div>
               <div class="u-form-checkbox u-form-group u-label-top">
                 <input type="checkbox" id="checkbox-a30d" name="remember" value="On">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Zxing\QrReader;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,8 @@ class LoginController extends Controller
         return $decrypted;
     }
 
+    // Authenticate for normal user account
     public function authenticateUser(Request $request) {
-
         $qrdata = $request->validate([
             'qrcode' => ['required']
         ],
@@ -23,10 +24,8 @@ class LoginController extends Controller
             'qrcode.required' => 'Please select a QR Code'
         ]);
         $qrcode = new QrReader($request->file('qrcode'));
-
         $qrdata = $qrcode->text();
         $decrypted = $this->decrypt($qrdata);
-
         if(str_contains($decrypted,'Medbot')) {
             $temp = explode(':',$decrypted);
 
@@ -37,47 +36,42 @@ class LoginController extends Controller
 
             if(Auth::attempt($credentials)){
                 $request->session()->regenerate();
- 
-                $userID = Auth::id();
-    
+                flash()->addInfo('Welcome back '.User::where('id',Auth::id())->first()->name.'!');
                 return redirect()->intended('/');
             }
             else {
-                return back()->withErrors([
-                    'qrcode' => 'The provided credentials do not match our records.',
-                ]);
+                flash()->addError('The provided credentials do not match our records.');
+                return back();
             }
         }
         else {
-            return back()->withErrors([
-                'qrcode' => 'Invalid QR Code',
-            ]);
+            flash()->addError('Invalid QR Code');
+            return back();
         }
     }
 
+    // Authenticate for doctor type account
     public function authenticateDoctor(Request $request) {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
- 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
- 
-            $id = Auth::id();
-
+            flash()->addInfo('Welcome back '.User::where('id',Auth::id())->first()->name.'!');
             return redirect()->intended('/');
         }
- 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        flash()->addError('The provided credentials do not match our records.');
+        return back()->onlyInput('email');
     }
 
+    // Logout
     public function logout(Request $request){
+        $user_id = Auth::id();
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        flash()->addInfo('See you again '.User::where('id',$user_id)->first()->name.'!');
         return redirect('/');
     }
 }

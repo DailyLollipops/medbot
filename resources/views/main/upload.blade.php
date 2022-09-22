@@ -21,11 +21,6 @@
         <form action="/medbot/public/authenticate/user" method="POST" enctype="multipart/form-data">
         @csrf
           <input type="file" name="qrcode" id="qrcode" class="uploadfile" onchange="this.form.submit()"/>
-
-          @error('qrcode')
-          <p class="u-text u-text-custom-color-1 u-text-2 u-text-color-2">{{$message}}</p>
-          @enderror
-
           <label for="qrcode" class="u-border-none u-btn u-btn-round u-button-style u-gradient u-hover-feature u-hover-palette-1-base u-none u-radius-50 u-text-body-alt-color u-text-hover-palette-2-base u-btn-2">UPLOAD</label>
         </form>
 

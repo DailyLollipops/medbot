@@ -613,6 +613,7 @@ class UserController extends Controller
         ]);
     }
 
+    // Redirect to User Dashboard
     public function redirectToUserDashboard() {
         $user_id = Auth::id();
         return view('user.dashboard',[
@@ -650,6 +651,7 @@ class UserController extends Controller
         ]);
     }
 
+    // Redirect to Manage Page
     public function redirectToManagePage(){
         $user = User::where('id',Auth::id())->first();
         $user_id = $user->id;
@@ -660,6 +662,7 @@ class UserController extends Controller
         ]);
     }
 
+    // Redirect to Update Info Page
     public function redirectToUpdateInformationPage(){
         $user = User::where('id',Auth::id())->first();
         return view('user.update',[
@@ -674,6 +677,7 @@ class UserController extends Controller
         ]);
     }
 
+    // Update user profile picture
     public function updateProfilePicture(Request $request){
         $user = User::find(Auth::id());
         $profile_picture = $request->file('profile_picture');
@@ -685,6 +689,7 @@ class UserController extends Controller
         return redirect()->back()->with('success','Profile Picture Update Successfully');
     }
 
+    // Update user information
     public function updateInfo(Request $request){
         $user = User::find(Auth::id());
         $user->name = $request->name;
@@ -698,6 +703,7 @@ class UserController extends Controller
         return redirect()->back()->with('success','User Information Changed Successfully');
     }
 
+    // Update password
     public function updatePassword(Request $request){
         $validator = Validator::make($request->all(), [
             'current_password' => 'required|current_password',
@@ -717,10 +723,9 @@ class UserController extends Controller
         }
         $new_password = $request->new_password;
         $user = User::find(Auth::id());
-        // $user->password = bcrypt($new_password);
-        // $user->update();
+        $user->password = bcrypt($new_password);
+        $user->update();
         $path = $this->generateQRCode($user->id,$new_password);
         return redirect('/manage/update/password/download')->with('link',Auth::id());
-        // return Storage::disk('local')->download($path, 'QRCode.png');
     }
 }
