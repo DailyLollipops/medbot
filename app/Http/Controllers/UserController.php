@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-require $_SERVER['DOCUMENT_ROOT'] . "\medbot\\vendor\autoload.php";
+require $_SERVER['DOCUMENT_ROOT'] . '\medbot\\vendor\autoload.php';
 
 use Response;
 use Carbon\Carbon;
@@ -18,8 +18,8 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class UserController extends Controller
 {
     private function encrypt($decrypted) {
-        $password = "MedbotPRBPM";
-        $encrypted=openssl_encrypt($decrypted,"AES-128-ECB",$password);
+        $password = 'MedbotPRBPM';
+        $encrypted=openssl_encrypt($decrypted,'AES-128-ECB',$password);
         return $encrypted;
     }
 
@@ -180,12 +180,12 @@ class UserController extends Controller
     }
 
     private function getMonthlyReadingLabels($user_id){
-        $labels = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(1))->pluck('id');
+        $labels = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('id');
         return $labels;
     }
     
     private function getMonthlyReadingDates($user_id){
-        $timestamps = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(1))->pluck('created_at')->toArray();
+        $timestamps = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('created_at')->toArray();
         $dates = array();
         foreach($timestamps as $timestamp){
             array_push($dates,date('Y-m-d', strtotime($timestamp)));
@@ -194,7 +194,7 @@ class UserController extends Controller
     }
 
     private function getMonthlyReadingTimes($user_id){
-        $timestamps = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(1))->pluck('created_at')->toArray();
+        $timestamps = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('created_at')->toArray();
         $times = array();
         foreach($timestamps as $timestamp){
             array_push($times,date('H:i:s', strtotime($timestamp)));
@@ -203,27 +203,27 @@ class UserController extends Controller
     }
 
     private function getMonthlyPulseRates($user_id){
-        $monthly_pulse_rates = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(1))->pluck('pulse_rate')->toArray();
+        $monthly_pulse_rates = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('pulse_rate')->toArray();
         return $monthly_pulse_rates;
     }
 
     private function getMonthlyBloodPressures($user_id){
-        $monthly_blood_pressures = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(1))->pluck('blood_pressure')->toArray();
+        $monthly_blood_pressures = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('blood_pressure')->toArray();
         return $monthly_blood_pressures;
     }
 
     private function getMonthlySystolics($user_id){
-        $monthly_systolics = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(1))->pluck('systolic')->toArray();
+        $monthly_systolics = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('systolic')->toArray();
         return $monthly_systolics;
     }
 
     private function getMonthlyDiastolics($user_id){
-        $monthly_diastolics = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(1))->pluck('diastolic')->toArray();
+        $monthly_diastolics = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('diastolic')->toArray();
         return $monthly_diastolics;
     }
 
     private function getMonthlyBloodSaturations($user_id){
-        $monthly_blood_saturations = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(1))->pluck('blood_saturation')->toArray();
+        $monthly_blood_saturations = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('blood_saturation')->toArray();
         return $monthly_blood_saturations;
     }
 
@@ -283,7 +283,7 @@ class UserController extends Controller
     }
 
     private function getMonthlyAveragePulseRateDifference($user_id){
-        $pulse_rates_prev = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(2))->where("created_at","<", Carbon::now()->subMonths(1))->pluck('pulse_rate')->toArray();
+        $pulse_rates_prev = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->pluck('pulse_rate')->toArray();
         if(count($pulse_rates_prev) != 0){
             $average_pulse_rate_prev = round(array_sum($pulse_rates_prev)/count($pulse_rates_prev));
         }
@@ -296,7 +296,7 @@ class UserController extends Controller
     }
 
     private function getMonthlyAverageBloodPressureDifference($user_id){
-        $blood_pressure_prev = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(2))->where("created_at","<", Carbon::now()->subMonths(1))->pluck('blood_pressure')->toArray();
+        $blood_pressure_prev = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->pluck('blood_pressure')->toArray();
         if(count($blood_pressure_prev) != 0){
             $average_blood_pressure_prev = round(array_sum($blood_pressure_prev)/count($blood_pressure_prev));
         }
@@ -309,7 +309,7 @@ class UserController extends Controller
     }
 
     private function getMonthlyAverageBloodSaturationDifference($user_id){
-        $blood_saturations_prev = Reading::where('user_id', $user_id)->where("created_at",">", Carbon::now()->subMonths(2))->where("created_at","<", Carbon::now()->subMonths(1))->pluck('blood_saturation')->toArray();
+        $blood_saturations_prev = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->pluck('blood_saturation')->toArray();
         if(count($blood_saturations_prev) != 0){
             $average_blood_saturation_prev = round(array_sum($blood_saturations_prev)/count($blood_saturations_prev));
         }
@@ -597,7 +597,7 @@ class UserController extends Controller
     public function redirectToReadingList(){
         $filter = 'date';
         $filterString = 'Date';
-        $orderString = "Descending";
+        $orderString = 'Descending';
 
         $readings = Reading::where('user_id',Auth::id())->paginate(9);
         $readings->setCollection(
@@ -670,7 +670,7 @@ class UserController extends Controller
             'user_name' => $user->name,
             'user_gender' => $user->gender,
             'user_phone' => $user->phone_number,
-            'user_birthday' => date("Y-m-d",strtotime($user->birthday)),
+            'user_birthday' => date('Y-m-d',strtotime($user->birthday)),
             'user_address' => $user->address,
             'user_email' => $user->email,
             'user_bio' => $user->bio,
@@ -727,5 +727,9 @@ class UserController extends Controller
         $user->update();
         $path = $this->generateQRCode($user->id,$new_password);
         return redirect('/manage/update/password/download')->with('link',Auth::id());
+    }
+
+    public function redirectToQRCodeDownloadPage(){
+        return view('user.qrcode');
     }
 }

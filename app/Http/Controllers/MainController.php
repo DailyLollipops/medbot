@@ -30,10 +30,10 @@ class MainController extends Controller
     public function redirect() {
         if(Auth::check()) {
             if(Auth::user()->type == 'doctor') {
-                return view('auth.doctorpage');
+                return redirect('/dashboard/doctor');
             }
             else {
-                return redirect('/dashboard');
+                return redirect('/dashboard/user');
             }
         }
         else {

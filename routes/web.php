@@ -9,8 +9,9 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::post('/authenticate/user', [LoginController::class, 'authenticateUser']);
 
 Route::get('/logout', [LoginController::class, 'logout']);
 
-Route::get('/dashboard', [UserController::class, 'redirectToUserDashboard']);
+Route::get('/dashboard/user', [UserController::class, 'redirectToUserDashboard']);
 
 Route::get('/list', [UserController::class, 'redirectToReadingList']);
 
@@ -61,8 +62,8 @@ Route::post('/manage/update/info', [UserController::class, 'updateInfo']);
 
 Route::post('/manage/update/password', [UserController::class, 'updatePassword']);
 
-Route::get('/manage/update/password/download', function(){
-    return view('user.qrcode');
-});
+Route::get('/manage/update/password/download', [UserController::class, 'redirectToQRCodeDownloadPage']);
 
 Route::get('/manage/update/password/download/{path}', [ReportController::class, 'generateQRCode']);
+
+Route::get('/dashboard/doctor', [DoctorController::class, 'redirectToDoctorDashboard']);
