@@ -28,7 +28,7 @@ class UserController extends Controller
         $headers = array(
             'Content-Type' => 'image/png'
         );
-        $image = \QrCode::size(1023)
+        $image = QrCode::size(1023)
                 ->format('png')
                 ->generate($data);
         $path = 'qrcodes/' . $user_id . '.png';

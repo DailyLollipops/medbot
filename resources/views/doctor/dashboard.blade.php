@@ -1,6 +1,10 @@
 @extends('layout',[$style = 'doctor/dashboard', $title = 'Dashboard'])
 
 @section('content')
+@php
+  use Carbon\Carbon;
+@endphp
+
 <section class="u-clearfix u-section-1" id="sec-c5ee">
   <div class="u-clearfix u-sheet u-sheet-1">
     <p class="u-custom-font u-heading-font u-text u-text-default u-text-1"><span class="u-file-icon u-icon"><img src="images/1170616.png" alt=""></span>&nbsp;Users Reports
@@ -12,35 +16,64 @@
         <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
           <div class="u-container-layout u-similar-container u-valign-top-sm u-container-layout-1">
             <h5 class="u-align-center u-text u-text-3">New Patients</h5>
-            <p class="u-align-center u-heading-font u-text u-text-4">10 user</p>
+            <p class="u-align-center u-heading-font u-text u-text-4">{{$monthly_new_user_count}} user</p>
             <span class="u-custom-item u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/patient.png') }}" alt="">
             </span>
             <p class="u-custom-item u-text u-text-default-xl u-text-5">
-              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9">
-                <img src="{{ asset('images/up_trend.png') }}" alt=""></span>&nbsp;<span class="u-text-custom-color-9">+50%</span> higher this month
+
+              @if($monthly_new_user_difference < 0)
+                <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
+                  <img src="{{ asset('images/down_trend.png') }}" alt="">
+                </span>
+                &nbsp;
+                <span class="u-text-custom-color-1">-{{$monthly_new_user_difference}}%</span> higher this month
+              @elseif($monthly_new_user_difference > 0)
+                <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9">
+                  <img src="{{ asset('images/up_trend.png') }}" alt="">
+                </span>
+                &nbsp;
+                <span class="u-text-custom-color-9">+{{$monthly_new_user_difference}}%</span> higher this month
+              @else
+                <span class="u-custom-item u-file-icon u-icon u-text-palette-3-base">
+                  <img src="{{ asset('images/same_trend.png') }}" alt="">
+                </span>
+                &nbsp;
+                <span class="u-text-palette-3-base">±0%</span> higher this month
+              @endif
+
             </p>
           </div>
         </div>
         <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-2">
           <div class="u-container-layout u-similar-container u-valign-top-sm u-container-layout-2">
-            <h5 class="u-align-center u-text u-text-6">New Patients</h5>
-            <p class="u-align-center u-heading-font u-text u-text-7">10 user</p>
+            <h5 class="u-align-center u-text u-text-6">Old Patients</h5>
+            <p class="u-align-center u-heading-font u-text u-text-7">{{$old_user_count}} user</p>
             <span class="u-custom-item u-file-icon u-icon u-icon-4" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/two_patient.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-text u-text-default-xl u-text-8"><span class="u-custom-item u-file-icon u-icon u-text-custom-color-1"><img src="images/4230009-34159dff.png" alt=""></span>&nbsp;<span class="u-text-custom-color-1">-50%</span> higher this month
+            <p class="u-custom-item u-text u-text-default-xl u-text-8">
+              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
+                <img src="{{ asset('images/calendar.png') }}" alt="">
+              </span>
+              &nbsp;
+              <span class="u-text-custom-color-9">Since</span> {{$first_record}}
             </p>
           </div>
         </div>
         <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-3">
           <div class="u-container-layout u-similar-container u-valign-top-sm u-container-layout-3">
-            <h5 class="u-align-center u-text u-text-9">New Patients</h5>
-            <p class="u-align-center u-heading-font u-text u-text-10">10 user</p>
+            <h5 class="u-align-center u-text u-text-9">Total Patients</h5>
+            <p class="u-align-center u-heading-font u-text u-text-10">{{$all_user_count}} user</p>
             <span class="u-custom-item u-file-icon u-icon u-icon-6" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/three_patient.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-text u-text-default-xl u-text-11"><span class="u-custom-item u-file-icon u-icon u-text-palette-3-base"><img src="images/5436326-a91d58cf.png" alt=""></span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
+            <p class="u-custom-item u-text u-text-default-xl u-text-11">
+              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
+                <img src="{{ asset('images/down_trend.png') }}" alt="">
+              </span>
+              &nbsp;
+              <span class="u-text-custom-color-1">-{{$monthly_user_growth_rate}}%</span> monthly growth rate
             </p>
           </div>
         </div>
@@ -49,8 +82,8 @@
     <div class="u-container-style u-group u-palette-5-light-3 u-radius-10 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-4">
         <h4 class="u-text u-text-default u-text-12">New Users This Month</h4>
-        <div class="u-table u-table-responsive u-table-1">
-          <table class="u-table-entity">
+        <div class="u-table u-table-responsive u-table-1"  style="overflow: scroll; height: 350px">
+          <table class="u-table-entity" style="height: 350px;">
             <colgroup>
               <col width="33.3%">
               <col width="33.3%">
@@ -64,33 +97,23 @@
               </tr>
             </thead>
             <tbody class="u-table-alt-palette-1-light-3 u-table-body">
-              <tr style="height: 74px;">
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Row 1</td>
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Description</td>
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Description</td>
-              </tr>
-              <tr style="height: 75px;">
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Row 2</td>
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Description</td>
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Description</td>
-              </tr>
-              <tr style="height: 75px;">
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Row 3</td>
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Description</td>
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Description</td>
-              </tr>
-              <tr style="height: 75px;">
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Row 4</td>
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Description</td>
-                <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">Description</td>
-              </tr>
+              
+              @foreach($monthly_new_users as $user)
+                <tr style="height: 75px;">
+                  <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">{{$user->name}}</td>
+                  <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">{{Carbon::parse($user->birthday)->age}}</td>
+                  <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">{{date_format($user->created_at,'m-d-Y')}}</td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
       </div>
     </div>
     <div class="u-container-style u-group u-palette-5-light-3 u-radius-10 u-shape-round u-group-2">
-      <div class="u-container-layout u-container-layout-5"></div>
+      <div class="u-container-layout u-container-layout-5">
+        <canvas id="monthlyNewUsersPerMonthChart"></canvas>
+      </div>
     </div>
   </div>
 </section>
@@ -99,11 +122,84 @@
     <h4 class="u-text u-text-default u-text-1">Users Overview</h4>
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-border-1 u-border-grey-15 u-container-style u-grey-5 u-group u-radius-14 u-shape-round u-group-1">
-      <div class="u-container-layout u-container-layout-1"></div>
+      <div class="u-container-layout u-container-layout-1">
+        
+      </div>
     </div>
     <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-2">
-      <div class="u-container-layout u-container-layout-2"></div>
+      <div class="u-container-layout u-container-layout-2">
+        <canvas id="usersByAgeChart"></canvas>
+      </div>
     </div>
   </div>
 </section>
+
+{{-- Script Section --}}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Monthly New Users Per Month Chart Variables
+  const monthlyNewUsersPerMonth = {{Js::from($monthly_new_users_per_month)}};
+
+  const usersByAge = {{Js::from($users_by_age)}};
+
+  console.log(usersByAge);
+  // Monthly New Users Per Month Chart Datasets
+  const monthlyNewUsersPerMonthData = {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets: [{
+      label: 'Users',
+      backgroundColor: '#ff00ff',
+      borderColor: '#345fde',
+      data: monthlyNewUsersPerMonth
+    }]
+  };
+
+  const usersByAgeData = {
+    labels: ['0-20','21-30','31-40','41-50','51-60','61-70','71-80','81-90','90 up'],
+    datasets: [{
+      label: 'Users',
+      backgroundColor: '#ff456d',
+      borderColor: '#345fde',
+      data: usersByAge
+    }]
+  };
+
+  // Monthly New Users Per Month Chart Config
+  const monthlyNewUsersPerMonthConfig = {
+    type: 'line',
+    data: monthlyNewUsersPerMonthData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'New Users Per Month'
+        }
+      }
+    }
+  };
+
+  const usersByAgeConfig = {
+    type: 'bar',
+    data: usersByAgeData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Users By Age'
+        }
+      }
+    }
+  };
+</script>
+<script>
+    const monthlyNewUsersPerMonthChart = new Chart(
+    document.getElementById('monthlyNewUsersPerMonthChart'),
+    monthlyNewUsersPerMonthConfig
+  );
+
+  const usersByAgeChart = new Chart(
+    document.getElementById('usersByAgeChart'),
+    usersByAgeConfig
+  );
+</script>
 @endsection
