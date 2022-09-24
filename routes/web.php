@@ -42,11 +42,11 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::get('/dashboard/user', [UserController::class, 'redirectToUserDashboard']);
 
-Route::get('/list', [UserController::class, 'redirectToReadingList']);
+Route::get('/readinglist', [UserController::class, 'redirectToReadingList']);
 
-Route::post('/list/order', [FilterController::class, 'getSelector']);
+Route::post('/readinglist/order', [FilterController::class, 'getReadingSelector']);
 
-Route::get('/list/order-by-{filter}-{order}', [FilterController::class, 'order']);
+Route::get('/readinglist/order-by-{filter}-{order}', [FilterController::class, 'orderReading']);
 
 Route::get('/manage', [UserController::class, 'redirectToManagePage']);
 
@@ -67,3 +67,9 @@ Route::get('/manage/update/password/download', [UserController::class, 'redirect
 Route::get('/manage/update/password/download/{path}', [ReportController::class, 'generateQRCode']);
 
 Route::get('/dashboard/doctor', [DoctorController::class, 'redirectToDoctorDashboard']);
+
+Route::get('/userlist', [DoctorController::class, 'redirectToUserList']);
+
+Route::post('/userlist/order', [FilterController::class, 'getUserSelector']);
+
+Route::get('/userlist/order-by-{filter}-{order}', [FilterController::class, 'orderUser']);
