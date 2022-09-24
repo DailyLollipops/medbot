@@ -28,7 +28,7 @@
           <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/medbot/public/about" style="padding: 10px 20px;">About</a>
         </li>
         <li class="u-nav-item">
-          <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/medbot/public/list" style="padding: 10px 20px;">Readings</a>
+          <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/medbot/public/readinglist" style="padding: 10px 20px;">Readings</a>
         </li>
         <li class="u-nav-item">
           <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/medbot/public/manage" style="padding: 10px 20px;">Manage</a>
@@ -50,7 +50,7 @@
               <a class="u-button-style u-nav-link" href="/medbot/public/about">About</a>
             </li>
             <li class="u-nav-item">
-              <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/medbot/public/list" style="padding: 10px 20px;">Readings</a>
+              <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/medbot/public/readinglist" style="padding: 10px 20px;">Readings</a>
             </li>
             <li class="u-nav-item">
               <a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/medbot/public/manage" style="padding: 10px 20px;">Manage</a>
