@@ -18,15 +18,17 @@ class UserFactory extends Factory
     public function definition()
     {
 
-        $start = strtotime("1960-1-01 00:00:00");
-        $end =  strtotime("2016-12-31 23:59:59");
-        
-        $random_date = date("Y-m-d H:i:s", rand($start, $end));
+        $birthday_start = strtotime("1960-1-01 00:00:00");
+        $birthday_end =  strtotime("2016-12-31 23:59:59");
+        $random_birthday = date("Y-m-d H:i:s", rand($birthday_start, $birthday_end));
 
+        $created_start = strtotime("2022-1-01 00:00:00");
+        $created_end =  strtotime("2022-9-31 23:59:59");
+        $random_created = date("Y-m-d H:i:s", rand($created_start, $created_end));
         return [
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
-            'birthday' => $random_date,
+            'birthday' => $random_birthday,
             'gender' => $this->faker->randomElement(['female','male']),
             'address' => fake()->address(),
             'bio' => fake()->paragraph(2),
@@ -34,7 +36,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('lollipop'), // password
             'remember_token' => Str::random(10),
-            'type' => $this->faker->randomElement(['doctor','normal'])
+            'type' => $this->faker->randomElement(['doctor','normal']),
+            'created_at' => $random_created
         ];
     }
 
