@@ -2,46 +2,17 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<style>
-  .page-item.active .page-link{
-      z-index: 3;
-      color: #fff !important  ;
-      background-color: #00ACD6 !important;
-      border-color: #00ACD6 !important;
-      border-radius: 50%;
-      padding: 6px 12px;
-  }
-  .page-link{
-      z-index: 3;
-      color: #00ACD6 !important;
-      background-color: #fff;
-      border-color: #007bff;
-      border-radius: 50%;
-      padding: 6px 12px !important;
-  }
-  .page-item:first-child .page-link{
-      border-radius: 30% !important;
-  }
-  .page-item:last-child .page-link{
-      border-radius: 30% !important;   
-  }
-  .pagination li{
-      padding: 3px;
-  }
-  .disabled .page-link{
-      color: #212529 !important;
-      opacity: 0.5 !important;
-  }
-</style>
+<link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
+
 <section class="u-clearfix u-section-1" id="sec-c6d7">
   <div class="u-clearfix u-sheet u-sheet-1">
     <div class="u-expanded-width-xs u-form u-form-1">
-      <form action="/medbot/public/list/order" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form" style="padding: 10px;">
+      <form action="/medbot/public/readinglist/order" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form" style="padding: 10px;">
       @csrf
         <div class="u-form-group u-form-select u-label-none u-form-group-1">
           <div class="u-form-select-wrapper">
             <select id="select-9d42" onchange="this.form.submit()" name="filter" class="u-border-3 u-border-palette-5-light-1 u-custom-font u-input u-input-rectangle u-radius-31 u-text-black u-text-font u-white u-input-1">
-              <option value="Latest">Order by...</option>
+              <option value="null">Order by...</option>
               <option value="created_at-desc">Latest</option>
               <option value="created_at-asc">Oldest</option>
               <option value="pulse_rate-desc">Highest Pulse Rate</option>
