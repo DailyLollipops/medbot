@@ -27,7 +27,7 @@
                   <img src="{{ asset('images/down_trend.png') }}" alt="">
                 </span>
                 &nbsp;
-                <span class="u-text-custom-color-1">-{{$monthly_new_user_difference}}%</span> higher this month
+                <span class="u-text-custom-color-1">{{$monthly_new_user_difference}}%</span> higher this month
               @elseif($monthly_new_user_difference > 0)
                 <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9">
                   <img src="{{ asset('images/up_trend.png') }}" alt="">
@@ -123,7 +123,7 @@
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-border-1 u-border-grey-15 u-container-style u-grey-5 u-group u-radius-14 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
-        
+        <canvas id="userGenderCountChart"></canvas>
       </div>
     </div>
     <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-2">
@@ -140,27 +140,54 @@
   // Monthly New Users Per Month Chart Variables
   const monthlyNewUsersPerMonth = {{Js::from($monthly_new_users_per_month)}};
 
+  // Users by Age Chart Variables
   const usersByAge = {{Js::from($users_by_age)}};
 
-  console.log(usersByAge);
+  const userGenderCount = {{Js::from($user_gender_count)}};
+
   // Monthly New Users Per Month Chart Datasets
   const monthlyNewUsersPerMonthData = {
     labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
     datasets: [{
       label: 'Users',
-      backgroundColor: '#ff00ff',
-      borderColor: '#345fde',
+      backgroundColor: '#ffd966',
+      borderColor: '#6666ff',
       data: monthlyNewUsersPerMonth
     }]
   };
 
+  // Users By Ages Datasets
   const usersByAgeData = {
     labels: ['0-20','21-30','31-40','41-50','51-60','61-70','71-80','81-90','90 up'],
     datasets: [{
       label: 'Users',
-      backgroundColor: '#ff456d',
+      backgroundColor: [
+        '#ff6666',
+        '#ff8c66',
+        '#ffff66',
+        '#66ff66',
+        '#66ffd9',
+        '#66ffd9',
+        '#6666ff',
+        '#8c66ff',
+        '#ff66ff',
+        '#ff66b3',
+        '#ff668c',
+        '#ff6666'],
       borderColor: '#345fde',
       data: usersByAge
+    }]
+  };
+
+  const userGenderCountData = {
+    labels: ['Male', 'Female'],
+    datasets: [{
+      label: 'Gender',
+      data: [userGenderCount['male'],userGenderCount['female']],
+      backgroundColor: [
+      '#8cff66',
+      '#66b3ff'
+      ]
     }]
   };
 
@@ -178,6 +205,7 @@
     }
   };
 
+  // Users by Age Chart Config
   const usersByAgeConfig = {
     type: 'bar',
     data: usersByAgeData,
@@ -190,6 +218,19 @@
       }
     }
   };
+
+  const userGenderCountConfig = {
+    type: 'pie',
+    data: userGenderCountData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Users By Gender'
+        }
+      }
+    }
+  }
 </script>
 <script>
     const monthlyNewUsersPerMonthChart = new Chart(
@@ -200,6 +241,11 @@
   const usersByAgeChart = new Chart(
     document.getElementById('usersByAgeChart'),
     usersByAgeConfig
+  );
+
+  const userGenderCountChart = new Chart(
+    document.getElementById('userGenderCountChart'),
+    userGenderCountConfig
   );
 </script>
 @endsection

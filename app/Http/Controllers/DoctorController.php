@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 class DoctorController extends Controller
 {
     private function getMonthlyNewUserCount(){
-        $users = User::where('created_at','>',Carbon::now()->subMonths(1))->pluck('id')->toArray();
+        $users = User::where('type','normal')->where('created_at','>',Carbon::now()->subMonths(1))->pluck('id')->toArray();
         $monthly_new_users_count = count($users);
         return $monthly_new_users_count;
     }
 
     private function getAllUserCount(){
-        $all_users = User::all()->pluck('id')->toArray();
+        $all_users = User::where('type','normal')->pluck('id')->toArray();
         $all_users_count = count($all_users);
         return $all_users_count;
     }
@@ -27,9 +27,15 @@ class DoctorController extends Controller
         return $old_users;
     }
     
+    private function getPreviousMonthUserCount(){
+        $previous_monthly_new_users = User::where('type','normal')->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->pluck('id');
+        $previous_monthly_new_users_count = count($previous_monthly_new_users);
+        return $previous_monthly_new_users_count;
+    }
+
     private function getMonthlyNewUserDifference(){
         $monthly_new_users = $this->getMonthlyNewUserCount();
-        $previous_monthly_new_users = count(User::where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->pluck('id'));
+        $previous_monthly_new_users = $this->getPreviousMonthUserCount();
         if($previous_monthly_new_users != 0){
             $monthly_new_users_difference = round((($monthly_new_users - $previous_monthly_new_users)/abs($previous_monthly_new_users)) * 100);
         }
@@ -45,17 +51,16 @@ class DoctorController extends Controller
     }
 
     private function getMonthlyUserGrowthRate(){
-        $first_month = User::oldest()->get()->first()->created_at->format('m');
-        $first_year = User::oldest()->get()->first()->created_at->format('Y');
-        $first_monthly_users = User::whereYear('created_at', date('Y'))->whereMonth('created_at', $first_month)->pluck('id')->toArray();
+        $first_month = User::where('type','normal')->oldest()->get()->first()->created_at->format('m');
+        $first_year = User::where('type','normal')->oldest()->get()->first()->created_at->format('Y');
+        $first_monthly_users = User::where('type','normal')->whereYear('created_at', date('Y'))->whereMonth('created_at', $first_month)->pluck('id')->toArray();
         $first_monthly_users_count = count($first_monthly_users);
-        $first_date = date_create($first_year.'-'. $first_month .'-01');
-        $today = date_create(Carbon::now());
-        $months_elapsed = date_diff($first_date, $today);
-        $months_passed = $months_elapsed->m + ($months_elapsed->y*12);
-        $all_users_count = $this->getAllUserCount();
-        if($months_passed != 0){
-            $growth_rate = (($all_users_count - $first_monthly_users_count)/$months_passed)*100;
+        $first_date = Carbon::createFromFormat('Y-m', $first_year.'-'.$first_month);
+        $today = Carbon::now();
+        $months_elapsed = $today->diffInMonths($first_date);
+        $previous_monthly_new_users = $this->getPreviousMonthUserCount();
+        if($months_elapsed != 0){
+            $growth_rate = round(pow($previous_monthly_new_users/$first_monthly_users_count,1/$months_elapsed));
         }
         else{
             $growth_rate = 0;
@@ -115,8 +120,8 @@ class DoctorController extends Controller
     }
 
     private function getUserGenderCount(){
-        $female_users = User::where('type','normal')->where('gender','female')->get();
-        $male_users = User::where('type','normal')->where('gender','female')->get();
+        $female_users = User::where('type','normal')->where('gender','female')->get('id');
+        $male_users = User::where('type','normal')->where('gender','male')->get('id');
         $female_users_count = count($female_users);
         $male_users_count = count($male_users);
         $users_per_gender = array();
@@ -138,6 +143,17 @@ class DoctorController extends Controller
             'monthly_new_users_per_month' => $this->getMonthlyNewUsersPerMonth(),
             'users_by_age' => $this->getUsersByAge(),
             'user_gender_count' => $this->getUserGenderCount()
+        ]);
+    }
+
+    public function redirectToUserList(){
+        $filterString = 'Name';
+        $orderString = 'Descending';
+        $users = User::where('type','normal')->orderBy('name','asc')->paginate(10);
+        return view('doctor.userlist',[
+            'users' => $users,
+            'filter' => $filterString,
+            'order' => $orderString,
         ]);
     }
 }
