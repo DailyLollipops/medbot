@@ -40,7 +40,7 @@
             <div class="u-nav-popup">
               <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-2">
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/manage">Manage</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/update">Update Info</a>
                 </li>
                 <li class="u-nav-item">
                   <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/logout">Logout</a>
@@ -69,7 +69,7 @@
                 <div class="u-nav-popup">
                   <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-5">
                     <li class="u-nav-item">
-                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/manage">Manage</a>
+                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/update">Update Info</a>
                     </li>
                     <li class="u-nav-item">
                       <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/logout">Logout</a>
