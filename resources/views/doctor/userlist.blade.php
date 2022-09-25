@@ -12,11 +12,11 @@
   <div class="u-clearfix u-sheet u-sheet-1">
     <div class="u-expanded-width-xs u-form u-form-1">
       <form action="/medbot/public/userlist/order" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;">
-      @csrf
+      @csrf  
         <div class="u-form-group u-form-select u-label-none u-form-group-1">
           <label for="select-9d42" class="u-custom-font u-heading-font u-label u-label-1">Dropdown</label>
           <div class="u-form-select-wrapper">
-            <select id="select-9d42" onchange="this.form.submit()" name="filter" class="u-border-3 u-border-palette-5-light-1 u-custom-font u-input u-input-rectangle u-radius-31 u-text-black u-text-font u-white u-input-1">
+            <select id="select-9d42" name="filter" class="u-border-3 u-border-palette-5-light-1 u-custom-font u-input u-input-rectangle u-radius-31 u-text-black u-text-font u-white u-input-1">
               <option value="null">Order by...</option>
               <option value="name-asc">Name (A-Z)</option>
               <option value="name-desc">Name (Z-A)</option>
@@ -28,26 +28,28 @@
         </div>
       </form>
     </div>
-    <h4 class="u-text u-text-default u-text-1">Ordered by: {{$filter}} ({{$order}})</h4>
-    <div class="u-expanded-width u-list u-list-1">
+    <h4 class="u-text u-text-default u-text-1">Order by:</h4>
+    <div class="u-expanded-width-lg u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-list u-list-1">
       <div class="u-repeater u-repeater-1">
-
         @foreach($users as $user)
-          <div class="u-align-left u-container-style u-list-item u-palette-5-light-3 u-radius-10 u-repeater-item u-shape-round u-list-item-1">
+        <div class="u-align-left u-container-style u-list-item u-palette-5-light-3 u-radius-10 u-repeater-item u-shape-round u-list-item-1">
+          <a href="{{'/medbot/public/userlist/id-'.$user->id}}" style="text-decoration: none; color: inherit">
             <div class="u-container-layout u-similar-container u-container-layout-1">
-              <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="images/blank-profile-picture-g6a1689b82_640.png" alt="" data-image-width="640" data-image-height="640">
+              <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user->profile_picture_path ? asset('storage/'.$user->profile_picture_path) : asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
               <p class="u-text u-text-2">{{$user->name}}</p>
               <p class="u-text u-text-3">{{Carbon::parse($user->birthday)->age}} years old</p>
-              <p class="u-text u-text-4">{{$user->gender}}</p>
-              <p class="u-text u-text-5">{{$user->address}}</p>
+              <p class="u-text u-text-4">{{ucfirst($user->gender)}}</p>
+              <p class="u-text u-text-5">{{$user->address}}<br>
+                <br>
+              </p>
               <blockquote class="u-text u-text-6">{{$user->bio}}</blockquote>
             </div>
-          </div>
+          </a>
+        </div>
         @endforeach
-
       </div>
     </div>
-    {{$users->links('pagination::custom')}}
+    {{$users->links('pagination::custom')}} 
   </div>
 </section>
 @endsection
