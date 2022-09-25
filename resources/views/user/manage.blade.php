@@ -42,11 +42,6 @@
               <input type="date" placeholder="MM/DD/YYYY" id="date-bc34" name="start_date" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-palette-1-light-3" style="margin-bottom: 26px" required="">
             </div>
             <div class="u-form-date u-form-group u-form-group-2">
-
-              @error('end_date')
-                <p class="u-text u-text-custom-color-1 u-text-2 u-text-color-2">{{$message}}</p>
-              @enderror
-
               <label for="date-40b5" class="u-label">End Date</label>
               <input type="date" placeholder="MM/DD/YYYY" id="date-40b5" name="end_date" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-palette-1-light-3" required="">
             </div>
@@ -81,11 +76,6 @@
               </div>
             </div>
             <div class="u-form-group u-form-group-5">
-
-              @error('text')
-                <p class="u-text u-text-custom-color-1 u-text-2 u-text-color-2">{{$message}}</p>
-              @enderror
-
               <label for="text-562f" class="u-label">Or enter reading #</label>
               <input type="text" placeholder="" id="text-562f" name="text" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-palette-5-light-2">
             </div>
