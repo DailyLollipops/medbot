@@ -656,6 +656,7 @@ class UserController extends Controller
         $user = User::where('id',Auth::id())->first();
         $user_id = $user->id;
         return view('user.manage',[
+            'user_profile' => $user->profile_picture_path,
             'ids' => $this->getAllReadingId($user_id),
             'user_name' => $user->name,
             'user_age' => $user_age = Carbon::parse($user->birthday)->age

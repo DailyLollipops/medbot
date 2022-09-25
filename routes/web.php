@@ -48,23 +48,23 @@ Route::post('/readinglist/order', [FilterController::class, 'getReadingSelector'
 
 Route::get('/readinglist/order-by-{filter}-{order}', [FilterController::class, 'orderReading']);
 
-Route::get('/manage', [UserController::class, 'redirectToManagePage']);
+Route::get('/manage/user', [UserController::class, 'redirectToManagePage']);
 
-Route::post('/manage/export', [ReportController::class, 'exportCsv']);
+Route::post('/manage/user/export', [ReportController::class, 'exportCsv']);
 
-Route::post('/manage/generate', [ReportController::class, 'generateReport']);
+Route::post('/manage/user/generate', [ReportController::class, 'generateReport']);
 
-Route::get('/manage/update', [UserController::class, 'redirectToUpdateInformationPage']);
+Route::get('/manage/user/update', [UserController::class, 'redirectToUpdateInformationPage']);
 
-Route::post('/manage/update/profile_picture', [UserController::class, 'updateProfilePicture']);
+Route::post('/manage/user/update/profile_picture', [UserController::class, 'updateProfilePicture']);
 
-Route::post('/manage/update/info', [UserController::class, 'updateInfo']);
+Route::post('/manage/user/update/info', [UserController::class, 'updateInfo']);
 
-Route::post('/manage/update/password', [UserController::class, 'updatePassword']);
+Route::post('/manage/user/update/password', [UserController::class, 'updatePassword']);
 
-Route::get('/manage/update/password/download', [UserController::class, 'redirectToQRCodeDownloadPage']);
+Route::get('/manage/user/update/password/download', [UserController::class, 'redirectToQRCodeDownloadPage']);
 
-Route::get('/manage/update/password/download/{path}', [ReportController::class, 'generateQRCode']);
+Route::get('/manage/user/update/password/download/{path}', [ReportController::class, 'generateQRCode']);
 
 Route::get('/dashboard/doctor', [DoctorController::class, 'redirectToDoctorDashboard']);
 
