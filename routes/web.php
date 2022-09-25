@@ -26,7 +26,7 @@ use App\Http\Controllers\ReportController;
 
 Route::get('/', [MainController::class, 'redirect']);
 
-Route::get('/login/upload', [MainController::class, 'redirectToUploadQRCodePage']);
+Route::get('/login/user/upload', [MainController::class, 'redirectToUploadQRCodePage']);
 
 Route::get('/login/doctor', [MainController::class, 'redirectToDoctorLoginPage']);
 
