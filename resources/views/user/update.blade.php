@@ -8,7 +8,7 @@
     <div class="u-container-style u-expanded-width-lg u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-palette-5-light-3 u-radius-10 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
         <div class="u-form u-form-1">
-          <form action="/medbot/public/manage/user/update/info" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" id="informationform" name="form-1" style="padding: 10px;">
+          <form action="/medbot/public/manage/update/info" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" id="informationform" name="form-1" style="padding: 10px;">
           @csrf 
             <div class="u-form-group u-form-name u-label-top">
               <label for="name" class="u-label u-label-1">Name</label>
@@ -52,7 +52,7 @@
         </div>
         <div class="u-container-style u-group u-palette-5-light-3 u-group-2">
           <div class="u-container-layout u-valign-middle u-container-layout-2">
-            <form action="/medbot/public/manage/user/update/profile_picture" method="POST" enctype="multipart/form-data">
+            <form action="/medbot/public/manage/update/profile_picture" method="POST" enctype="multipart/form-data">
             @csrf
               <input type="file" name="profile_picture" id="profile_picture" style="display:none" onchange="this.form.submit()"/>
               <img class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user_profile ? asset('storage/'.$user_profile) : asset('images/blank_profile.png') }}" alt="" data-image-width="128" data-image-height="128" style="cursor: pointer">
@@ -71,7 +71,7 @@
     <div class="u-container-style u-expanded-width-lg u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-palette-5-light-3 u-radius-10 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
         <div class="u-form u-form-1">
-          <form id="passwordform" action="/medbot/public/manage/user/update/password" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" source="email" name="form-1" style="padding: 10px;">
+          <form id="passwordform" action="/medbot/public/manage/update/password" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" source="email" name="form-1" style="padding: 10px;">
           @csrf  
             <div class="u-form-group u-form-name u-form-partition-factor-3 u-label-top">
               <label for="current-password" class="u-label">Current Password</label>
