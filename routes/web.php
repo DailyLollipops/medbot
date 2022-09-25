@@ -73,3 +73,5 @@ Route::get('/userlist', [DoctorController::class, 'redirectToUserList']);
 Route::post('/userlist/order', [FilterController::class, 'getUserSelector']);
 
 Route::get('/userlist/order-by-{filter}-{order}', [FilterController::class, 'orderUser']);
+
+Route::get('/userlist/id-{user_id}', [UserController::class, 'redirectToUserInfoPage']);
