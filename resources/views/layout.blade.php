@@ -24,12 +24,21 @@
       "logo": "images/logo.png"
     }
     </script>
+
+    @php
+      use Illuminate\Support\Facades\Auth;
+    @endphp
+
   </head>
-    
+  
   <body class="u-body u-xl-mode" data-lang="en">
 
     @auth
-      <x-headerUser/>
+      @if(Auth::user()->type == 'doctor')
+        <x-headerDoctor/>
+      @else
+        <x-headerUser/>
+      @endif
     @else
       <x-header/>
     @endauth
