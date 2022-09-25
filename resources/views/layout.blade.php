@@ -29,7 +29,7 @@
   <body class="u-body u-xl-mode" data-lang="en">
 
     @auth
-      <x-headerAuth/>
+      <x-headerUser/>
     @else
       <x-header/>
     @endauth

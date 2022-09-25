@@ -33,24 +33,17 @@
             <a class="u-button-style u-nav-link" href="/medbot/public/about" style="padding: 10px 24px;">About</a>
           </li>
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" style="padding: 10px 24px;">Login</a>
+            <a class="u-button-style u-nav-link" style="padding: 10px 24px;">Profile</a>
             <div class="u-nav-popup">
               <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-2">
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/login/doctor">Login as Doctor</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/readinglist">Readings</a>
                 </li>
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/login/user">Login as User</a>
-                  <div class="u-nav-popup">
-                    <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-3">
-                      <li class="u-nav-item">
-                        <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/login/user/scan">Scan QRCode</a>
-                      </li>
-                      <li class="u-nav-item">
-                        <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/login/user/upload">Upload QRCode</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/manage">Manage</a>
+                </li>
+                <li class="u-nav-item">
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/logout">Logout</a>
                 </li>
               </ul>
             </div>
@@ -69,24 +62,17 @@
                 <a class="u-button-style u-nav-link" href="/medbot/public/about" style="padding-top: 12px; padding-bottom: 12px;">About</a>
               </li>
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" style="padding-top: 12px; padding-bottom: 12px;">Login</a>
+                <a class="u-button-style u-nav-link" style="padding-top: 12px; padding-bottom: 12px;">Profile</a>
                 <div class="u-nav-popup">
                   <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-5">
                     <li class="u-nav-item">
-                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/login/doctor">Login as Doctor</a>
+                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/readinglist">Readings</a>
                     </li>
                     <li class="u-nav-item">
-                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/login/user">Login as User</a>
-                      <div class="u-nav-popup">
-                        <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-6">
-                          <li class="u-nav-item">
-                            <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/login/user/scan">ScanQRCode</a>
-                          </li>
-                          <li class="u-nav-item">
-                            <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/login/user/upload">UploadQRCode</a>
-                          </li>
-                        </ul>
-                      </div>
+                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/manage">Manage</a>
+                    </li>
+                    <li class="u-nav-item">
+                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/logout">Logout</a>
                     </li>
                   </ul>
                 </div>
