@@ -42,7 +42,7 @@
             </div>
             <div class="u-form-group u-form-message u-label-top u-form-group-7">
               <label for="bio" class="u-label u-label-7">Bio</label>
-              <textarea id="bio" placeholder="Enter a short message about yourself" rows="4" cols="50" value="{{$user_bio}}" name="bio" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""></textarea>
+              <textarea id="bio" placeholder="Enter a short message about yourself (up to 200 characters)" rows="4" cols="50" value="{{$user_bio}}" name="bio" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""></textarea>
             </div>
             <div class="u-align-right u-form-group u-form-submit u-label-top">
               <input type="submit" value="submit" class="u-form-control-hidden">
