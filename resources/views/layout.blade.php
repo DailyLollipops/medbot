@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}" media="screen">
     <link rel="stylesheet" href="{{ asset('css/'.$style.'.css') }}" media="screen">
 
-    <script class="u-script" type="text/javascript" src="{{ asset('js/jquery.js') }}" "="" defer=""></script>
-    <script class="u-script" type="text/javascript" src="{{ asset('js/styles.js') }}" "="" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{{ asset('js/jquery.js') }}" defer=""></script>
+    <script class="u-script" type="text/javascript" src="{{ asset('js/styles.js') }}" defer=""></script>
 
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     <link id="u-page-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster:400">
