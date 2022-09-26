@@ -19,17 +19,17 @@
             <span class="u-custom-item u-file-icon u-icon u-icon-2">
               <img src="{{ asset('images/pulse_rate.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-4">{{$average_pulse_rate_month}} bpm</p>
+            <p class="u-custom-item u-heading-font u-text u-text-4">{{$this_month_average_pulse_rate}} bpm</p>
             <p class="u-text u-text-5">
 
-              @if($pulse_rate_diff < 0)
+              @if($this_month_average_pulse_rate_difference < 0)
               <span class="u-file-icon u-icon u-text-custom-color-1">
                 <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-1">{{$pulse_rate_diff}}%</span> lower this month
-              @elseif($pulse_rate_diff > 0)
+              </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_pulse_rate_difference}}%</span> lower this month
+              @elseif($this_month_average_pulse_rate_difference > 0)
               <span class="u-file-icon u-icon u-text-custom-color-9">
                 <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-9">+{{$pulse_rate_diff}}%</span> higher this month
+              </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_pulse_rate_difference}}%</span> higher this month
               @else
               <span class="u-file-icon u-icon u-text-palette-3-base">
                 <img src="{{ asset('images/same_trend.png') }}" alt="">
@@ -45,17 +45,17 @@
             <span class="u-custom-item u-file-icon u-icon u-icon-4">
               <img src="{{ asset('images/blood_pressure.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-7">{{$average_systolic_month}}/{{$average_diastolic_month}} mmHg</p>
+            <p class="u-custom-item u-heading-font u-text u-text-7">{{$this_month_average_systolic}}/{{$this_month_average_diastolic}} mmHg</p>
             <p class="u-text u-text-8">
 
-              @if($blood_pressure_diff < 0)
+              @if($this_month_average_blood_pressure_difference < 0)
               <span class="u-file-icon u-icon u-text-custom-color-1">
                 <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-1">{{$blood_pressure_diff}}%</span> lower this month
-              @elseif($blood_pressure_diff > 0)
+              </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_pressure_difference}}%</span> lower this month
+              @elseif($this_month_average_blood_pressure_difference > 0)
               <span class="u-file-icon u-icon u-text-custom-color-9">
                 <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-9">+{{$blood_pressure_diff}}%</span> higher this month
+              </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_pressure_difference}}%</span> higher this month
               @else
               <span class="u-file-icon u-icon u-text-palette-3-base">
                 <img src="{{ asset('images/same_trend.png') }}" alt="">
@@ -71,17 +71,17 @@
             <span class="u-custom-item u-file-icon u-icon u-icon-6">
               <img src="{{ asset('images/blood_saturation.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-10">{{$average_blood_saturation_month}} %</p>
+            <p class="u-custom-item u-heading-font u-text u-text-10">{{$this_month_average_blood_saturation}} %</p>
             <p class="u-text u-text-11">
 
-              @if($blood_saturation_diff < 0)
+              @if($this_month_average_blood_saturation_difference < 0)
               <span class="u-file-icon u-icon u-text-custom-color-1">
                 <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-1">{{$blood_saturation_diff}}%</span> lower this month
-              @elseif($blood_saturation_diff > 0)
+              </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_saturation_difference}}%</span> lower this month
+              @elseif($this_month_average_blood_saturation_difference > 0)
               <span class="u-file-icon u-icon u-text-custom-color-9">
                 <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-9">+{{$blood_saturation_diff}}%</span> higher this month
+              </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_saturation_difference}}%</span> higher this month
               @else
               <span class="u-file-icon u-icon u-text-palette-3-base">
                 <img src="{{ asset('images/same_trend.png') }}" alt="">
@@ -124,7 +124,7 @@
             <span class="u-file-icon u-icon u-icon-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/monitor.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-2">{{$count}}</p>
+            <p class="u-custom-item u-heading-font u-text u-text-2">{{$all_reading_count}}</p>
             <h5 class="u-text u-text-3">Total Reading<br>
             </h5>
           </div>
@@ -134,7 +134,7 @@
             <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/pulse_rate.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-4">{{$average_pulse_rate_all}} bpm</p>
+            <p class="u-custom-item u-heading-font u-text u-text-4">{{$all_time_average_pulse_rate}} bpm</p>
             <h5 class="u-text u-text-5">Pulse Rate<br>
             </h5>
           </div>
@@ -144,7 +144,7 @@
             <span class="u-file-icon u-icon u-icon-3" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/blood_pressure.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-6">{{$average_systolic_all}}/{{$average_diastolic_all}} mmHg </p>
+            <p class="u-custom-item u-heading-font u-text u-text-6">{{$all_time_average_systolic}}/{{$all_time_average_diastolic}} mmHg </p>
             <h5 class="u-text u-text-7">Blood Pressure<br>
             </h5>
           </div>
@@ -154,7 +154,7 @@
             <span class="u-file-icon u-icon u-icon-4">
               <img src="{{ asset('images/blood_saturation.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-8">{{$average_blood_saturation_all}} %</p>
+            <p class="u-custom-item u-heading-font u-text u-text-8">{{$all_time_average_blood_saturation}} %</p>
             <h5 class="u-text u-text-9">Sp02<br>
             </h5>
           </div>
@@ -210,39 +210,38 @@
 <script>
 
   // Monthly Readings Chart Variables
-  const ids = {{ Js::from($labels) }};
-  const monthlyPulseRates = {{ Js::from($pulse_rates) }};
-  const monthlySystolics = {{ Js::from($systolics) }};
-  const monthlyDiastolics = {{ Js::from($diastolics) }};
-  const monthlyBloodPressures = {{ Js::from($blood_pressures) }};
-  const monthlyBloodSaturations = {{ Js::from($blood_saturations) }};
-  const dates = {{ Js::from($dates) }};
-  const times = {{ Js::from($times) }};
+  const monthlyPulseRates = {{ Js::from($this_month_pulse_rates) }};
+  const monthlySystolics = {{ Js::from($this_month_systolics) }};
+  const monthlyDiastolics = {{ Js::from($this_month_diastolics) }};
+  const monthlyBloodPressures = {{ Js::from($this_month_blood_pressures) }};
+  const monthlyBloodSaturations = {{ Js::from($this_month_blood_saturations) }};
+  const dates = {{ Js::from($this_month_dates) }};
+  const times = {{ Js::from($this_month_times) }};
 
   // Monthly Rating Chart Variables
   const types = ['Pulse Rate', 'Blood Pressure', 'Blood Saturation'];
-  const monthlyPulseRateRatings = {{ Js::from($pulse_rate_ratings) }};
-  const monthlyBloodPressureRatings = {{ Js::from($blood_pressure_ratings) }};
-  const monthlyBloodSaturationRatings = {{ Js::from($blood_saturation_ratings) }};
+  const monthlyPulseRateRatings = {{ Js::from($this_month_pulse_rate_ratings) }};
+  const monthlyBloodPressureRatings = {{ Js::from($this_month_blood_pressure_ratings) }};
+  const monthlyBloodSaturationRatings = {{ Js::from($this_month_blood_saturation_ratings) }};
 
   // Year Readings Chart Variables
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const monthsEx = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  const yearlyPulseRates = {{ Js::from($pulse_rates_year) }};
-  const yearlySystolics = {{ Js::from($systolics_year) }};
-  const yearlyDiastolics = {{ Js::from($diastolics_year) }};
-  const yearlyBloodPressures = {{ Js::from($blood_pressures_year) }};
-  const yearlyBloodSaturations = {{ Js::from($blood_saturations_year) }};
+  const yearlyPulseRates = {{ Js::from($yearly_pulse_rates) }};
+  const yearlySystolics = {{ Js::from($yearly_systolics) }};
+  const yearlyDiastolics = {{ Js::from($yearly_diastolics) }};
+  const yearlyBloodPressures = {{ Js::from($yearly_blood_pressures) }};
+  const yearlyBloodSaturations = {{ Js::from($yearly_blood_saturations) }};
 
   // All Time Ratings  Chart Variables
-  const count = {{ Js::from($count) }};
-  const allTimePulseRateRatings = {{ Js::from($all_pulse_rate_ratings) }};
-  const allTimeBloodPressureRatings = {{ Js::from($all_blood_pressure_ratings) }};
-  const allTimeBloodSaturationRatings = {{ Js::from($all_blood_saturation_ratings) }};
+  const count = {{ Js::from($all_reading_count) }};
+  const allTimePulseRateRatings = {{ Js::from($all_time_pulse_rate_ratings) }};
+  const allTimeBloodPressureRatings = {{ Js::from($all_time_blood_pressure_ratings) }};
+  const allTimeBloodSaturationRatings = {{ Js::from($all_time_blood_saturation_ratings) }};
 
   // Monthly Readings Chart Datasets
   const monthlyReadingsData = {
-    labels: ids,
+    labels: dates,
     datasets: [{
       label: 'Pulse Rate',
       backgroundColor: '#94ca74',
@@ -360,8 +359,7 @@
               return '=================';
             },
             title: function(context) {
-              console.log(context[0]);
-              return `Reading #${context[0].label}`;
+              return 'Reading #' + context[0].dataIndex;
             },
             label: function(context) {
               let label = context.dataset.label || '';
@@ -438,7 +436,6 @@
               return '=================';
             },
             title: function(context) {
-              console.log(context[0]);
               return 'Month of ' + monthsEx[context[0].dataIndex];
             },
             label: function(context) {
@@ -613,8 +610,7 @@
       }
     }
   };
-</script>
-<script>
+  
   const monthlyReadingsChart = new Chart(
     document.getElementById('monthlyReadingsChart'),
     monthlyReadingsConfig

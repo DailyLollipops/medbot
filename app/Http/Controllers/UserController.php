@@ -36,6 +36,7 @@ class UserController extends Controller
         return $path;
     }
 
+    // For User Dashboard
     private function determinePulseRate($age, $pulse_rate){
         if($age <= 1){
             $low = 100;
@@ -174,156 +175,161 @@ class UserController extends Controller
         return $rating;
     }
 
-    private function getAllReadingCount($user_id){
-        $count = count(Reading::where('user_id', $user_id)->pluck('id')->toArray());
-        return $count;
-    }
-
-    private function getMonthlyReadingLabels($user_id){
-        $labels = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('id');
-        return $labels;
+    private function getThisMonthReadings($user_id){
+        $this_month_readings = Reading::where('user_id',$user_id)->whereYear('created_at',date('Y'))->whereMonth('created_at',date('m'))->oldest()->get();
+        return $this_month_readings;
     }
     
-    private function getMonthlyReadingDates($user_id){
-        $timestamps = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('created_at')->toArray();
+    private function getPreviousMonthReadings($user_id){
+        $previous_month_readings = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->oldest()->get();
+        return $previous_month_readings;
+    }
+    
+    private function getAllTimeReadings($user_id){
+        $all_time_readings = Reading::where('user_id', $user_id)->oldest()->get();
+        return $all_time_readings;
+    }
+
+    private function getThisMonthReadingDates($user_id){
+        $this_month_readings = $this->getThisMonthReadings($user_id);
         $dates = array();
-        foreach($timestamps as $timestamp){
-            array_push($dates,date('Y-m-d', strtotime($timestamp)));
+        foreach($this_month_readings as $reading){
+            array_push($dates,date('M d Y', strtotime($reading->created_at)));
         }
         return $dates;
     }
 
-    private function getMonthlyReadingTimes($user_id){
-        $timestamps = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('created_at')->toArray();
+    private function getThisMonthReadingTimes($user_id){
+        $this_month_readings = $this->getThisMonthReadings($user_id);
         $times = array();
-        foreach($timestamps as $timestamp){
-            array_push($times,date('H:i:s', strtotime($timestamp)));
+        foreach($this_month_readings as $reading){
+            array_push($times,date('H:i:s', strtotime($reading->created_at)));
         }
         return $times;
     }
 
-    private function getMonthlyPulseRates($user_id){
-        $monthly_pulse_rates = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('pulse_rate')->toArray();
-        return $monthly_pulse_rates;
+    private function getThisMonthPulseRates($user_id){
+        $this_month_pulse_rates = $this->getThisMonthReadings($user_id)->pluck('pulse_rate')->toArray();
+        return $this_month_pulse_rates;
     }
 
-    private function getMonthlyBloodPressures($user_id){
-        $monthly_blood_pressures = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('blood_pressure')->toArray();
-        return $monthly_blood_pressures;
+    private function getThisMonthBloodPressures($user_id){
+        $this_month_blood_pressures = $this->getThisMonthReadings($user_id)->pluck('blood_pressure')->toArray();
+        return $this_month_blood_pressures;
     }
 
-    private function getMonthlySystolics($user_id){
-        $monthly_systolics = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('systolic')->toArray();
-        return $monthly_systolics;
+    private function getThisMonthSystolics($user_id){
+        $this_month_systolics = $this->getThisMonthReadings($user_id)->pluck('systolic')->toArray();
+        return $this_month_systolics;
     }
 
-    private function getMonthlyDiastolics($user_id){
-        $monthly_diastolics = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('diastolic')->toArray();
-        return $monthly_diastolics;
+    private function getThisMonthDiastolics($user_id){
+        $this_month_diastolics = $this->getThisMonthReadings($user_id)->pluck('diastolic')->toArray();
+        return $this_month_diastolics;
     }
 
-    private function getMonthlyBloodSaturations($user_id){
-        $monthly_blood_saturations = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(1))->pluck('blood_saturation')->toArray();
-        return $monthly_blood_saturations;
+    private function getThisMonthBloodSaturations($user_id){
+        $this_month_blood_saturations = $this->getThisMonthReadings($user_id)->pluck('blood_saturation')->toArray();
+        return $this_month_blood_saturations;
     }
 
-    private function getMonthlyAveragePulseRate($user_id){
-        $pulse_rates = $this->getMonthlyPulseRates($user_id);
-        if(count($pulse_rates) != 0){
-            $monthly_average_pulse_rate = round(array_sum($pulse_rates)/count($pulse_rates));
+    private function getThisMonthAveragePulseRate($user_id){
+        $this_month_pulse_rates = $this->getThisMonthPulseRates($user_id);
+        if(count($this_month_pulse_rates) != 0){
+            $this_month_average_pulse_rate = round(array_sum($this_month_pulse_rates)/count($this_month_pulse_rates));
         }
         else{
-            $monthly_average_pulse_rate = 0;
+            $this_month_average_pulse_rate = 0;
         }
-        return $monthly_average_pulse_rate;
+        return $this_month_average_pulse_rate;
     }
 
-    private function getMonthlyAverageBloodPressure($user_id){
-        $blood_pressures = $this->getMonthlyBloodPressures($user_id);
-        if(count($blood_pressures) != 0){
-            $monthly_average_blood_pressure = round(array_sum($blood_pressures)/count($blood_pressures));
+    private function getThisMonthAverageBloodPressure($user_id){
+        $this_month_blood_pressures = $this->getThisMonthBloodPressures($user_id);
+        if(count($this_month_blood_pressures) != 0){
+            $this_month_average_blood_pressure = round(array_sum($this_month_blood_pressures)/count($this_month_blood_pressures));
         }
         else{
-            $monthly_average_blood_pressure = 0;
+            $this_month_average_blood_pressure = 0;
         }
-        return $monthly_average_blood_pressure;
+        return $this_month_average_blood_pressure;
     }
 
-    private function getMonthlyAverageSystolic($user_id){
-        $systolics = $this->getMonthlySystolics($user_id);
-        if(count($systolics) != 0){
-            $month_average_systolic = round(array_sum($systolics)/count($systolics));
+    private function getThisMonthAverageSystolic($user_id){
+        $this_month_systolics = $this->getThisMonthSystolics($user_id);
+        if(count($this_month_systolics) != 0){
+            $this_month_average_systolic = round(array_sum($this_month_systolics)/count($this_month_systolics));
         }
         else{
-            $month_average_systolic = 0;
+            $this_month_average_systolic = 0;
         }
-        return $month_average_systolic;
+        return $this_month_average_systolic;
     }
 
-    private function getMonthlyAverageDiastolic($user_id){     
-        $diastolics = $this->getMonthlyDiastolics($user_id);
-        if(count($diastolics) != 0){
-            $monthly_average_diastolic = round(array_sum($diastolics)/count($diastolics));
+    private function getThisMonthAverageDiastolic($user_id){     
+        $this_month_diastolics = $this->getThisMonthDiastolics($user_id);
+        if(count($this_month_diastolics) != 0){
+            $this_month_average_diastolic = round(array_sum($this_month_diastolics)/count($this_month_diastolics));
         }
         else{
-            $monthly_average_diastolic = 0;
+            $this_month_average_diastolic = 0;
         }
-        return $monthly_average_diastolic;
+        return $this_month_average_diastolic;
     }
 
-    private function getMonthlyAverageBloodSaturation($user_id){
-        $blood_saturations = $this->getMonthlyBloodSaturations($user_id);
-        if(count($blood_saturations) != 0){
-            $monthly_average_blood_saturation = round(array_sum($blood_saturations)/count($blood_saturations));
+    private function getThisMonthAverageBloodSaturation($user_id){
+        $this_month_blood_saturations = $this->getThisMonthBloodSaturations($user_id);
+        if(count($this_month_blood_saturations) != 0){
+            $this_month_average_blood_saturation = round(array_sum($this_month_blood_saturations)/count($this_month_blood_saturations));
         }
         else{
-            $monthly_average_blood_saturation = 0;
+            $this_month_average_blood_saturation = 0;
         }
-        return $monthly_average_blood_saturation;
+        return $this_month_average_blood_saturation;
     }
 
-    private function getMonthlyAveragePulseRateDifference($user_id){
-        $pulse_rates_prev = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->pluck('pulse_rate')->toArray();
+    private function getThisMonthAveragePulseRateDifference($user_id){
+        $pulse_rates_prev = $this->getPreviousMonthReadings($user_id)->pluck('pulse_rate')->toArray();
         if(count($pulse_rates_prev) != 0){
             $average_pulse_rate_prev = round(array_sum($pulse_rates_prev)/count($pulse_rates_prev));
         }
         else {
             $average_pulse_rate_prev = 0;
         }
-        $average_pulse_rate_curr = $this->getMonthlyAveragePulseRate($user_id);
+        $average_pulse_rate_curr = $this->getThisMonthAveragePulseRate($user_id);
         $pulse_rate_diff = round((($average_pulse_rate_curr - $average_pulse_rate_prev)/abs($average_pulse_rate_prev)) * 100);
         return $pulse_rate_diff;
     }
 
-    private function getMonthlyAverageBloodPressureDifference($user_id){
-        $blood_pressure_prev = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->pluck('blood_pressure')->toArray();
+    private function getThisMonthAverageBloodPressureDifference($user_id){
+        $blood_pressure_prev = $this->getPreviousMonthReadings($user_id)->pluck('blood_pressure')->toArray();
         if(count($blood_pressure_prev) != 0){
             $average_blood_pressure_prev = round(array_sum($blood_pressure_prev)/count($blood_pressure_prev));
         }
         else{
             $average_blood_pressure_prev = 0;
         }
-        $average_blood_pressure_curr = $this->getMonthlyAverageBloodPressure($user_id);
+        $average_blood_pressure_curr = $this->getThisMonthAverageBloodPressure($user_id);
         $blood_pressure_diff = round((($average_blood_pressure_curr - $average_blood_pressure_prev)/abs($average_blood_pressure_prev)) * 100);
         return $blood_pressure_diff;
     }
 
-    private function getMonthlyAverageBloodSaturationDifference($user_id){
-        $blood_saturations_prev = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->pluck('blood_saturation')->toArray();
+    private function getThisMonthAverageBloodSaturationDifference($user_id){
+        $blood_saturations_prev = $this->getPreviousMonthReadings($user_id)->pluck('blood_saturation')->toArray();
         if(count($blood_saturations_prev) != 0){
             $average_blood_saturation_prev = round(array_sum($blood_saturations_prev)/count($blood_saturations_prev));
         }
         else{
             $average_blood_saturation_prev = 0;
         }
-        $average_blood_saturation_curr = $this->getMonthlyAverageBloodSaturation($user_id);
+        $average_blood_saturation_curr = $this->getThisMonthAverageBloodSaturation($user_id);
         $blood_saturation_diff = round((($average_blood_saturation_curr - $average_blood_saturation_prev)/abs($average_blood_saturation_prev)) * 100);
         return $blood_saturation_diff;
     }
 
-    private function getMonthlyPulseRateRatings($user_id){
+    private function getThisMonthPulseRateRatings($user_id){
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
-        $pulse_rates = $this->getMonthlyPulseRates($user_id);
+        $pulse_rates = $this->getThisMonthPulseRates($user_id);
         $pulse_rate_ratings = array();
         $below_normal = 0;
         $normal = 0;
@@ -344,10 +350,10 @@ class UserController extends Controller
         return $pulse_rate_ratings;
     }
 
-    private function getMonthlyBloodPressureRatings($user_id){
+    private function getThisMonthBloodPressureRatings($user_id){
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
-        $systolics = $this->getMonthlySystolics($user_id);
-        $diastolics = $this->getMonthlyDiastolics($user_id);
+        $systolics = $this->getThisMonthSystolics($user_id);
+        $diastolics = $this->getThisMonthDiastolics($user_id);
         $blood_pressure_ratings = array();
         $below_normal = 0;
         $normal = 0;
@@ -371,9 +377,9 @@ class UserController extends Controller
         return $blood_pressure_ratings;
     }
 
-    private function getMonthlyBloodSaturationRatings($user_id){
+    private function getThisMonthBloodSaturationRatings($user_id){
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
-        $blood_saturations = $this->getMonthlyBloodSaturations($user_id);
+        $blood_saturations = $this->getThisMonthBloodSaturations($user_id);
         $blood_saturation_ratings = array();
         $below_normal = 0;
         $normal = 0;
@@ -516,9 +522,14 @@ class UserController extends Controller
         return $yearly_blood_saturations;
     }
 
+    private function getAllReadingCount($user_id){
+        $count = count($this->getAllTimeReadings($user_id));
+        return $count;
+    }
+
     private function getallTimePulseRateRatings($user_id){
         $all_time_pulse_rate_ratings = array();
-        $all_time_pulse_rates = Reading::where('user_id',$user_id)->pluck('pulse_rate')->toArray();
+        $all_time_pulse_rates = $this->getAllTimeReadings($user_id)->pluck('pulse_rate')->toArray();
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $below_normal = 0;
         $normal = 0;
@@ -540,8 +551,8 @@ class UserController extends Controller
     }
 
     private function getallTimeBloodPressureRatings($user_id){
-        $all_time_systolics = Reading::where('user_id',$user_id)->pluck('systolic')->toArray();
-        $all_time_diastolics = Reading::where('user_id',$user_id)->pluck('diastolic')->toArray();
+        $all_time_systolics = $this->getAllTimeReadings($user_id)->pluck('systolic')->toArray();
+        $all_time_diastolics = $this->getAllTimeReadings($user_id)->pluck('diastolic')->toArray();
         $all_time_blood_pressure_ratings = array();
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $below_normal = 0;
@@ -568,7 +579,7 @@ class UserController extends Controller
 
     private function getallTimeBloodSaturationRatings($user_id){
         $all_time_blood_saturation_ratings = array();
-        $all_time_blood_saturations = Reading::where('user_id',$user_id)->pluck('blood_saturation')->toArray();
+        $all_time_blood_saturations = $this->getAllTimeReadings($user_id)->pluck('blood_saturation')->toArray();
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $below_normal = 0;
         $normal = 0;
@@ -589,15 +600,16 @@ class UserController extends Controller
         return $all_time_blood_saturation_ratings;
     }
 
+    // For Doctor Dashboard
     private function getAllReadingId($user_id){
         $ids = Reading::where('user_id',$user_id)->pluck('id');
         return $ids;
     }
 
-    private function getMonthlyNewUserCount(){
+    private function getThisMonthNewUserCount(){
         $users = User::where('type','normal')->where('created_at','>',Carbon::now()->subMonths(1))->pluck('id')->toArray();
-        $monthly_new_users_count = count($users);
-        return $monthly_new_users_count;
+        $this_month_new_users_count = count($users);
+        return $this_month_new_users_count;
     }
 
     private function getAllUserCount(){
@@ -608,7 +620,7 @@ class UserController extends Controller
 
     private function getOldUserCount(){
         $all_users = $this->getAllUserCount();
-        $new_users = $this->getMonthlyNewUserCount();
+        $new_users = $this->getThisMonthNewUserCount();
         $old_users = $all_users - $new_users;
         return $old_users;
     }
@@ -619,16 +631,16 @@ class UserController extends Controller
         return $previous_monthly_new_users_count;
     }
 
-    private function getMonthlyNewUserDifference(){
-        $monthly_new_users = $this->getMonthlyNewUserCount();
-        $previous_monthly_new_users = $this->getPreviousMonthUserCount();
-        if($previous_monthly_new_users != 0){
-            $monthly_new_users_difference = round((($monthly_new_users - $previous_monthly_new_users)/abs($previous_monthly_new_users)) * 100);
+    private function getThisMonthNewUserDifference(){
+        $this_month_new_users = $this->getThisMonthNewUserCount();
+        $previous_month_new_users = $this->getPreviousMonthUserCount();
+        if($previous_month_new_users != 0){
+            $this_month_new_users_difference = round((($this_month_new_users - $previous_month_new_users)/abs($previous_month_new_users)) * 100);
         }
         else{
-            $monthly_new_users_difference = 0;
+            $this_month_new_users_difference = 0;
         }
-        return $monthly_new_users_difference;
+        return $this_month_new_users_difference;
     }
 
     private function getFirstRecord(){
@@ -654,9 +666,9 @@ class UserController extends Controller
         return $growth_rate;
     }
 
-    private function getMonthlyNewUsers(){
-        $new_monthly_users = User::where('created_at','>',Carbon::now()->subMonths(1))->where('type','normal')->get();
-        return $new_monthly_users;
+    private function getThisMonthNewUsers(){
+        $this_month_new_users = User::where('created_at','>',Carbon::now()->subMonths(1))->where('type','normal')->get();
+        return $this_month_new_users;
     }
 
     private function getMonthlyNewUsersPerMonth(){
@@ -725,37 +737,36 @@ class UserController extends Controller
         }
         $user_id = Auth::id();
         return view('user.dashboard',[
-            'average_pulse_rate_month' => $this->getMonthlyAveragePulseRate($user_id),
-            'average_systolic_month' => $this->getMonthlyAverageSystolic($user_id),
-            'average_diastolic_month' => $this->getMonthlyAverageDiastolic($user_id),
-            'average_blood_saturation_month' => $this->getMonthlyAverageBloodSaturation($user_id),
-            'pulse_rate_diff' => $this->getMonthlyAveragePulseRateDifference($user_id),
-            'blood_pressure_diff' => $this->getMonthlyAverageBloodPressureDifference($user_id),
-            'blood_saturation_diff' => $this->getMonthlyAverageBloodSaturationDifference($user_id),
-            'labels' => $this->getMonthlyReadingLabels($user_id), 
-            'pulse_rates' => $this->getMonthlyPulseRates($user_id), 
-            'systolics' => $this->getMonthlySystolics($user_id), 
-            'diastolics' => $this->getMonthlyDiastolics($user_id), 
-            'blood_pressures' => $this->getMonthlyBloodPressures($user_id), 
-            'blood_saturations' => $this->getMonthlyBloodSaturations($user_id), 
-            'dates' => $this->getMonthlyReadingDates($user_id), 
-            'times' => $this->getMonthlyReadingTimes($user_id),
-            'pulse_rate_ratings' => $this->getMonthlyPulseRateRatings($user_id),
-            'blood_pressure_ratings' => $this->getMonthlyBloodPressureRatings($user_id),
-            'blood_saturation_ratings' => $this->getMonthlyBloodSaturationRatings($user_id),
-            'count' => $this->getAllReadingCount($user_id),
-            'average_pulse_rate_all' => $this->getAllTimeAveragePulseRate($user_id),
-            'average_systolic_all' => $this->getAllTimeAverageSystolic($user_id),
-            'average_diastolic_all' => $this->getAllTimeAverageDiastolic($user_id),
-            'average_blood_saturation_all' => $this->getAllTimeAverageBloodSaturation($user_id),
-            'pulse_rates_year' => $this->getYearlyPulseRates($user_id),
-            'systolics_year' => $this->getYearlySystolics($user_id),
-            'diastolics_year' => $this->getYearlyDiastolics($user_id),
-            'blood_pressures_year' => $this->getYearlyBloodPressures($user_id),
-            'blood_saturations_year' => $this->getYearlyBloodSaturations($user_id),
-            'all_pulse_rate_ratings' => $this->getallTimePulseRateRatings($user_id),
-            'all_blood_pressure_ratings' => $this->getallTimeBloodPressureRatings($user_id),
-            'all_blood_saturation_ratings' => $this->getallTimeBloodSaturationRatings($user_id)
+            'this_month_average_pulse_rate' => $this->getThisMonthAveragePulseRate($user_id),
+            'this_month_average_systolic' => $this->getThisMonthAverageSystolic($user_id),
+            'this_month_average_diastolic' => $this->getThisMonthAverageDiastolic($user_id),
+            'this_month_average_blood_saturation' => $this->getThisMonthAverageBloodSaturation($user_id),
+            'this_month_average_pulse_rate_difference' => $this->getThisMonthAveragePulseRateDifference($user_id),
+            'this_month_average_blood_pressure_difference' => $this->getThisMonthAverageBloodPressureDifference($user_id),
+            'this_month_average_blood_saturation_difference' => $this->getThisMonthAverageBloodSaturationDifference($user_id),
+            'this_month_pulse_rates' => $this->getThisMonthPulseRates($user_id), 
+            'this_month_systolics' => $this->getThisMonthSystolics($user_id), 
+            'this_month_diastolics' => $this->getThisMonthDiastolics($user_id), 
+            'this_month_blood_pressures' => $this->getThisMonthBloodPressures($user_id), 
+            'this_month_blood_saturations' => $this->getThisMonthBloodSaturations($user_id), 
+            'this_month_dates' => $this->getThisMonthReadingDates($user_id), 
+            'this_month_times' => $this->getThisMonthReadingTimes($user_id),
+            'this_month_pulse_rate_ratings' => $this->getThisMonthPulseRateRatings($user_id),
+            'this_month_blood_pressure_ratings' => $this->getThisMonthBloodPressureRatings($user_id),
+            'this_month_blood_saturation_ratings' => $this->getThisMonthBloodSaturationRatings($user_id),
+            'all_reading_count' => $this->getAllReadingCount($user_id),
+            'all_time_average_pulse_rate' => $this->getAllTimeAveragePulseRate($user_id),
+            'all_time_average_systolic' => $this->getAllTimeAverageSystolic($user_id),
+            'all_time_average_diastolic' => $this->getAllTimeAverageDiastolic($user_id),
+            'all_time_average_blood_saturation' => $this->getAllTimeAverageBloodSaturation($user_id),
+            'yearly_pulse_rates' => $this->getYearlyPulseRates($user_id),
+            'yearly_systolics' => $this->getYearlySystolics($user_id),
+            'yearly_diastolics' => $this->getYearlyDiastolics($user_id),
+            'yearly_blood_pressures' => $this->getYearlyBloodPressures($user_id),
+            'yearly_blood_saturations' => $this->getYearlyBloodSaturations($user_id),
+            'all_time_pulse_rate_ratings' => $this->getallTimePulseRateRatings($user_id),
+            'all_time_blood_pressure_ratings' => $this->getallTimeBloodPressureRatings($user_id),
+            'all_time_blood_saturation_ratings' => $this->getallTimeBloodSaturationRatings($user_id)
         ]);
     }
 
@@ -805,13 +816,13 @@ class UserController extends Controller
             abort(403);
         }
         return view('doctor.dashboard',[
-            'monthly_new_user_count' => $this->getMonthlyNewUserCount(),
+            'this_month_new_user_count' => $this->getThisMonthNewUserCount(),
             'old_user_count' => $this->getOldUserCount(),
             'all_user_count' => $this->getAllUserCount(),
-            'monthly_new_user_difference' => $this->getMonthlyNewUserDifference(),
+            'this_month_new_user_difference' => $this->getThisMonthNewUserDifference(),
             'first_record' => $this->getFirstRecord(),
             'monthly_user_growth_rate' => $this->getMonthlyUserGrowthRate(),
-            'monthly_new_users' => $this->getMonthlyNewUsers(),
+            'this_month_new_users' => $this->getThisMonthNewUsers(),
             'monthly_new_users_per_month' => $this->getMonthlyNewUsersPerMonth(),
             'users_by_age' => $this->getUsersByAge(),
             'user_gender_count' => $this->getUserGenderCount()
@@ -864,12 +875,62 @@ class UserController extends Controller
         ]);
     }
 
+    public function redirectToUserReportPage($user_id){
+        if(Auth::user()->type != 'doctor'){
+            abort(403);
+        }
+        $user = User::find($user_id);
+        return view('doctor.userreport',[
+            'id' => $user->id,
+            'profile' => $user->profile_picture_path,
+            'name' => $user->name,
+            'age' => Carbon::parse($user->birthday)->age,
+            'joined' => Carbon::parse($user->created_at)->format('M d, Y'),
+            'this_month_average_pulse_rate' => $this->getThisMonthAveragePulseRate($user_id),
+            'this_month_average_systolic' => $this->getThisMonthAverageSystolic($user_id),
+            'this_month_average_diastolic' => $this->getThisMonthAverageDiastolic($user_id),
+            'this_month_average_blood_saturation' => $this->getThisMonthAverageBloodSaturation($user_id),
+            'this_month_average_pulse_rate_difference' => $this->getThisMonthAveragePulseRateDifference($user_id),
+            'this_month_average_blood_pressure_difference' => $this->getThisMonthAverageBloodPressureDifference($user_id),
+            'this_month_average_blood_saturation_difference' => $this->getThisMonthAverageBloodSaturationDifference($user_id),
+            'this_month_pulse_rates' => $this->getThisMonthPulseRates($user_id), 
+            'this_month_systolics' => $this->getThisMonthSystolics($user_id), 
+            'this_month_diastolics' => $this->getThisMonthDiastolics($user_id), 
+            'this_month_blood_pressures' => $this->getThisMonthBloodPressures($user_id), 
+            'this_month_blood_saturations' => $this->getThisMonthBloodSaturations($user_id), 
+            'this_month_dates' => $this->getThisMonthReadingDates($user_id), 
+            'this_month_times' => $this->getThisMonthReadingTimes($user_id),
+            'this_month_pulse_rate_ratings' => $this->getThisMonthPulseRateRatings($user_id),
+            'this_month_blood_pressure_ratings' => $this->getThisMonthBloodPressureRatings($user_id),
+            'this_month_blood_saturation_ratings' => $this->getThisMonthBloodSaturationRatings($user_id),
+            'all_reading_count' => $this->getAllReadingCount($user_id),
+            'all_time_average_pulse_rate' => $this->getAllTimeAveragePulseRate($user_id),
+            'all_time_average_systolic' => $this->getAllTimeAverageSystolic($user_id),
+            'all_time_average_diastolic' => $this->getAllTimeAverageDiastolic($user_id),
+            'all_time_average_blood_saturation' => $this->getAllTimeAverageBloodSaturation($user_id),
+            'yearly_pulse_rates' => $this->getYearlyPulseRates($user_id),
+            'yearly_systolics' => $this->getYearlySystolics($user_id),
+            'yearly_diastolics' => $this->getYearlyDiastolics($user_id),
+            'yearly_blood_pressures' => $this->getYearlyBloodPressures($user_id),
+            'yearly_blood_saturations' => $this->getYearlyBloodSaturations($user_id),
+            'all_time_pulse_rate_ratings' => $this->getallTimePulseRateRatings($user_id),
+            'all_time_blood_pressure_ratings' => $this->getallTimeBloodPressureRatings($user_id),
+            'all_time_blood_saturation_ratings' => $this->getallTimeBloodSaturationRatings($user_id)
+        ]);
+    }
+
     // **-- General User Type Specific Functions --** //
 
     // Redirect to Update Info Page
     public function redirectToUpdateInformationPage(){
         $user = Auth::user();
-        return view($user->type.'.update',[
+        if($user->type == 'doctor'){
+            $view = 'doctor';
+        }
+        else{
+            $view = 'user';
+        }
+        return view($view.'.update',[
             'user_profile' => $user->profile_picture_path,
             'user_name' => $user->name,
             'user_gender' => $user->gender,

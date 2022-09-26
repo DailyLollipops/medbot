@@ -7,7 +7,7 @@
 
 <section class="u-clearfix u-section-1" id="sec-c5ee">
   <div class="u-clearfix u-sheet u-sheet-1">
-    <p class="u-custom-font u-heading-font u-text u-text-default u-text-1"><span class="u-file-icon u-icon"><img src="images/1170616.png" alt=""></span>&nbsp;Users Reports
+    <p class="u-custom-font u-heading-font u-text u-text-default u-text-1"><span class="u-file-icon u-icon"><img src="{{ asset('images/chart.png') }}" alt=""></span>&nbsp;Users Reports
     </p>
     <h4 class="u-text u-text-default u-text-2">Users This Month</h4>
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
@@ -16,24 +16,24 @@
         <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
           <div class="u-container-layout u-similar-container u-valign-top-sm u-container-layout-1">
             <h5 class="u-align-center u-text u-text-3">New Patients</h5>
-            <p class="u-align-center u-heading-font u-text u-text-4">{{$monthly_new_user_count}} user</p>
+            <p class="u-align-center u-heading-font u-text u-text-4">{{$this_month_new_user_count}} user</p>
             <span class="u-custom-item u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/patient.png') }}" alt="">
             </span>
             <p class="u-custom-item u-text u-text-default-xl u-text-5">
 
-              @if($monthly_new_user_difference < 0)
+              @if($this_month_new_user_difference < 0)
                 <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
                   <img src="{{ asset('images/down_trend.png') }}" alt="">
                 </span>
                 &nbsp;
-                <span class="u-text-custom-color-1">{{$monthly_new_user_difference}}%</span> higher this month
-              @elseif($monthly_new_user_difference > 0)
+                <span class="u-text-custom-color-1">{{$this_month_new_user_difference}}%</span> higher this month
+              @elseif($this_month_new_user_difference > 0)
                 <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9">
                   <img src="{{ asset('images/up_trend.png') }}" alt="">
                 </span>
                 &nbsp;
-                <span class="u-text-custom-color-9">+{{$monthly_new_user_difference}}%</span> higher this month
+                <span class="u-text-custom-color-9">+{{$this_month_new_user_difference}}%</span> higher this month
               @else
                 <span class="u-custom-item u-file-icon u-icon u-text-palette-3-base">
                   <img src="{{ asset('images/same_trend.png') }}" alt="">
@@ -98,7 +98,7 @@
             </thead>
             <tbody class="u-table-alt-palette-1-light-3 u-table-body">
               
-              @foreach($monthly_new_users as $user)
+              @foreach($this_month_new_users as $user)
                 <tr style="height: 75px;">
                   <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">{{$user->name}}</td>
                   <td class="u-border-1 u-border-grey-40 u-border-no-left u-border-no-right u-table-cell">{{Carbon::parse($user->birthday)->age}}</td>
