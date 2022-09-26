@@ -18,7 +18,7 @@
           <img src="{{ asset('images/qrcode2.png') }}" alt="">
         </span>
 
-        <form action="/medbot/public/authenticate/user" method="POST" enctype="multipart/form-data">
+        <form action="/medbot/public/authenticate/user/upload" method="POST" enctype="multipart/form-data">
         @csrf
           <input type="file" name="qrcode" id="qrcode" class="uploadfile" onchange="this.form.submit()"/>
           <label for="qrcode" class="u-border-none u-btn u-btn-round u-button-style u-gradient u-hover-feature u-hover-palette-1-base u-none u-radius-50 u-text-body-alt-color u-text-hover-palette-2-base u-btn-2">UPLOAD</label>
