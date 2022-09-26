@@ -47,7 +47,7 @@ Route::post('/readinglist/order', [FilterController::class, 'getReadingSelector'
 
 Route::get('/readinglist/order-by-{filter}-{order}', [FilterController::class, 'orderReading']);
 
-Route::get('/manage/user', [UserController::class, 'redirectToManagePage']);
+Route::get('/manage', [UserController::class, 'redirectToManagePage']);
 
 Route::post('/manage/export', [ReportController::class, 'exportCsv']);
 
@@ -74,6 +74,8 @@ Route::post('/userlist/order', [FilterController::class, 'getUserSelector']);
 Route::get('/userlist/order-by-{filter}-{order}', [FilterController::class, 'orderUser']);
 
 Route::get('/userlist/id-{user_id}', [UserController::class, 'redirectToUserInfoPage']);
+
+Route::get('/userlist/id-{user_id}/report', [UserController::class, 'redirectToUserReportPage']);
 
 Route::get('/update', [UserController::class, 'redirectToUpdateInformationPage']);
 
