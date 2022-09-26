@@ -1,4 +1,4 @@
-@extends('layout',[$style = 'doctor/userinfo', $title = 'Dashboard'])
+@extends('layout',[$style = 'doctor/userinfo', $title = 'User Info'])
 
 @section('content')
 
@@ -27,12 +27,12 @@
             <img src="{{ asset('images/age.png') }}" alt=""></span>
             &nbsp;{{$age}} years old
         </h4>
-        <a href="{{'/medbot/public/userlist/'.$id.'/reports'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-1">
+        <a href="{{'/medbot/public/userlist/id-'.$id.'/report'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-1">
           <span class="u-file-icon u-icon u-icon-3">
             <img src="{{ asset('images/chart.png') }}" alt=""></span>
             &nbsp;Reports
         </a>
-        <a href="{{'/medbot/public/userlist/'.$id.'/readings'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-2">
+        <a href="{{'/medbot/public/userlist/id-'.$id.'/reading'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-2">
           <span class="u-file-icon u-icon u-icon-4">
             <img src="{{ asset('images/monitor.png') }}" alt=""></span>
             &nbsp;Readings
