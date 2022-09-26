@@ -40,7 +40,7 @@
                   <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/readinglist">Readings</a>
                 </li>
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/manage/user">Manage</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/manage">Manage</a>
                 </li>
                 <li class="u-nav-item">
                   <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/logout">Logout</a>
@@ -69,7 +69,7 @@
                       <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/readinglist">Readings</a>
                     </li>
                     <li class="u-nav-item">
-                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/manage/user">Manage</a>
+                      <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/manage">Manage</a>
                     </li>
                     <li class="u-nav-item">
                       <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3 u-text-hover-white" href="/medbot/public/logout">Logout</a>
