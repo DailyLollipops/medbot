@@ -27,6 +27,8 @@ Route::get('/', [MainController::class, 'redirect']);
 
 Route::get('/login/user/upload', [MainController::class, 'redirectToUploadQRCodePage']);
 
+Route::get('/login/user/scan', [MainController::class, 'redirectToScanQRCodePage']);
+
 Route::get('/login/doctor', [MainController::class, 'redirectToDoctorLoginPage']);
 
 Route::get('/login/user', [MainController::class, 'redirectToUserLoginPage']);
@@ -35,7 +37,9 @@ Route::get('/about', [MainController::class, 'redirectToAboutPage']);
 
 Route::post('/authenticate/doctor', [LoginController::class, 'authenticateDoctor']);
 
-Route::post('/authenticate/user', [LoginController::class, 'authenticateUser']);
+Route::post('/authenticate/user/upload', [LoginController::class, 'authenticateUserByUpload']);
+
+Route::post('/authenticate/user/scan', [LoginController::class, 'authenticateUserByScan']);
 
 Route::get('/logout', [LoginController::class, 'logout']);
 

@@ -1,0 +1,130 @@
+.u-section-1 .u-sheet-1 {
+  min-height: 495px;
+}
+
+.u-section-1 .u-group-1 {
+  width: 420px;
+  min-height: 290px;
+  height: auto;
+  box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
+  margin: 28px auto 0;
+}
+
+.u-section-1 .u-container-layout-1 {
+  padding: 7px 0;
+}
+
+.u-section-1 .u-group-2 {
+  min-height: 270px;
+  width: 400px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.u-section-1 .u-container-layout-2 {
+  padding: 0;
+}
+
+.u-section-1 .u-btn-1 {
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  align-self: center;
+  margin: 18px auto 0 360px;
+  padding: 10px 31px;
+}
+
+.u-section-1 .u-icon-1 {
+  font-size: 1.1429em;
+}
+
+.u-section-1 .u-btn-2 {
+  border-style: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 1px;
+  align-self: center;
+  margin: -45px 360px 0 auto;
+  padding: 10px 37px 10px 36px;
+}
+
+.u-section-1 .u-icon-2 {
+  font-size: 1.1429em;
+}
+
+.u-section-1 .u-form-1 {
+  height: 67px;
+  width: 570px;
+  margin: 18px auto 27px;
+}
+
+@media (max-width: 1199px) {
+  .u-section-1 .u-group-1 {
+    height: auto;
+  }
+
+  .u-section-1 .u-group-2 {
+    height: auto;
+  }
+
+  .u-section-1 .u-btn-1 {
+    margin-left: 260px;
+  }
+
+  .u-section-1 .u-btn-2 {
+    margin-right: 260px;
+  }
+}
+
+@media (max-width: 991px) {
+  .u-section-1 .u-btn-1 {
+    margin-left: 150px;
+  }
+
+  .u-section-1 .u-btn-2 {
+    margin-right: 150px;
+  }
+}
+
+@media (max-width: 767px) {
+  .u-section-1 .u-btn-1 {
+    margin-left: 60px;
+  }
+
+  .u-section-1 .u-btn-2 {
+    margin-right: 60px;
+  }
+
+  .u-section-1 .u-form-1 {
+    width: 540px;
+  }
+}
+
+@media (max-width: 575px) {
+  .u-section-1 .u-group-1 {
+    width: 340px;
+  }
+
+  .u-section-1 .u-group-2 {
+    width: 340px;
+  }
+
+  .u-section-1 .u-btn-1 {
+    margin-left: 0;
+    padding-right: 24px;
+    padding-left: 23px;
+  }
+
+  .u-section-1 .u-btn-2 {
+    margin-right: 0;
+    padding-right: 29px;
+    padding-left: 29px;
+  }
+
+  .u-section-1 .u-form-1 {
+    width: 340px;
+  }
+}

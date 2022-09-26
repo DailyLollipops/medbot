@@ -26,6 +26,11 @@ class MainController extends Controller
         return view('main.upload');
     }
 
+    // Redirects to Scan QRCode Page
+    public function redirectToScanQRCodePage(){
+        return view('main.scan');
+    }
+
     // Redirect to Index Page
     public function redirect() {
         if(Auth::check()) {

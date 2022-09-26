@@ -775,17 +775,9 @@ class UserController extends Controller
         if(Auth::user()->type != 'normal'){
             abort(403);
         }
-        $filter = 'date';
         $filterString = 'Date';
         $orderString = 'Descending';
-
-        $readings = Reading::where('user_id',Auth::id())->paginate(9);
-        $readings->setCollection(
-            collect(
-                collect($readings->items())->sortByDesc($filter)
-            )->values()
-        );
-        
+        $readings =Reading::where('user_id',Auth::id())->orderBy('created_at','desc')->paginate(9);
         return view('user.readinglist',[
             'readings' => $readings,
             'filter' => $filterString,
@@ -945,6 +937,16 @@ class UserController extends Controller
     // Update user profile picture
     public function updateProfilePicture(Request $request){
         $user = Auth::user();
+        $validator = Validator::make($request->all(),[
+            'profile_picture' => 'required|mimes:jpeg,bmp,png'
+        ],
+        [
+            'profile_picture.required' => 'Please upload a file',
+            'profile_picture.mime' => 'The file is not an image file'
+        ]);
+        if ($validator->fails()){
+            return redirect()->back()->withError($validator->messages()->all());
+        }
         $profile_picture = $request->file('profile_picture');
         $extension = $profile_picture->getClientOriginalExtension();
         $file_name = Auth::id().'.'.$extension;

@@ -15,8 +15,23 @@ class LoginController extends Controller
         return $decrypted;
     }
 
+    private function authenticateQRCodeData($data){
+        if(str_contains($data,'Medbot')) {
+            $temp = explode(':',$data);
+
+            $credentials = ([
+                'id' => $temp[1],
+                'password' => $temp[2],
+            ]);
+            return $credentials;
+        }
+        else {
+            return false;
+        }
+    }
+
     // Authenticate for normal user account
-    public function authenticateUser(Request $request) {
+    public function authenticateUserByUpload(Request $request) {
         $qrdata = $request->validate([
             'qrcode' => ['required']
         ],
@@ -26,26 +41,37 @@ class LoginController extends Controller
         $qrcode = new QrReader($request->file('qrcode'));
         $qrdata = $qrcode->text();
         $decrypted = $this->decrypt($qrdata);
-        if(str_contains($decrypted,'Medbot')) {
-            $temp = explode(':',$decrypted);
-
-            $credentials = ([
-                'id' => $temp[1],
-                'password' => $temp[2],
-            ]);
-
-            if(Auth::attempt($credentials)){
-                $request->session()->regenerate();
-                flash()->addInfo('Welcome back '.User::where('id',Auth::id())->first()->name.'!');
-                return redirect()->intended('/');
-            }
-            else {
-                flash()->addError('The provided credentials do not match our records.');
-                return back();
-            }
+        $credentials = $this->authenticateQRCodeData($decrypted);
+        if(!$credentials){
+            flash()->addError('Invalid QR Code');
+            return redirect()->back();
+        }
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate();
+            flash()->addInfo('Welcome back '.User::where('id',Auth::id())->first()->name.'!');
+            return redirect()->intended('/');
         }
         else {
+            flash()->addError('The provided credentials do not match our records.');
+            return back();
+        }
+    }
+
+    public function authenticateUserByScan(Request $request){
+        $qrdata = $request->qrcode;
+        $decrypted = $this->decrypt($qrdata);
+        $credentials = $this->authenticateQRCodeData($decrypted);
+        if(!$credentials){
             flash()->addError('Invalid QR Code');
+            return redirect()->back();
+        }
+        if(Auth::attempt($credentials)){
+            $request->session()->regenerate();
+            flash()->addInfo('Welcome back '.User::where('id',Auth::id())->first()->name.'!');
+            return redirect()->intended('/');
+        }
+        else {
+            flash()->addError('The provided credentials do not match our records.');
             return back();
         }
     }
