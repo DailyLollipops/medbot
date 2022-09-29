@@ -770,7 +770,7 @@ class UserController extends Controller
         ]);
     }
 
-    // Redirect to Readinng List Page
+    // Redirect to Reading List Page
     public function redirectToReadingListPage(){
         if(Auth::user()->type != 'normal'){
             abort(403);
@@ -822,17 +822,42 @@ class UserController extends Controller
     }
 
     // Redirect to User List
-    public function redirectToUserListPage(){
+    public function redirectToUserListPage(Request $request){
         if(Auth::user()->type != 'doctor'){
             abort(403);
         }
-        $filterString = 'Name';
-        $orderString = 'Descending';
-        $users = User::where('type','normal')->orderBy('name','asc')->paginate(10);
+        $filterString = "Name";
+        $orderString = "Descending";
+        if($request->has('search')){
+            if($request->order != null){
+                $order = explode('-',$request['order']);
+                $users = User::where('type','normal')->where($request->filter, 'like', '%'.$request->search.'%')->orderBy($order[0],$order[1])->paginate(10);
+                if($order[0] == 'birthday'){
+                    $filterString = 'Age';
+                }
+                else{
+                    $filterString = ucfirst(str_replace('_', ' ', $order[0])); 
+                }
+                $orderString = ucfirst($order[1].'ending');
+                flash()->addInfo('Sorted by '.$filterString.' ('.$orderString.')');
+            }
+            else{
+                $users = User::where('type','normal')->where($request->filter, 'like', '%'.$request->search.'%')->orderBy($request->filter,'asc')->paginate(10);
+            }
+            if(count($users) == 0){
+                // Nothing found
+                return view('doctor.nothingfound',[
+                    'search' => $request->search
+                ]);
+            }
+        }
+        if(!$request->has('search') && !$request->has('order')){
+            $users = User::where('type','normal')->orderBy('name','asc')->paginate(10);
+        }
         return view('doctor.userlist',[
             'users' => $users,
             'filter' => $filterString,
-            'order' => $orderString,
+            'order' => $orderString
         ]);
     }
     

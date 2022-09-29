@@ -11,13 +11,12 @@
 <section class="u-clearfix u-section-1" id="sec-0835">
   <div class="u-clearfix u-sheet u-sheet-1">
     <div class="u-expanded-width-xs u-form u-form-1">
-      <form action="/medbot/public/userlist/order" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;">
-      @csrf  
+      <form action="#" method="GET" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;">
         <div class="u-form-group u-form-select u-label-none u-form-group-1">
           <label for="select-9d42" class="u-custom-font u-heading-font u-label u-label-1">Dropdown</label>
           <div class="u-form-select-wrapper">
-            <select id="select-9d42" name="filter" class="u-border-3 u-border-palette-5-light-1 u-custom-font u-input u-input-rectangle u-radius-31 u-text-black u-text-font u-white u-input-1">
-              <option value="null">Order by...</option>
+            <select id="order_select" name="order" onchange="submitAll()" class="u-border-3 u-border-palette-5-light-1 u-custom-font u-input u-input-rectangle u-radius-31 u-text-black u-text-font u-white u-input-1">
+              <option value="">Order by...</option>
               <option value="name-asc">Name (A-Z)</option>
               <option value="name-desc">Name (Z-A)</option>
               <option value="birthday-desc">Youngest</option>
