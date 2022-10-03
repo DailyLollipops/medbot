@@ -8,7 +8,7 @@
 
     <title>{{$title}}</title>
 
-    <link rel="stylesheet" href="{{ asset('css/universal.css') }}" media="screen">
+    <link rel="stylesheet" href="{{ asset('css/commonstyles.css') }}" media="screen">
     <link rel="stylesheet" href="{{ asset('css/'.$style.'.css') }}" media="screen">
 
     <script class="u-script" type="text/javascript" src="{{ asset('js/jquery.js') }}" defer=""></script>
