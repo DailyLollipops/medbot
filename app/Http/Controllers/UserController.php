@@ -37,31 +37,53 @@ class UserController extends Controller
     }
 
     // For User Dashboard
-    private function determinePulseRate($age, $pulse_rate){
+    private function getLowPulseRate($age){
         if($age <= 1){
             $low = 100;
-            $high = 160;
         }
         else if($age <= 3){
             $low = 80;
-            $high = 130;
         }
         else if($age <= 5){
             $low = 80;
-            $high = 120;
         }
         else if($age <= 10){
             $low = 70;
-            $high = 110;
         }
         else if($age <= 14){
             $low = 60;
-            $high = 105;
         }
         else{
             $low = 60;
+        }
+        return $low;
+    }
+
+    private function getHighPulseRate($age){
+        if($age <= 1){
+            $high = 160;
+        }
+        else if($age <= 3){
+            $high = 130;
+        }
+        else if($age <= 5){
+            $high = 120;
+        }
+        else if($age <= 10){
+            $high = 110;
+        }
+        else if($age <= 14){
+            $high = 105;
+        }
+        else{
             $high = 100;
         }
+        return $high;
+    }
+
+    private function determinePulseRate($age, $pulse_rate){
+        $low = $this->getLowPulseRate($age);
+        $high = $this->getHighPulseRate($age);
         if($pulse_rate < $low){
             $rating = 'Below Normal';
         }
@@ -74,90 +96,81 @@ class UserController extends Controller
         return $rating;
     }
 
-    private function determineBloodPressure($age, $systolic, $diastolic){
-        if($age <= 2){
-            if($systolic < 80 && $diastolic < 40){
-                $rating = 'Below Normal';
-            }
-            else if($systolic <= 100 && $diastolic <= 70){
-                $rating = 'Normal';
-            }
-            else if($systolic > 100 && $diastolic > 70){
-                $rating = 'Above Normal';
-            }
-            else{
-                $rating = 'Null';
-            }
-        }
-        else if($age <= 13){
-            if($systolic < 80 && $diastolic < 40){
-                $rating = 'Below Normal';
-            }
-            else if($systolic <= 120 && $diastolic <= 80){
-                $rating = 'Normal';
-            }
-            else if($systolic > 120 && $diastolic > 80){
-                $rating = 'Above Normal';
-            }
-            else{
-                $rating = 'Null';
-            }
+    private function getLowSystolic($age){
+        if($age <= 13){
+            $low_systolic = 80;
         }
         else if($age <= 18){
-            if($systolic < 90 && $diastolic < 50){
-                $rating = 'Below Normal';
-            }
-            else if($systolic <= 120 && $diastolic <= 80){
-                $rating = 'Normal';
-            }
-            else if($systolic > 120 && $diastolic > 80){
-                $rating = 'Above Normal';
-            }
-            else{
-                $rating = 'Null';
-            }
+            $low_systolic = 90;
         }
         else if($age <= 40){
-            if($systolic < 95 && $diastolic < 60){
-                $rating = 'Below Normal';
-            }
-            else if($systolic <= 135 && $diastolic <= 80){
-                $rating = 'Normal';
-            }
-            else if($systolic > 135 && $diastolic > 80){
-                $rating = 'Above Normal';
-            }
-            else{
-                $rating = 'Null';
-            }
+            $low_systolic = 95;
         }
         else if($age <= 60){
-            if($systolic < 110 && $diastolic < 70){
-                $rating = 'Below Normal';
-            }
-            else if($systolic <= 145 && $diastolic <= 90){
-                $rating = 'Normal';
-            }
-            else if($systolic > 145 && $diastolic > 90){
-                $rating = 'Above Normal';
-            }
-            else{
-                $rating = 'Null';
-            }
+            $low_systolic = 110;
         }
         else if($age > 60){
-            if($systolic < 95 && $diastolic < 70){
-                $rating = 'Below Normal';
-            }
-            else if($systolic <= 145 && $diastolic <= 90){
-                $rating = 'Normal';
-            }
-            else if($systolic > 145 && $diastolic > 90){
-                $rating = 'Above Normal';
-            }
-            else{
-                $rating = 'Null';
-            }
+            $low_systolic = 95;
+        }
+        return $low_systolic;
+    }
+
+    private function getLowDiastolic($age){
+        if($age <= 13){
+            $low_diastolic = 40;
+        }
+        else if($age <= 18){
+            $low_diastolic = 50;
+        }
+        else if($age <= 40){
+            $low_diastolic = 60;
+        }
+        else if($age > 40){
+            $low_diastolic = 70;
+        }
+        return $low_diastolic;
+    }
+    
+    private function getHighSystolic($age){
+        if($age <= 18){
+            $high_systolic = 120;
+        }
+        else if($age <= 40){
+            $high_systolic = 135;
+        }
+        else if($age > 40){
+            $high_systolic = 145;
+        }
+        return $high_systolic;
+    }
+
+    private function getHighDiastolic($age){
+        if($age <= 40){
+            $high_diastolic = 80;
+        }
+        else if($age > 40){
+            $high_diastolic = 90;
+        }
+        return $high_diastolic;
+    }
+
+    // https://pressbooks.library.torontomu.ca/vitalsign/chapter/blood-pressure-ranges/
+    private function determineBloodPressure($age, $systolic, $diastolic){
+        $low_systolic = $this->getLowSystolic($age);
+        $low_diastolic = $this->getLowDiastolic($age);
+        $high_systolic = $this->getHighSystolic($age);
+        $high_diastolic = $this->getHighDiastolic($age);
+        if($systolic < $low_systolic && $diastolic < $low_diastolic){
+            $rating = 'Below Normal';
+        }
+        else if($systolic < $high_systolic && $diastolic < $high_diastolic){
+            $rating = 'Normal';
+        }
+        else if($systolic >= $high_systolic && $diastolic >= $high_diastolic){
+            $rating = 'Above Normal';
+        }
+        else{
+            $rating = 'Null';
         }
         return $rating;
     }
@@ -735,38 +748,45 @@ class UserController extends Controller
         if(Auth::user()->type != 'normal'){
             abort(403);
         }
-        $user_id = Auth::id();
+        $user = User::find(Auth::id());
+        $user_age = Carbon::parse($user->birthday)->age;
         return view('user.dashboard',[
-            'this_month_average_pulse_rate' => $this->getThisMonthAveragePulseRate($user_id),
-            'this_month_average_systolic' => $this->getThisMonthAverageSystolic($user_id),
-            'this_month_average_diastolic' => $this->getThisMonthAverageDiastolic($user_id),
-            'this_month_average_blood_saturation' => $this->getThisMonthAverageBloodSaturation($user_id),
-            'this_month_average_pulse_rate_difference' => $this->getThisMonthAveragePulseRateDifference($user_id),
-            'this_month_average_blood_pressure_difference' => $this->getThisMonthAverageBloodPressureDifference($user_id),
-            'this_month_average_blood_saturation_difference' => $this->getThisMonthAverageBloodSaturationDifference($user_id),
-            'this_month_pulse_rates' => $this->getThisMonthPulseRates($user_id), 
-            'this_month_systolics' => $this->getThisMonthSystolics($user_id), 
-            'this_month_diastolics' => $this->getThisMonthDiastolics($user_id), 
-            'this_month_blood_pressures' => $this->getThisMonthBloodPressures($user_id), 
-            'this_month_blood_saturations' => $this->getThisMonthBloodSaturations($user_id), 
-            'this_month_dates' => $this->getThisMonthReadingDates($user_id), 
-            'this_month_times' => $this->getThisMonthReadingTimes($user_id),
-            'this_month_pulse_rate_ratings' => $this->getThisMonthPulseRateRatings($user_id),
-            'this_month_blood_pressure_ratings' => $this->getThisMonthBloodPressureRatings($user_id),
-            'this_month_blood_saturation_ratings' => $this->getThisMonthBloodSaturationRatings($user_id),
-            'all_reading_count' => $this->getAllReadingCount($user_id),
-            'all_time_average_pulse_rate' => $this->getAllTimeAveragePulseRate($user_id),
-            'all_time_average_systolic' => $this->getAllTimeAverageSystolic($user_id),
-            'all_time_average_diastolic' => $this->getAllTimeAverageDiastolic($user_id),
-            'all_time_average_blood_saturation' => $this->getAllTimeAverageBloodSaturation($user_id),
-            'yearly_pulse_rates' => $this->getYearlyPulseRates($user_id),
-            'yearly_systolics' => $this->getYearlySystolics($user_id),
-            'yearly_diastolics' => $this->getYearlyDiastolics($user_id),
-            'yearly_blood_pressures' => $this->getYearlyBloodPressures($user_id),
-            'yearly_blood_saturations' => $this->getYearlyBloodSaturations($user_id),
-            'all_time_pulse_rate_ratings' => $this->getallTimePulseRateRatings($user_id),
-            'all_time_blood_pressure_ratings' => $this->getallTimeBloodPressureRatings($user_id),
-            'all_time_blood_saturation_ratings' => $this->getallTimeBloodSaturationRatings($user_id)
+            'this_month_average_pulse_rate' => $this->getThisMonthAveragePulseRate($user->id),
+            'this_month_average_systolic' => $this->getThisMonthAverageSystolic($user->id),
+            'this_month_average_diastolic' => $this->getThisMonthAverageDiastolic($user->id),
+            'this_month_average_blood_saturation' => $this->getThisMonthAverageBloodSaturation($user->id),
+            'this_month_average_pulse_rate_difference' => $this->getThisMonthAveragePulseRateDifference($user->id),
+            'this_month_average_blood_pressure_difference' => $this->getThisMonthAverageBloodPressureDifference($user->id),
+            'this_month_average_blood_saturation_difference' => $this->getThisMonthAverageBloodSaturationDifference($user->id),
+            'low_pulse_rate' => $this->getLowPulseRate($user_age),
+            'high_pulse_rate' => $this->getHighPulseRate($user_age),
+            'low_systolic' => $this->getLowSystolic($user_age),
+            'low_diastolic' => $this->getLowDiastolic($user_age),
+            'high_systolic' => $this->getHighSystolic($user_age),
+            'high_diastolic' => $this->getHighDiastolic($user_age),
+            'this_month_pulse_rates' => $this->getThisMonthPulseRates($user->id), 
+            'this_month_systolics' => $this->getThisMonthSystolics($user->id), 
+            'this_month_diastolics' => $this->getThisMonthDiastolics($user->id), 
+            'this_month_blood_pressures' => $this->getThisMonthBloodPressures($user->id), 
+            'this_month_blood_saturations' => $this->getThisMonthBloodSaturations($user->id), 
+            'this_month_dates' => $this->getThisMonthReadingDates($user->id), 
+            'this_month_times' => $this->getThisMonthReadingTimes($user->id),
+            'this_month_pulse_rate_ratings' => $this->getThisMonthPulseRateRatings($user->id),
+            'this_month_blood_pressure_ratings' => $this->getThisMonthBloodPressureRatings($user->id),
+            'this_month_blood_saturation_ratings' => $this->getThisMonthBloodSaturationRatings($user->id),
+            'all_reading_count' => $this->getAllReadingCount($user->id),
+            'all_time_average_pulse_rate' => $this->getAllTimeAveragePulseRate($user->id),
+            'all_time_average_systolic' => $this->getAllTimeAverageSystolic($user->id),
+            'all_time_average_diastolic' => $this->getAllTimeAverageDiastolic($user->id),
+            'all_time_average_blood_saturation' => $this->getAllTimeAverageBloodSaturation($user->id),
+            'yearly_pulse_rates' => $this->getYearlyPulseRates($user->id),
+            'yearly_systolics' => $this->getYearlySystolics($user->id),
+            'yearly_diastolics' => $this->getYearlyDiastolics($user->id),
+            'yearly_blood_pressures' => $this->getYearlyBloodPressures($user->id),
+            'yearly_blood_saturations' => $this->getYearlyBloodSaturations($user->id),
+            'all_time_pulse_rate_ratings' => $this->getallTimePulseRateRatings($user->id),
+            'all_time_blood_pressure_ratings' => $this->getallTimeBloodPressureRatings($user->id),
+            'all_time_blood_saturation_ratings' => $this->getallTimeBloodSaturationRatings($user->id)
         ]);
     }
 

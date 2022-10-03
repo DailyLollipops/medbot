@@ -1,4 +1,4 @@
-@extends('layout',[$style = 'user/dashboards', $title = 'Dashboard'])
+@extends('layout',[$style = 'user/dashboardtest', $title = 'Dashboard'])
 
 @section('content')
 <section class="u-clearfix u-section-1" id="sec-33b1">
@@ -20,75 +20,123 @@
               <img src="{{ asset('images/pulse_rate.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-4">{{$this_month_average_pulse_rate}} bpm</p>
-            <p class="u-text u-text-5">
 
               @if($this_month_average_pulse_rate_difference < 0)
-              <span class="u-file-icon u-icon u-text-custom-color-1">
-                <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_pulse_rate_difference}}%</span> lower this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-9">
+                    <img src="{{ asset('images/down_trend.png') }}" alt="">
+                  </span>
+                  &nbsp;<span class="u-text-custom-color-1">{{$this_month_average_pulse_rate_difference}} %</span> lower this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/shocked.png') }}" alt="" title="Average Pulse Rate: {{$low_pulse_rate}}-{{$high_pulse_rate}} bpm">
+                </span>
               @elseif($this_month_average_pulse_rate_difference > 0)
-              <span class="u-file-icon u-icon u-text-custom-color-9">
-                <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_pulse_rate_difference}}%</span> higher this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-9">
+                    <img src="{{ asset('images/up_trend.png') }}" alt="">
+                  </span>
+                  &nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_pulse_rate_difference}} %</span> lower this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/happy.png') }}" alt="" title="Average Pulse Rate: {{$low_pulse_rate}}-{{$high_pulse_rate}} bpm">
+                </span>
               @else
-              <span class="u-file-icon u-icon u-text-palette-3-base">
-                <img src="{{ asset('images/same_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-9">
+                    <img src="{{ asset('images/same_trend.png') }}" alt="">
+                  </span>
+                  &nbsp;<span class="u-text-palette-3-base">±0 %</span> this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/shocked.png') }}" alt="" title="Average Pulse Rate: {{$low_pulse_rate}}-{{$high_pulse_rate}} bpm">
+                </span>
               @endif
 
-            </p>
           </div>
         </div>
-        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-2">
-          <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-2">
-            <h5 class="u-text u-text-6">Blood Pressure</h5>
-            <span class="u-custom-item u-file-icon u-icon u-icon-4">
-              <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
+          <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-1">
+            <h5 class="u-text u-text-3">Blood Presssure</h5>
+            <span class="u-custom-item u-file-icon u-icon u-icon-2">
+              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-7">{{$this_month_average_systolic}}/{{$this_month_average_diastolic}} mmHg</p>
-            <p class="u-text u-text-8">
+            <p class="u-custom-item u-heading-font u-text u-text-4">{{$this_month_average_systolic}}/{{$this_month_average_diastolic}} mmHg</p>
 
               @if($this_month_average_blood_pressure_difference < 0)
-              <span class="u-file-icon u-icon u-text-custom-color-1">
-                <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_pressure_difference}}%</span> lower this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-1">
+                    <img src="{{ asset('images/down_trend.png') }}" alt="">
+                  </span>
+                  &nbsp;<span class="u-text-custom-color-9">{{$this_month_average_blood_pressure_difference}} %</span> lower this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/shocked.png') }}" alt="" >
+                </span>
               @elseif($this_month_average_blood_pressure_difference > 0)
-              <span class="u-file-icon u-icon u-text-custom-color-9">
-                <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_pressure_difference}}%</span> higher this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-9">
+                    <img src="{{ asset('images/up_trend.png') }}" alt="">
+                  </span>
+                  &nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_pressure_difference}} %</span> lower this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/happy.png') }}" alt="" title="Average BP: {{$low_systolic}}/{{$low_diastolic}} -  {{$high_systolic}}/{{$high_diastolic}} mmHg"> 
+                </span>
               @else
-              <span class="u-file-icon u-icon u-text-palette-3-base">
-                <img src="{{ asset('images/same_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-9">
+                    <img src="{{ asset('images/same_trend.png') }}" alt="" title="Average BP: {{$low_systolic}}/{{$low_diastolic}} -  {{$high_systolic}}/{{$high_diastolic}} mmHg">
+                  </span>
+                  &nbsp;<span class="u-text-palette-3-base">±0 %</span> this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/shocked.png') }}" alt="" title="Average BP: {{$low_systolic}}/{{$low_diastolic}} -  {{$high_systolic}}/{{$high_diastolic}} mmHg">
+                </span>
               @endif
 
-            </p>
           </div>
         </div>
-        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-3">
-          <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-3">
-            <h5 class="u-text u-text-9">Blood Saturation</h5>
-            <span class="u-custom-item u-file-icon u-icon u-icon-6">
-              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
+          <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-1">
+            <h5 class="u-text u-text-3">Blood Saturation</h5>
+            <span class="u-custom-item u-file-icon u-icon u-icon-2">
+              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-10">{{$this_month_average_blood_saturation}} %</p>
-            <p class="u-text u-text-11">
+            <p class="u-custom-item u-heading-font u-text u-text-4">{{$this_month_average_blood_saturation}} %</p>
 
               @if($this_month_average_blood_saturation_difference < 0)
-              <span class="u-file-icon u-icon u-text-custom-color-1">
-                <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_saturation_difference}}%</span> lower this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-1">
+                    <img src="{{ asset('images/down_trend.png') }}" alt="">
+                  </span>
+                  &nbsp;<span class="u-text-custom-color-9">{{$this_month_average_blood_saturation_difference}} %</span> lower this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/shocked.png') }}" alt="">
+                </span>
               @elseif($this_month_average_blood_saturation_difference > 0)
-              <span class="u-file-icon u-icon u-text-custom-color-9">
-                <img src="{{ asset('images/up_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_saturation_difference}}%</span> higher this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-9">
+                    <img src="{{ asset('images/up_trend.png') }}" alt="" title="Average Blood Saturation: 95% - 100%">
+                  </span>
+                  &nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_saturation_difference}} %</span> lower this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/happy.png') }}" alt="" title="Average Blood Saturation: 95% - 100%">
+                </span>
               @else
-              <span class="u-file-icon u-icon u-text-palette-3-base">
-                <img src="{{ asset('images/same_trend.png') }}" alt="">
-              </span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
+                <p class="u-text u-text-5">
+                  <span class="u-file-icon u-icon u-text-custom-color-9">
+                    <img src="{{ asset('images/same_trend.png') }}" alt="" title="Average Blood Saturation: 95% - 100%">
+                  </span>
+                  &nbsp;<span class="u-text-palette-3-base">±0 %</span> this month
+                </p>
+                <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
+                  <img src="{{ asset('images/shocked.png') }}" alt="">
+                </span>
               @endif
 
-            </p>
           </div>
         </div>
       </div>
