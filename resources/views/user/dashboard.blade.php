@@ -49,7 +49,7 @@
                   &nbsp;<span class="u-text-palette-3-base">±0 %</span> this month
                 </p>
                 <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
-                  <img src="{{ asset('images/shocked.png') }}" alt="" title="Average Pulse Rate: {{$low_pulse_rate}}-{{$high_pulse_rate}} bpm">
+                  <img src="{{ asset('images/neutral.png') }}" alt="" title="Average Pulse Rate: {{$low_pulse_rate}}-{{$high_pulse_rate}} bpm">
                 </span>
               @endif
 
@@ -91,7 +91,7 @@
                   &nbsp;<span class="u-text-palette-3-base">±0 %</span> this month
                 </p>
                 <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
-                  <img src="{{ asset('images/shocked.png') }}" alt="" title="Average BP: {{$low_systolic}}/{{$low_diastolic}} -  {{$high_systolic}}/{{$high_diastolic}} mmHg">
+                  <img src="{{ asset('images/neutral.png') }}" alt="" title="Average BP: {{$low_systolic}}/{{$low_diastolic}} -  {{$high_systolic}}/{{$high_diastolic}} mmHg">
                 </span>
               @endif
 
@@ -133,7 +133,7 @@
                   &nbsp;<span class="u-text-palette-3-base">±0 %</span> this month
                 </p>
                 <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
-                  <img src="{{ asset('images/shocked.png') }}" alt="">
+                  <img src="{{ asset('images/neutral.png') }}" alt="">
                 </span>
               @endif
 
