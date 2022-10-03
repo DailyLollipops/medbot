@@ -170,7 +170,7 @@ class UserController extends Controller
             $rating = 'Normal';
         }
         else{
-            $rating = 'Above Normal';;
+            $rating = 'Above Normal';
         }
         return $rating;
     }
