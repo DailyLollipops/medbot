@@ -32,7 +32,7 @@ class ReadingFactory extends Factory
         $blood_pressure = $diastolic + (($systolic - $diastolic) / 3);
 
         $start = strtotime("2022-6-01 00:00:00");
-        $end =  strtotime("2022-9-11 23:59:59");
+        $end =  strtotime("2022-10-31 23:59:59");
         
         $created = date("Y-m-d H:i:s", rand($start, $end));
         

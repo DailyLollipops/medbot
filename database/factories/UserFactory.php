@@ -23,7 +23,7 @@ class UserFactory extends Factory
         $random_birthday = date("Y-m-d H:i:s", rand($birthday_start, $birthday_end));
 
         $created_start = strtotime("2022-1-01 00:00:00");
-        $created_end =  strtotime("2022-9-31 23:59:59");
+        $created_end =  strtotime("2022-10-31 23:59:59");
         $random_created = date("Y-m-d H:i:s", rand($created_start, $created_end));
         return [
             'name' => fake()->name(),
