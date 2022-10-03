@@ -9,7 +9,6 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\FilterController;
 use App\Http\Controllers\ReportController;
 
 /*
@@ -72,10 +71,6 @@ Route::get('/manage/update/password/download/{path}', [ReportController::class, 
 Route::get('/dashboard/doctor', [UserController::class, 'redirectToDoctorDashboard']);
 
 Route::get('/userlist', [UserController::class, 'redirectToUserListPage']);
-
-Route::post('/userlist/order', [FilterController::class, 'getUserSelector']);
-
-Route::get('/userlist/order-by-{filter}-{order}', [FilterController::class, 'orderUser']);
 
 Route::get('/userlist/id-{user_id}', [UserController::class, 'redirectToUserInfoPage']);
 

@@ -791,13 +791,27 @@ class UserController extends Controller
     }
 
     // Redirect to Reading List Page
-    public function redirectToReadingListPage(){
+    public function redirectToReadingListPage(Request $request){
         if(Auth::user()->type != 'normal'){
             abort(403);
         }
-        $filterString = 'Date';
-        $orderString = 'Descending';
-        $readings =Reading::where('user_id',Auth::id())->orderBy('created_at','desc')->paginate(9);
+        if($request->has('filter')){
+            $filter = explode('-',$request['filter']);
+            $readings = Reading::where('user_id',Auth::id())->orderBy($filter[0],$filter[1])->paginate(9);
+            if($filter[0] == 'created_at'){
+                $filterString = 'Date';
+            }
+            else{
+                $filterString = ucfirst(str_replace('_', ' ', $filter[0]));
+            }
+            $orderString = ucfirst($filter[1].'ending');
+            flash()->addInfo('Sorted by '.$filterString.' ('.$orderString.')');
+        }
+        else{
+            $readings =Reading::where('user_id',Auth::id())->orderBy('created_at','desc')->paginate(9);
+            $filterString = 'Date';
+            $orderString = 'Descending';
+        }
         return view('user.readinglist',[
             'readings' => $readings,
             'filter' => $filterString,

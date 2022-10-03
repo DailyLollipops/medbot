@@ -7,8 +7,7 @@
 <section class="u-clearfix u-section-1" id="sec-c6d7">
   <div class="u-clearfix u-sheet u-sheet-1">
     <div class="u-expanded-width-xs u-form u-form-1">
-      <form action="/medbot/public/readinglist/order" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form" style="padding: 10px;">
-      @csrf
+      <form action="#" method="GET" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form" style="padding: 10px;">
         <div class="u-form-group u-form-select u-label-none u-form-group-1">
           <div class="u-form-select-wrapper">
             <select id="select-9d42" onchange="this.form.submit()" name="filter" class="u-border-3 u-border-palette-5-light-1 u-custom-font u-input u-input-rectangle u-radius-31 u-text-black u-text-font u-white u-input-1">
