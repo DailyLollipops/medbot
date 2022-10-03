@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     private function decrypt($encrypted) {
-        $password = "MedbotPRBPM";
-        $decrypted=openssl_decrypt($encrypted,"AES-128-ECB",$password);
+        $password = 'MedbotPRBPM';
+        $decrypted=openssl_decrypt($encrypted,'AES-128-ECB',$password);
         return $decrypted;
     }
 
