@@ -117,19 +117,101 @@
     </div>
   </div>
 </section>
-<section class="u-clearfix u-section-2" id="sec-7557">
-  <div class="u-clearfix u-sheet u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
+<section class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-section-2" id="sec-7557">
+  <div class="u-clearfix u-sheet u-valign-middle-xs u-sheet-1">
+    <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
+      <form action="https://forms.nicepagesrv.com/Form/Process" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" source="email" name="form" style="padding: 10px;">
+        <div class="u-form-group u-form-select u-label-none u-form-group-1">
+          <label for="select-d839" class="u-label">Dropdown</label>
+          <div class="u-form-select-wrapper">
+            <select id="select-d839" name="select" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white u-input-1">
+              <option value="Item 1">Item 1</option>
+              <option value="Item 2">Item 2</option>
+              <option value="Item 3">Item 3</option>
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret">
+              <path fill="currentColor" d="M4 8L0 4h8z"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="u-form-group u-form-select u-label-none u-form-group-2">
+          <label for="select-f7c6" class="u-label">Dropdown</label>
+          <div class="u-form-select-wrapper">
+            <select id="select-f7c6" name="select-1" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white u-input-2">
+              <option value="Item 1">Item 1</option>
+              <option value="Item 2">Item 2</option>
+              <option value="Item 3">Item 3</option>
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
+          </div>
+        </div>
+        <div class="u-align-left u-form-group u-form-submit u-label-none">
+          <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-15 u-text-hover-palette-2-light-1 u-btn-1"><span class="u-file-icon u-icon"><img src="np://user.desktop.nicepage.com/Site_784222590/images/684908.png" alt=""></span>&nbsp;Select
+          </a>
+          <input type="submit" value="submit" class="u-form-control-hidden">
+        </div>
+      </form>
+    </div>
     <h4 class="u-text u-text-default u-text-1">Users Overview</h4>
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
-    <div class="u-border-1 u-border-grey-15 u-container-style u-grey-5 u-group u-radius-14 u-shape-round u-group-1">
-      <div class="u-container-layout u-container-layout-1">
-        <canvas id="userGenderCountChart"></canvas>
+    <div class="u-list u-list-1">
+      <div class="u-repeater u-repeater-1">
+        <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
+          <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
+            <h5 class="u-align-center u-text u-text-2">Pulse Rate</h5>
+            <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+            </span>
+            <p class="u-align-center u-heading-font u-text u-text-3">78 bpm</p>
+            <h5 class="u-align-center u-text u-text-4">
+              <span class="u-file-icon u-icon">
+                <img src="{{ asset('images/sad.png') }}" alt="">
+              </span>&nbsp;
+              <span class="u-text-palette-1-base">&nbsp;B​elo​w Normal</span>
+            </h5>
+          </div>
+        </div>
+        <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-2">
+          <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-2">
+            <h5 class="u-align-center u-text u-text-5">Blood Pressure</h5>
+            <span class="u-file-icon u-icon u-icon-5" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+              <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+            </span>
+            <p class="u-align-center u-heading-font u-text u-text-6">120/90 mmHg</p>
+            <h5 class="u-align-center u-text u-text-7">
+              <span class="u-file-icon u-icon">
+                <img src="{{ asset('images/happy.png') }}" alt="">
+              </span>&nbsp;
+              <span class="u-text-palette-1-base">&nbsp;
+                <span class="u-text-custom-color-9">Normal</span>
+              </span>
+            </h5>
+          </div>
+        </div>
+        <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-3">
+          <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-3">
+            <h5 class="u-align-center u-text u-text-8">Blood Saturation</h5>
+            <span class="u-file-icon u-icon u-icon-8" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+            </span>
+            <p class="u-align-center u-heading-font u-text u-text-9">103 %</p>
+            <h5 class="u-align-center u-text u-text-10">
+              <span class="u-file-icon u-icon">
+                <img src="{{ asset('images/shocked.png') }}" alt="">
+              </span>&nbsp;
+              <span class="u-text-palette-1-base">&nbsp;
+                <span class="u-text-custom-color-1">B​elo​w Normal</span>
+              </span>
+            </h5>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-1">
+      <div class="u-container-layout u-container-layout-4"></div>
+    </div>
     <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-2">
-      <div class="u-container-layout u-container-layout-2">
-        <canvas id="usersByAgeChart"></canvas>
-      </div>
+      <div class="u-container-layout u-container-layout-5"></div>
     </div>
   </div>
 </section>
