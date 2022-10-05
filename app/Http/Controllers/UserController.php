@@ -694,8 +694,7 @@ class UserController extends Controller
         return $monthly_new_users_per_month;
     }
 
-    private function getUsersByAge(){
-        $users = User::where('type','normal')->select('birthday')->distinct()->get();
+    private function getUsersAge($users){
         $ages = array(0,0,0,0,0,0,0,0,0);
         foreach($users as $user){
             $age = Carbon::parse($user->birthday)->age;
@@ -730,17 +729,216 @@ class UserController extends Controller
         return $ages;
     }
 
-    private function getUserGenderCount(){
-        $female_users = User::where('type','normal')->where('gender','female')->get('id');
-        $male_users = User::where('type','normal')->where('gender','male')->get('id');
-        $female_users_count = count($female_users);
-        $male_users_count = count($male_users);
+    private function getUsersGenderCount($users){
+        $male_users_count = 0;
+        $female_users_count = 0;
+        foreach($users as $user){
+            if($user->gender == 'male'){
+                $male_users_count = $male_users_count + 1;
+            }
+            else{
+                $female_users_count = $female_users_count + 1;
+            }
+        }
         $users_per_gender = array();
         $users_per_gender['male'] = $male_users_count;
         $users_per_gender['female'] = $female_users_count;
         return $users_per_gender;
     }
 
+    private function getAddress($temp_address){
+        $municipalities = array('All', 'Gasan', 'Boac', 'Mogpog', 'Sta. Cruz', 'Torrijos', 'Buenavista');
+        $baranggay_gasan = array('All', 'Antipolo', 'Bachao Ibaba', 'Bachao Ilaya', 'Bacong-bacong', 'Bahi', 'Bangbang', 'Banot',
+                                    'Banuyo', 'Bognuyan', 'Cabugao', 'Dawis', 'Dili', 'Libtangin', 'Mahunig', 'Mangiliol',
+                                    'Masiga', 'Mt. Gasan', 'Pangi', 'Pinggan', 'Tabionan', 'Tapuyan', 'Tiguion',
+                                    'Baranggay I', 'Baranggay II', 'Baranggay III');
+        $baranggay_boac = array('All','Agot', 'Agumaymayan', 'Amoingon', 'Apitong', 'Balagasan', 'Balaring', 'Balimbing', 'Balogo',
+                                    'Bamban', 'Bangbangalon', 'Bantad', 'Bantay', 'Bayuti', 'Binunga', 'Boi', 'Boton', 
+                                    'Buliasnin', 'Bunganay', 'Caganhao', 'Canat', 'Catubugan', 'Cawit', 'Daig', 'Daypay',
+                                    'Duyay', 'Hinapulan', 'Ihatub', 'Isok 1', 'Isok 2', 'Laylay', 'Lupac', 'Mahinhin',
+                                    'Mainit', 'Malbog', 'Maligaya', 'Malusak', 'Mansiwat', 'Mataas na Bayan', 'Maybo', 'Mercado', 
+                                    'Murallon', 'Ogbac', 'Pawa', 'Pili', 'Poctoy', 'Poras', 'Puting Buhangin', 'Puyog', 'Sabong', 
+                                    'San Miguel', 'Santol', 'Sawi', 'Tabi', 'Tabigue', 'Tagwak', 'Tambunan', 'Tampus', 'Tanza',
+                                    'Tugos', 'Tumagabok', 'Tumapon');
+        $baranggay_buenavista = array('All', 'Bagacay', 'Bagtingon', 'Bicas-bicas', 'Caigangan', 'Daykitin', 'Libas', 'Malbog', 'Sihi',
+                                    'Timbo', 'Lipata', 'Yook', 'Baranggay I', 'Baranggay II', 'Baranggay III', 'Baranggay IV');
+        $baranggay_mogpog = array('All', 'Sibucao', 'Argao', 'Balanacan', 'Banto', 'Bintakay', 'Bocboc', 'Butansapa', 'Candahon',
+                                    'Capayang', 'Danao', 'Dulong Bayan', 'Gitnang Bayan', 'Guisian', 'Hinadharan', 'Hinanggayon',
+                                    'Ino', 'Janagdong', 'Lamesa', 'Laon', 'Magapua', 'Malayak', 'Malusak', 'Mampaitan',
+                                    'Mangyan-Mababad', 'Market Site', 'Mataas na Bayan', 'Mendez', 'Nangka I', 'Nangka II', 'Paye',
+                                    'Pili', 'Puting Buhangin', 'Sayao', 'Silangan', 'Sumangga', 'Tarug', 'Villa Mendez');
+        $baranggay_stacruz = array('All', 'Alobo', 'Angas', 'Aturan', 'Bagong Silangan', 'Baguidbirin', 'Baliis', 'Balogo', 'Banahaw',
+                                    'Bangcuangan', 'Biga', 'Botilao', 'Buyabod', 'Dating Bayan', 'Devilla', 'Dolores', 'Haguimit',
+                                    'Hupi', 'Ipil', 'Jolo', 'Kaganhao', 'Kalangkang', 'Kamandugan', 'Kasily', 'Kilo-kilo',
+                                    'Kinyaman', 'Labo', 'Lamesa', 'Landy', 'Lapu-lapu', 'Libjo', 'Lipa', 'Lusok', 'Maharlika',
+                                    'Makulapnit', 'Maniwaya', 'Manlibunan', 'Masaguisi', 'Masalukot', 'Matalaba', 'Mongpong',
+                                    'Morales', 'Napo', 'Pag-asa', 'Pantayin', 'Polo', 'Pulong-parang', 'Punong', 'San Antonio',
+                                    'San Isidro', 'Tagum', 'Tamayo', 'Tambangan', 'Tawiran', 'Taytay');
+        $baranggay_torrijos = array('All', 'Bangwayin', 'Bayakbakin', 'Bolo', 'Bonliw', 'Buangan', 'Cabuyo', 'Cagpo', 'Dampulan', 'Kay Duke',
+                                    'Mabuhay', 'Makawayan', 'Malibago', 'Malinao', 'Maranlig', 'Marlangga', 'Matuyatuya', 'Nangka',
+                                    'Pakaskasan', 'Payanas', 'Poblacion', 'Poctoy', 'Sibuyao', 'Suha', 'Talawan', 'Tigwi');
+        foreach($municipalities as $temp_municipality){
+            if(str_contains($temp_address, $temp_municipality)){
+                $municipality = $temp_municipality;
+            }  
+        }
+        if($municipality == 'Gasan'){
+            foreach($baranggay_gasan as $temp_baranggay){
+                if(str_contains($temp_address, $temp_baranggay)){
+                    $baranggay = $temp_baranggay;
+                }
+            }
+        }
+        else if($municipality == 'Boac'){
+            foreach($baranggay_boac as $temp_baranggay){
+                if(str_contains($temp_address, $temp_baranggay)){
+                    $baranggay = $temp_baranggay;
+                }
+            }
+        }
+        else if($municipality == 'Mogpog'){
+            foreach($baranggay_mogpog as $temp_baranggay){
+                if(str_contains($temp_address, $temp_baranggay)){
+                    $baranggay = $temp_baranggay;
+                }
+            }
+        }
+        else if($municipality == 'Sta. Cruz'){
+            foreach($baranggay_stacruz as $temp_baranggay){
+                if(str_contains($temp_address, $temp_baranggay)){
+                    $baranggay = $temp_baranggay;
+                }
+            }
+        }
+        else if($municipality == 'Torrijos'){
+            foreach($baranggay_torrijos as $temp_baranggay){
+                if(str_contains($temp_address, $temp_baranggay)){
+                    $baranggay = $temp_baranggay;
+                }
+            }
+        }
+        else if($municipality == 'Buenavista'){
+            foreach($baranggay_buenavista as $temp_baranggay){
+                if(str_contains($temp_address, $temp_baranggay)){
+                    $baranggay = $temp_baranggay;
+                }
+            }
+        }
+        else{
+            $baranggay = 'All';
+        }
+        $address = array(
+            'municipality' => $municipality,
+            'baranggay' => $baranggay
+        );
+        return $address;
+    }
+
+    private function getUserByAddress($temp_address){
+        $address = $this->getAddress($temp_address);
+        $municipality = $address['municipality'];
+        $baranggay = $address['baranggay'];
+        if($municipality == 'All'){
+            $users = User::where('type','normal')->get();
+        }
+        else if($baranggay == 'All'){
+            $users = User::where('type','normal')->where('address','like','%'.$municipality.'%')->get();
+        }
+        else{
+            $users = User::where('type','normal')->where('address','like','%'.$municipality.'%')->where('address','like','%'.$baranggay.'%')->get();
+        }
+        return $users;
+    }
+
+    private function getAllUsers(){
+        $users = User::where('type','normal')->get();
+        return $users;
+    }
+
+    private function getAllReadings($user_id){
+        $readings = Reading::where('user_id', $user_id)->get();
+        return $readings;
+    }
+
+    private function getUsersAveragePulseRate($users){
+        $users_pulse_rate = array();
+        if(count($users) != 0){
+            foreach($users as $user){
+                $user_pulse_rate = $this->getAllReadings($user->id)->pluck('pulse_rate')->toArray();
+                $user_pulse_rates = array();
+                foreach($user_pulse_rate as $pulse_rate){
+                    array_push($user_pulse_rates, $pulse_rate);
+                }
+                $user_average_pulse_rate = round(array_sum($user_pulse_rate)/count($user_pulse_rate));
+                array_push($users_pulse_rate, $user_average_pulse_rate);
+            }
+           $users_average_pulse_rate = round(array_sum($users_pulse_rate)/count($users_pulse_rate));
+        }
+        else{
+            $users_average_pulse_rate = 0;
+        }
+        return $users_average_pulse_rate;
+    }
+
+    private function getUsersAverageSystolic($users){
+        $users_systolic = array();
+        if(count($users) != 0){
+            foreach($users as $user){
+                $user_systolic = $this->getAllReadings($user->id)->pluck('systolic')->toArray();
+                $user_systolics = array();
+                foreach($user_systolic as $systolic){
+                    array_push($user_systolics, $systolic);
+                }
+                $user_average_systolic = round(array_sum($user_systolic)/count($user_systolic));
+                array_push($users_systolic, $user_average_systolic);
+            }
+           $users_average_systolic = round(array_sum($users_systolic)/count($users_systolic));
+        }
+        else{
+            $users_average_systolic = 0;
+        }
+        return $users_average_systolic;
+    }
+
+    private function getUsersAverageDiastolic($users){
+        $users_diastolic = array();
+        if(count($users) != 0){
+            foreach($users as $user){
+                $user_diastolic = $this->getAllReadings($user->id)->pluck('diastolic')->toArray();
+                $user_diastolics = array();
+                foreach($user_diastolic as $diastolic){
+                    array_push($user_diastolics, $diastolic);
+                }
+                $user_average_diastolic = round(array_sum($user_diastolic)/count($user_diastolic));
+                array_push($users_diastolic, $user_average_diastolic);
+            }
+           $users_average_diastolic = round(array_sum($users_diastolic)/count($users_diastolic));
+        }
+        else{
+            $users_average_diastolic = 0;
+        }
+        return $users_average_diastolic;
+    }
+
+    private function getUsersAverageBloodSaturation($users){
+        $users_blood_saturation = array();
+        if(count($users) != 0){
+            foreach($users as $user){
+                $user_blood_saturation = $this->getAllReadings($user->id)->pluck('blood_saturation')->toArray();
+                $user_blood_saturations = array();
+                foreach($user_blood_saturation as $blood_saturation){
+                    array_push($user_blood_saturations, $blood_saturation);
+                }
+                $user_average_blood_saturation = round(array_sum($user_blood_saturation)/count($user_blood_saturation));
+                array_push($users_blood_saturation, $user_average_blood_saturation);
+            }
+           $users_average_blood_saturation = round(array_sum($users_blood_saturation)/count($users_blood_saturation));
+        }
+        else{
+            $users_average_blood_saturation = 0;
+        }
+        return $users_average_blood_saturation;
+    }
     // **-- User Normal Type Specific Functions --** //
 
     // Redirect to User Dashboard
@@ -837,9 +1035,15 @@ class UserController extends Controller
     // **-- User Doctor Type Specific Functions --** //
     
     //Redirect to Doctor Dashboard
-    public function redirectToDoctorDashboard(){
+    public function redirectToDoctorDashboard(Request $request){
         if(Auth::user()->type != 'doctor'){
             abort(403);
+        }
+        if($request->has('address')){
+            $users = $this->getUserByAddress($request->address);
+        }
+        else{
+            $users = $this->getAllUsers();
         }
         return view('doctor.dashboard',[
             'this_month_new_user_count' => $this->getThisMonthNewUserCount(),
@@ -850,8 +1054,14 @@ class UserController extends Controller
             'monthly_user_growth_rate' => $this->getMonthlyUserGrowthRate(),
             'this_month_new_users' => $this->getThisMonthNewUsers(),
             'monthly_new_users_per_month' => $this->getMonthlyNewUsersPerMonth(),
-            'users_by_age' => $this->getUsersByAge(),
-            'user_gender_count' => $this->getUserGenderCount()
+            'current_users' => count($users),
+            'total_users' => count($this->getAllUsers()),
+            'users_by_age' => $this->getUsersAge($users),
+            'user_gender_count' => $this->getUsersGenderCount($users),
+            'users_average_pulse_rate' => $this->getUsersAveragePulseRate($users),
+            'users_average_systolic' => $this->getUsersAverageSystolic($users),
+            'users_average_diastolic' => $this->getUsersAverageDiastolic($users),
+            'users_average_blood_saturation' => $this->getUsersAverageBloodSaturation($users)
         ]);
     }
 
