@@ -85,105 +85,46 @@ class UserController extends Controller
         $low = $this->getLowPulseRate($age);
         $high = $this->getHighPulseRate($age);
         if($pulse_rate < $low){
-            $rating = 'Below Normal';
+            $rating = 0;
         }
         else if($pulse_rate < $high){
-            $rating = 'Normal';
+            $rating = 1;
         }
         else{
-            $rating = 'Above Normal';
+            $rating = 2;
         }
         return $rating;
     }
 
-    private function getLowSystolic($age){
-        if($age <= 13){
-            $low_systolic = 80;
+    // American Heart Association
+    private function determineBloodPressure($systolic, $diastolic){
+        if($systolic < 120 && $diastolic < 80){
+            $rating = 0;
         }
-        else if($age <= 18){
-            $low_systolic = 90;
+        else if($systolic <= 129 && $diastolic < 80){
+            $rating = 1;
         }
-        else if($age <= 40){
-            $low_systolic = 95;
+        else if($systolic <= 139 && $diastolic <= 89){
+            $rating = 2;
         }
-        else if($age <= 60){
-            $low_systolic = 110;
-        }
-        else if($age > 60){
-            $low_systolic = 95;
-        }
-        return $low_systolic;
-    }
-
-    private function getLowDiastolic($age){
-        if($age <= 13){
-            $low_diastolic = 40;
-        }
-        else if($age <= 18){
-            $low_diastolic = 50;
-        }
-        else if($age <= 40){
-            $low_diastolic = 60;
-        }
-        else if($age > 40){
-            $low_diastolic = 70;
-        }
-        return $low_diastolic;
-    }
-    
-    private function getHighSystolic($age){
-        if($age <= 18){
-            $high_systolic = 120;
-        }
-        else if($age <= 40){
-            $high_systolic = 135;
-        }
-        else if($age > 40){
-            $high_systolic = 145;
-        }
-        return $high_systolic;
-    }
-
-    private function getHighDiastolic($age){
-        if($age <= 40){
-            $high_diastolic = 80;
-        }
-        else if($age > 40){
-            $high_diastolic = 90;
-        }
-        return $high_diastolic;
-    }
-
-    // https://pressbooks.library.torontomu.ca/vitalsign/chapter/blood-pressure-ranges/
-    private function determineBloodPressure($age, $systolic, $diastolic){
-        $low_systolic = $this->getLowSystolic($age);
-        $low_diastolic = $this->getLowDiastolic($age);
-        $high_systolic = $this->getHighSystolic($age);
-        $high_diastolic = $this->getHighDiastolic($age);
-        if($systolic < $low_systolic && $diastolic < $low_diastolic){
-            $rating = 'Below Normal';
-        }
-        else if($systolic < $high_systolic && $diastolic < $high_diastolic){
-            $rating = 'Normal';
-        }
-        else if($systolic >= $high_systolic && $diastolic >= $high_diastolic){
-            $rating = 'Above Normal';
+        else if($systolic <= 180 && $diastolic <= 120){
+            $rating = 3;
         }
         else{
-            $rating = 'Null';
+            $rating = 4;
         }
         return $rating;
     }
     
     private function determineBloodSaturation($blood_saturation){
         if($blood_saturation < 95){
-            $rating = 'Below Normal';
+            $rating = 0;
         }
         else if($blood_saturation <= 100){
-            $rating = 'Normal';
+            $rating = 0;
         }
         else{
-            $rating = 'Above Normal';
+            $rating = 0;
         }
         return $rating;
     }
@@ -343,76 +284,33 @@ class UserController extends Controller
     private function getThisMonthPulseRateRatings($user_id){
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $pulse_rates = $this->getThisMonthPulseRates($user_id);
-        $pulse_rate_ratings = array();
-        $below_normal = 0;
-        $normal = 0;
-        $above_normal = 0;
+        $pulse_rate_ratings = array(0,0,0);
         foreach($pulse_rates as $pulse_rate){
             $rating = $this->determinePulseRate($user_age, $pulse_rate);
-            if($rating == 'Below Normal'){
-                $below_normal++;
-            }
-            else if($rating == 'Normal'){
-                $normal++;
-            }
-            else{
-                $above_normal++;
-            }
+            $pulse_rate_ratings[$rating] = $pulse_rate_ratings[$rating] + 1;
         }
-        array_push($pulse_rate_ratings, $below_normal, $normal, $above_normal);
         return $pulse_rate_ratings;
     }
 
     private function getThisMonthBloodPressureRatings($user_id){
-        $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $systolics = $this->getThisMonthSystolics($user_id);
         $diastolics = $this->getThisMonthDiastolics($user_id);
-        $blood_pressure_ratings = array();
-        $below_normal = 0;
-        $normal = 0;
-        $above_normal = 0;
+        $blood_pressure_ratings = array(0,0,0,0,0);
         foreach(array_combine($systolics, $diastolics) as $systolic => $diastolic){
-            $rating = $this->determineBloodPressure($user_age, $systolic, $diastolic);
-            if($rating == 'Below Normal'){
-                $below_normal++;
-            }
-            else if($rating == 'Normal'){
-                $normal++;
-            }
-            else if($rating == 'Above Normal'){
-                $above_normal++;
-            }
-            else{
-                dd($user_id.' '.$user_age.' '.$rating.' '.$systolic.' '.$diastolic);
-            }
+            $rating = $this->determineBloodPressure($systolic, $diastolic);
+            $blood_pressure_ratings[$rating] = $blood_pressure_ratings[$rating] + 1;
         }
-        array_push($blood_pressure_ratings, $below_normal, $normal, $above_normal);
         return $blood_pressure_ratings;
     }
 
     private function getThisMonthBloodSaturationRatings($user_id){
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
         $blood_saturations = $this->getThisMonthBloodSaturations($user_id);
-        $blood_saturation_ratings = array();
-        $below_normal = 0;
-        $normal = 0;
-        $above_normal = 0;
+        $blood_saturation_ratings = array(0,0,0);
         foreach($blood_saturations as $blood_saturation){
             $rating = $this->determineBloodSaturation($blood_saturation);
-            if($rating == 'Below Normal'){
-                $below_normal++;
-            }
-            else if($rating == 'Normal'){
-                $normal++;
-            }
-            else if($rating == 'Above Normal'){
-                $above_normal++;
-            }
-            else{
-                //
-            }
+            $blood_saturation_ratings[$rating] = $blood_saturation_ratings[$rating] + 1;
         }
-        array_push($blood_saturation_ratings, $below_normal, $normal, $above_normal);
         return $blood_saturation_ratings;
     }
 
@@ -541,75 +439,35 @@ class UserController extends Controller
     }
 
     private function getallTimePulseRateRatings($user_id){
-        $all_time_pulse_rate_ratings = array();
         $all_time_pulse_rates = $this->getAllTimeReadings($user_id)->pluck('pulse_rate')->toArray();
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
-        $below_normal = 0;
-        $normal = 0;
-        $above_normal = 0;
+        $all_time_pulse_rate_ratings = array(0,0,0);
         foreach($all_time_pulse_rates as $pulse_rate){
             $rating = $this->determinePulseRate($user_age, $pulse_rate);
-            if($rating == 'Below Normal'){
-                $below_normal++;
-            }
-            else if($rating == 'Normal'){
-                $normal++;
-            }
-            else{
-                $above_normal++;
-            }
+            $all_time_pulse_rate_ratings[$rating] = $all_time_pulse_rate_ratings[$rating] + 1;
         }
-        array_push($all_time_pulse_rate_ratings, $below_normal, $normal, $above_normal);
         return $all_time_pulse_rate_ratings;
     }
 
     private function getallTimeBloodPressureRatings($user_id){
         $all_time_systolics = $this->getAllTimeReadings($user_id)->pluck('systolic')->toArray();
         $all_time_diastolics = $this->getAllTimeReadings($user_id)->pluck('diastolic')->toArray();
-        $all_time_blood_pressure_ratings = array();
-        $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
-        $below_normal = 0;
-        $normal = 0;
-        $above_normal = 0;
+        $all_time_blood_pressure_ratings = array(0,0,0,0,0);
         foreach(array_combine($all_time_systolics, $all_time_diastolics) as $systolic => $diastolic){
-            $rating = $this->determineBloodPressure($user_age, $systolic, $diastolic);
-            if($rating == 'Below Normal'){
-                $below_normal++;
-            }
-            else if($rating == 'Normal'){
-                $normal++;
-            }
-            else if($rating == 'Above Normal'){
-                $above_normal++;
-            }
-            else{
-                dd($user_id.' '.$user_age.' '.$rating.' '.$systolic.' '.$diastolic);
-            }
+            $rating = $this->determineBloodPressure($systolic, $diastolic);
+            $all_time_blood_pressure_ratings[$rating] =  $all_time_blood_pressure_ratings[$rating] + 1;
         }
-        array_push($all_time_blood_pressure_ratings, $below_normal, $normal, $above_normal);
         return $all_time_blood_pressure_ratings;
     }
 
     private function getallTimeBloodSaturationRatings($user_id){
-        $all_time_blood_saturation_ratings = array();
         $all_time_blood_saturations = $this->getAllTimeReadings($user_id)->pluck('blood_saturation')->toArray();
         $user_age = Carbon::parse(User::find($user_id)->birthday)->age;
-        $below_normal = 0;
-        $normal = 0;
-        $above_normal = 0;
+        $all_time_blood_saturation_ratings = array(0,0,0);
         foreach($all_time_blood_saturations as $blood_saturation){
             $rating = $this->determineBloodSaturation($user_age, $blood_saturation);
-            if($rating == 'Below Normal'){
-                $below_normal++;
-            }
-            else if($rating == 'Normal'){
-                $normal++;
-            }
-            else{
-                $above_normal++;
-            }
+            $all_time_blood_saturation_ratings[$rating] = $all_time_blood_saturation_ratings[$rating] + 1;
         }
-        array_push($all_time_blood_saturation_ratings, $below_normal, $normal, $above_normal);
         return $all_time_blood_saturation_ratings;
     }
 

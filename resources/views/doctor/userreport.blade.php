@@ -256,7 +256,6 @@
   const times = {{ Js::from($this_month_times) }};
 
   // Monthly Rating Chart Variables
-  const types = ['Pulse Rate', 'Blood Pressure', 'Blood Saturation'];
   const monthlyPulseRateRatings = {{ Js::from($this_month_pulse_rate_ratings) }};
   const monthlyBloodPressureRatings = {{ Js::from($this_month_blood_pressure_ratings) }};
   const monthlyBloodSaturationRatings = {{ Js::from($this_month_blood_saturation_ratings) }};
@@ -306,19 +305,30 @@
       label: 'Below Normal',
       backgroundColor: '#94ca74',
       borderColor: '#ced96c',
-      data: [monthlyPulseRateRatings[0],monthlyBloodPressureRatings[0],monthlyBloodSaturationRatings[0]]
+      data: [
+        monthlyPulseRateRatings[0],
+        0
+        ,monthlyBloodSaturationRatings[0]
+      ]
     },
     {
       label: 'Normal',
       backgroundColor: '#e88a41',
       borderColor: '#ff752f',
-      data: [monthlyPulseRateRatings[1],monthlyBloodPressureRatings[1],monthlyBloodSaturationRatings[1]]
+      data: [
+        monthlyPulseRateRatings[1],
+        monthlyBloodPressureRatings[0],
+        monthlyBloodSaturationRatings[1]
+      ]
     },
     {
       label: 'Above Normal',
       backgroundColor: '#70f1fa',
       borderColor: '#33647e',
-      data: [monthlyPulseRateRatings[2],monthlyBloodPressureRatings[2],monthlyBloodSaturationRatings[2]]
+      data: [monthlyPulseRateRatings[2],
+      monthlyBloodPressureRatings[1]+monthlyBloodPressureRatings[2]+monthlyBloodPressureRatings[3]+monthlyBloodPressureRatings[4],
+      monthlyBloodSaturationRatings[2]
+    ]
     },
     ]
   };
@@ -360,11 +370,11 @@
 
   // Blood Pressure
   const allTimeBloodPressureRatingsData = {
-    labels: ['Below Normal', 'Normal', 'Above Normal'],
+    labels: ['Normal', 'Elevated High Blood Pressure', 'Hypertension Stage I', 'Hypertension Stage II', 'Hypertensive Crisis'],
     datasets: [{
-      label: 'Blood Pressure',
-      backgroundColor: ['#1F89E9','#2EDC15','#F43818'],
-      data: allTimeBloodPressureRatings
+      label: 'Blood Saturation',
+      backgroundColor: ['#4FF137','#E4BB1E','#F27B0B', '#DB2603', '#F70C05'],
+      data: allTimeBloodSaturationRatings
     }]
   };
 
