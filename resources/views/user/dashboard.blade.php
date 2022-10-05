@@ -68,7 +68,7 @@
                   <span class="u-file-icon u-icon u-text-custom-color-1">
                     <img src="{{ asset('images/down_trend.png') }}" alt="">
                   </span>
-                  &nbsp;<span class="u-text-custom-color-9">{{$this_month_average_blood_pressure_difference}} %</span> lower this month
+                  &nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_pressure_difference}} %</span> lower this month
                 </p>
                 <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
                   <img src="{{ asset('images/shocked.png') }}" alt="" >
@@ -110,7 +110,7 @@
                   <span class="u-file-icon u-icon u-text-custom-color-1">
                     <img src="{{ asset('images/down_trend.png') }}" alt="">
                   </span>
-                  &nbsp;<span class="u-text-custom-color-9">{{$this_month_average_blood_saturation_difference}} %</span> lower this month
+                  &nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_saturation_difference}} %</span> lower this month
                 </p>
                 <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
                   <img src="{{ asset('images/shocked.png') }}" alt="">
@@ -311,7 +311,7 @@
 
   // Monthly Rating Chart Datasets
   const monthlyRatingsData = {
-    labels: types,
+    labels: ['Pulse Rate, Blood Pressure, Blood Saturation'],
     datasets: [{
       label: 'Below Normal',
       backgroundColor: '#94ca74',
@@ -383,9 +383,10 @@
   const allTimeBloodPressureRatingsData = {
     labels: ['Normal', 'Elevated High Blood Pressure', 'Hypertension Stage I', 'Hypertension Stage II', 'Hypertensive Crisis'],
     datasets: [{
-      label: 'Blood Saturation',
+      label: 'Blood Pressure',
       backgroundColor: ['#4FF137','#E4BB1E','#F27B0B', '#DB2603', '#F70C05'],
-      data: allTimeBloodSaturationRatings
+      data: allTimeBloodPressureRatings,
+      hoverOffset: 4
     }]
   };
 
@@ -395,7 +396,8 @@
     datasets: [{
       label: 'Blood Saturation',
       backgroundColor: ['#1F89E9','#2EDC15','#F43818'],
-      data: allTimeBloodSaturationRatings
+      data: allTimeBloodSaturationRatings,
+      hoverOffset: 4
     }]
   };
 
