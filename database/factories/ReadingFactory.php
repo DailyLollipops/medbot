@@ -19,14 +19,20 @@ class ReadingFactory extends Factory
     public function definition()
     {
         $systolic = fake()->numberBetween(71,160);
-        if($systolic <= 120){
-            $diastolic = fake()->numberBetween(40,80);
+        if($systolic < 120){
+            $diastolic = fake()->numberBetween(40,79);
         }
-        else if($systolic <= 140){
-            $diastolic = fake()->numberBetween(81,90);
+        else if($systolic <= 129){
+            $diastolic = fake()->numberBetween(40,79);
+        }
+        else if($systolic <= 139){
+            $diastolic = fake()->numberBetween(80,89);
+        }
+        else if($systolic <= 180){
+            $diastolic = fake()->numberBetween(90,120);
         }
         else{
-            $diastolic = fake()->numberBetween(91,120);
+            $diastolic = fake()->numberBetween(121,150);
         }
 
         $blood_pressure = $diastolic + (($systolic - $diastolic) / 3);
