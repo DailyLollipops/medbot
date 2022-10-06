@@ -300,7 +300,7 @@
 
   // Monthly Rating Chart Datasets
   const monthlyRatingsData = {
-    labels: types,
+    labels: ['Pulse Rate, Blood Pressure, Blood Saturation'],
     datasets: [{
       label: 'Below Normal',
       backgroundColor: '#94ca74',
@@ -372,9 +372,10 @@
   const allTimeBloodPressureRatingsData = {
     labels: ['Normal', 'Elevated High Blood Pressure', 'Hypertension Stage I', 'Hypertension Stage II', 'Hypertensive Crisis'],
     datasets: [{
-      label: 'Blood Saturation',
+      label: 'Blood Pressure',
       backgroundColor: ['#4FF137','#E4BB1E','#F27B0B', '#DB2603', '#F70C05'],
-      data: allTimeBloodSaturationRatings
+      data: allTimeBloodPressureRatings,
+      hoverOffset: 4
     }]
   };
 
@@ -384,7 +385,8 @@
     datasets: [{
       label: 'Blood Saturation',
       backgroundColor: ['#1F89E9','#2EDC15','#F43818'],
-      data: allTimeBloodSaturationRatings
+      data: allTimeBloodSaturationRatings,
+      hoverOffset: 4
     }]
   };
 
