@@ -72,6 +72,8 @@ Route::get('/userlist/id-{user_id}', [UserController::class, 'redirectToUserInfo
 
 Route::get('/userlist/id-{user_id}/report', [UserController::class, 'redirectToUserReportPage']);
 
+Route::get('/userlist/id-{user_id}/reading', [UserController::class, 'redirectToUserReadingPage']);
+
 Route::get('/update', [UserController::class, 'redirectToUpdateInformationPage']);
 
 Route::post('/update/profile_picture', [UserController::class, 'updateProfilePicture']);

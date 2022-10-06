@@ -851,23 +851,23 @@ class UserController extends Controller
             $filter = explode('-',$request['filter']);
             $readings = Reading::where('user_id',Auth::id())->orderBy($filter[0],$filter[1])->paginate(9);
             if($filter[0] == 'created_at'){
-                $filterString = 'Date';
+                $filter_string = 'Date';
             }
             else{
-                $filterString = ucfirst(str_replace('_', ' ', $filter[0]));
+                $filter_string = ucfirst(str_replace('_', ' ', $filter[0]));
             }
-            $orderString = ucfirst($filter[1].'ending');
-            flash()->addInfo('Sorted by '.$filterString.' ('.$orderString.')');
+            $order_string = ucfirst($filter[1].'ending');
+            flash()->addInfo('Sorted by '.$filter_string.' ('.$order_string.')');
         }
         else{
             $readings =Reading::where('user_id',Auth::id())->orderBy('created_at','desc')->paginate(9);
-            $filterString = 'Date';
-            $orderString = 'Descending';
+            $filter_string = 'Date';
+            $order_string = 'Descending';
         }
         return view('user.readinglist',[
             'readings' => $readings,
-            'filter' => $filterString,
-            'order' => $orderString,
+            'filter' => $filter_string,
+            'order' => $order_string,
         ]);
     }
 
@@ -936,20 +936,20 @@ class UserController extends Controller
         if(Auth::user()->type != 'doctor'){
             abort(403);
         }
-        $filterString = "Name";
-        $orderString = "Descending";
+        $filter_string = "Name";
+        $order_string = "Descending";
         if($request->has('search')){
             if($request->order != null){
                 $order = explode('-',$request['order']);
                 $users = User::where('type','normal')->where($request->filter, 'like', '%'.$request->search.'%')->orderBy($order[0],$order[1])->paginate(10);
                 if($order[0] == 'birthday'){
-                    $filterString = 'Age';
+                    $filter_string = 'Age';
                 }
                 else{
-                    $filterString = ucfirst(str_replace('_', ' ', $order[0])); 
+                    $filter_string = ucfirst(str_replace('_', ' ', $order[0])); 
                 }
-                $orderString = ucfirst($order[1].'ending');
-                flash()->addInfo('Sorted by '.$filterString.' ('.$orderString.')');
+                $order_string = ucfirst($order[1].'ending');
+                flash()->addInfo('Sorted by '.$filter_string.' ('.$order_string.')');
             }
             else{
                 $users = User::where('type','normal')->where($request->filter, 'like', '%'.$request->search.'%')->orderBy($request->filter,'asc')->paginate(10);
@@ -966,8 +966,8 @@ class UserController extends Controller
         }
         return view('doctor.userlist',[
             'users' => $users,
-            'filter' => $filterString,
-            'order' => $orderString
+            'filter' => $filter_string,
+            'order' => $order_string
         ]);
     }
     
@@ -1043,6 +1043,40 @@ class UserController extends Controller
             'all_time_pulse_rate_ratings' => $this->getallTimePulseRateRatings($user_id),
             'all_time_blood_pressure_ratings' => $this->getallTimeBloodPressureRatings($user_id),
             'all_time_blood_saturation_ratings' => $this->getallTimeBloodSaturationRatings($user_id)
+        ]);
+    }
+
+    public function redirectToUserReadingPage(Request $request, $user_id){
+        if(Auth::user()->type != 'doctor'){
+            abort(403);
+        }
+        $user = User::find($user_id);
+        if($request->has('order')){
+            $filter = explode('-',$request['order']);
+            $readings = Reading::where('user_id',$user->id)->orderBy($filter[0],$filter[1])->get();
+            if($filter[0] == 'created_at'){
+                $filter_string = 'Date';
+            }
+            else{
+                $filter_string = ucfirst(str_replace('_', ' ', $filter[0]));
+            }
+            $order_string = ucfirst($filter[1].'ending');
+            flash()->addInfo('Sorted by '.$filter_string.' ('.$order_string.')');
+        }
+        else{
+            $readings =Reading::where('user_id',$user->id)->orderBy('created_at','desc')->get();
+            $filter_string = 'Date';
+            $order_string = 'Descending';
+        }
+        return view('doctor.userreading',[
+            'user_id' => $user->id,
+            'user_profile' => $user->profile_picture_path,
+            'user_name' => $user->name,
+            'user_age' => Carbon::parse($user->birthday)->age,
+            'user_joined' => Carbon::parse($user->created_at)->format('M d, Y'),
+            'readings' => $readings,
+            'filter' => $filter_string,
+            'order' => $order_string
         ]);
     }
 
