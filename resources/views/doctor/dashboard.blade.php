@@ -69,11 +69,26 @@
               <img src="{{ asset('images/three_patient.png') }}" alt="">
             </span>
             <p class="u-custom-item u-text u-text-default-xl u-text-11">
-              <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
-                <img src="{{ asset('images/down_trend.png') }}" alt="">
-              </span>
-              &nbsp;
-              <span class="u-text-custom-color-1">-{{$monthly_user_growth_rate}}%</span> monthly growth rate
+
+                @if($monthly_user_growth_rate < 0)
+                  <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
+                    <img src="{{ asset('images/down_trend.png') }}" alt="">
+                  </span>
+                  &nbsp;
+                  <span class="u-text-custom-color-1">{{$monthly_user_growth_rate}}%</span> monthly growth rate
+                @elseif($monthly_user_growth_rate > 0)
+                  <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9">
+                    <img src="{{ asset('images/up_trend.png') }}" alt="">
+                  </span>
+                &nbsp;
+                  <span class="u-text-custom-color-9">+{{$monthly_user_growth_rate}}%</span> monthly growth rate
+                @else
+                  <span class="u-custom-item u-file-icon u-icon u-text-palette-3-base">
+                    <img src="{{ asset('images/same_trend.png') }}" alt="">
+                  </span>
+                  &nbsp;
+                  <span class="u-text-palette-3-base">±0%</span> monthly growth rate
+                @endif
             </p>
           </div>
         </div>
@@ -198,7 +213,7 @@
         </div>
         <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
-            <h5 class="u-align-center u-text u-text-2">Pulse Rate</h5>
+            <h5 class="u-align-center u-text u-text-2">Blood Pressure</h5>
             <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/blood_pressure.png') }}" alt="">
             </span>
@@ -231,9 +246,9 @@
         </div>
         <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
-            <h5 class="u-align-center u-text u-text-2">Pulse Rate</h5>
+            <h5 class="u-align-center u-text u-text-2">Blood Saturation</h5>
             <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
             </span>
             <p class="u-align-center u-heading-font u-text u-text-3">{{$users_average_blood_saturation}} %</p>
 
@@ -266,12 +281,12 @@
     </div>
     <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-4">
-
+        <canvas id="usersGenderCountChart"></canvas>
       </div>
     </div>
     <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-2">
       <div class="u-container-layout u-container-layout-5">
-        
+        <canvas id="usersByAgeChart"></canvas>
       </div>
     </div>
   </div>
@@ -372,15 +387,20 @@ function select_area(){
   select_area_form.submit();
 }
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+
+  // Address Title
+  var address = {{Js::from($address)}};
+
   // Monthly New Users Per Month Chart Variables
   const monthlyNewUsersPerMonth = {{Js::from($monthly_new_users_per_month)}};
 
   // Users by Age Chart Variables
   const usersByAge = {{Js::from($users_by_age)}};
 
-  const userGenderCount = {{Js::from($user_gender_count)}};
+  const usersGenderCount = {{Js::from($users_gender_count)}};
 
   // Monthly New Users Per Month Chart Datasets
   const monthlyNewUsersPerMonthData = {
@@ -416,11 +436,11 @@ function select_area(){
     }]
   };
 
-  const userGenderCountData = {
+  const usersGenderCountData = {
     labels: ['Male', 'Female'],
     datasets: [{
       label: 'Gender',
-      data: [userGenderCount['male'],userGenderCount['female']],
+      data: [usersGenderCount['male'],usersGenderCount['female']],
       backgroundColor: [
       '#8cff66',
       '#66b3ff'
@@ -450,20 +470,20 @@ function select_area(){
       plugins: {
         title: {
           display: true,
-          text: 'Users By Age'
+          text: 'Users By Age (' + address + ')'
         }
       }
     }
   };
 
-  const userGenderCountConfig = {
+  const usersGenderCountConfig = {
     type: 'pie',
-    data: userGenderCountData,
+    data: usersGenderCountData,
     options: {
       plugins: {
         title: {
           display: true,
-          text: 'Users By Gender'
+          text: 'Users By Gender (' + address + ')' 
         }
       }
     }
@@ -480,9 +500,9 @@ function select_area(){
     usersByAgeConfig
   );
 
-  const userGenderCountChart = new Chart(
-    document.getElementById('userGenderCountChart'),
-    userGenderCountConfig
+  const usersGenderCountChart = new Chart(
+    document.getElementById('usersGenderCountChart'),
+    usersGenderCountConfig
   );
 </script>
 @endsection

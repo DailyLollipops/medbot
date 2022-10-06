@@ -895,9 +895,20 @@ class UserController extends Controller
         }
         if($request->has('address')){
             $users = $this->getUserByAddress($request->address);
+            $temp_address = $this->getAddress($request->address);
+            if($temp_address['municipality'] == 'All'){
+                $address = 'Whole Province';
+            }
+            else if($temp_address['baranggay'] == 'All'){
+                $address = 'Town of '.$temp_address['municipality'];
+            }
+            else{
+                $address = $temp_address['baranggay'].', '.$temp_address['municipality'];
+            }
         }
         else{
             $users = $this->getAllUsers();
+            $address = 'Whole Province';
         }
         return view('doctor.dashboard',[
             'this_month_new_user_count' => $this->getThisMonthNewUserCount(),
@@ -911,11 +922,12 @@ class UserController extends Controller
             'current_users' => count($users),
             'total_users' => count($this->getAllUsers()),
             'users_by_age' => $this->getUsersAge($users),
-            'user_gender_count' => $this->getUsersGenderCount($users),
+            'users_gender_count' => $this->getUsersGenderCount($users),
             'users_average_pulse_rate' => $this->getUsersAveragePulseRate($users),
             'users_average_systolic' => $this->getUsersAverageSystolic($users),
             'users_average_diastolic' => $this->getUsersAverageDiastolic($users),
-            'users_average_blood_saturation' => $this->getUsersAverageBloodSaturation($users)
+            'users_average_blood_saturation' => $this->getUsersAverageBloodSaturation($users),
+            'address' => $address
         ]);
     }
 
