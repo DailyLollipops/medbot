@@ -1008,11 +1008,11 @@ class UserController extends Controller
         }
         $user = User::find($user_id);
         return view('doctor.userreport',[
-            'id' => $user->id,
-            'profile' => $user->profile_picture_path,
-            'name' => $user->name,
-            'age' => Carbon::parse($user->birthday)->age,
-            'joined' => Carbon::parse($user->created_at)->format('M d, Y'),
+            'user_id' => $user->id,
+            'user_profile' => $user->profile_picture_path,
+            'user_name' => $user->name,
+            'user_age' => Carbon::parse($user->birthday)->age,
+            'user_joined' => Carbon::parse($user->created_at)->format('M d, Y'),
             'this_month_average_pulse_rate' => $this->getThisMonthAveragePulseRate($user_id),
             'this_month_average_systolic' => $this->getThisMonthAverageSystolic($user_id),
             'this_month_average_diastolic' => $this->getThisMonthAverageDiastolic($user_id),

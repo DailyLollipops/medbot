@@ -10,22 +10,22 @@
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-border-3 u-border-palette-1-light-3 u-container-style u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-palette-5-light-3 u-radius-9 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
-        <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $profile ? asset('storage/'.$profile) : asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
+        <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user_profile ? asset('storage/'.$user_profile) : asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
         <h2 class="u-text u-text-default u-text-2">
-          {{$name}}
+          {{$user_name}}
           <span style="font-weight: 700;"></span>
         </h2>
         <h4 class="u-text u-text-default u-text-3">
           <span class="u-file-icon u-icon">
             <img src="{{ asset('images/joined.png') }}" alt="">
           </span>
-          &nbsp;{{$joined}}
+          &nbsp;{{$user_joined}}
         </h4>
         <h4 class="u-text u-text-default u-text-4">
           <span class="u-file-icon u-icon">
             <img src="{{ asset('images/age.png') }}" alt="">
           </span>
-          &nbsp;{{$age}} years old
+          &nbsp;{{$user_age}} years old
         </h4>
         <a href="#" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-1-base u-btn-1">
           <span class="u-file-icon u-icon u-icon-3">
@@ -33,7 +33,7 @@
           </span>
           &nbsp;Reports
         </a>
-        <a href="https://nicepage.com/wordpress-themes" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-2">
+        <a href="{{'/medbot/public/userlist/id-'.$user_id.'/reading'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-2">
           <span class="u-file-icon u-icon u-icon-4">
             <img src="{{ asset('images/monitor.png') }}" alt="">
           </span>
