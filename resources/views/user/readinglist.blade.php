@@ -37,7 +37,7 @@
                 <span class="u-file-icon u-icon">
                   <img src="{{ asset('images/calendar.png') }}" alt="">
                 </span>
-                <span style="font-weight: 700;">&nbsp;{{date('Y-m-d', strtotime($reading->created_at))}}
+                <span style="font-weight: 700;">&nbsp;{{date('M d, Y', strtotime($reading->created_at))}}
                   <span style="font-size: 1.125rem;"></span>
                 </span>
               </p>
