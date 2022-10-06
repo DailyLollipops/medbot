@@ -294,98 +294,98 @@
 
 {{-- Script Section --}}
 <script>
-function change_baranggay_dropdown(){
-  municipality_dropdown = document.getElementById('municpality');
-  baranggay_dropdown = document.getElementById('baranggay');
-  baranggay_gasan = ['All', 'Antipolo', 'Bachao Ibaba', 'Bachao Ilaya', 'Bacong-bacong', 'Bahi', 'Bangbang', 'Banot',
-                      'Banuyo', 'Bognuyan', 'Cabugao', 'Dawis', 'Dili', 'Libtangin', 'Mahunig', 'Mangiliol',
-                      'Masiga', 'Mt. Gasan', 'Pangi', 'Pinggan', 'Tabionan', 'Tapuyan', 'Tiguion',
-                      'Baranggay I', 'Baranggay II', 'Baranggay III'];
-  baranggay_boac = ['All','Agot', 'Agumaymayan', 'Amoingon', 'Apitong', 'Balagasan', 'Balaring', 'Balimbing', 'Balogo',
-                      'Bamban', 'Bangbangalon', 'Bantad', 'Bantay', 'Bayuti', 'Binunga', 'Boi', 'Boton', 
-                      'Buliasnin', 'Bunganay', 'Caganhao', 'Canat', 'Catubugan', 'Cawit', 'Daig', 'Daypay',
-                      'Duyay', 'Hinapulan', 'Ihatub', 'Isok 1', 'Isok 2', 'Laylay', 'Lupac', 'Mahinhin',
-                      'Mainit', 'Malbog', 'Maligaya', 'Malusak', 'Mansiwat', 'Mataas na Bayan', 'Maybo', 'Mercado', 
-                      'Murallon', 'Ogbac', 'Pawa', 'Pili', 'Poctoy', 'Poras', 'Puting Buhangin', 'Puyog', 'Sabong', 
-                      'San Miguel', 'Santol', 'Sawi', 'Tabi', 'Tabigue', 'Tagwak', 'Tambunan', 'Tampus', 'Tanza',
-                      'Tugos', 'Tumagabok', 'Tumapon'];
-  baranggay_buenavista = ['All', 'Bagacay', 'Bagtingon', 'Bicas-bicas', 'Caigangan', 'Daykitin', 'Libas', 'Malbog', 'Sihi',
-                      'Timbo', 'Lipata', 'Yook', 'Baranggay I', 'Baranggay II', 'Baranggay III', 'Baranggay IV'];
-  baranggay_mogpog = ['All', 'Sibucao', 'Argao', 'Balanacan', 'Banto', 'Bintakay', 'Bocboc', 'Butansapa', 'Candahon',
-                      'Capayang', 'Danao', 'Dulong Bayan', 'Gitnang Bayan', 'Guisian', 'Hinadharan', 'Hinanggayon',
-                      'Ino', 'Janagdong', 'Lamesa', 'Laon', 'Magapua', 'Malayak', 'Malusak', 'Mampaitan',
-                      'Mangyan-Mababad', 'Market Site', 'Mataas na Bayan', 'Mendez', 'Nangka I', 'Nangka II', 'Paye',
-                      'Pili', 'Puting Buhangin', 'Sayao', 'Silangan', 'Sumangga', 'Tarug', 'Villa Mendez'];
-  baranggay_stacruz = ['All', 'Alobo', 'Angas', 'Aturan', 'Bagong Silangan', 'Baguidbirin', 'Baliis', 'Balogo', 'Banahaw',
-                      'Bangcuangan', 'Biga', 'Botilao', 'Buyabod', 'Dating Bayan', 'Devilla', 'Dolores', 'Haguimit',
-                      'Hupi', 'Ipil', 'Jolo', 'Kaganhao', 'Kalangkang', 'Kamandugan', 'Kasily', 'Kilo-kilo',
-                      'Kinyaman', 'Labo', 'Lamesa', 'Landy', 'Lapu-lapu', 'Libjo', 'Lipa', 'Lusok', 'Maharlika',
-                      'Makulapnit', 'Maniwaya', 'Manlibunan', 'Masaguisi', 'Masalukot', 'Matalaba', 'Mongpong',
-                      'Morales', 'Napo', 'Pag-asa', 'Pantayin', 'Polo', 'Pulong-parang', 'Punong', 'San Antonio',
-                      'San Isidro', 'Tagum', 'Tamayo', 'Tambangan', 'Tawiran', 'Taytay'];
-  baranggay_torrijos = ['All', 'Bangwayin', 'Bayakbakin', 'Bolo', 'Bonliw', 'Buangan', 'Cabuyo', 'Cagpo', 'Dampulan', 'Kay Duke',
-                      'Mabuhay', 'Makawayan', 'Malibago', 'Malinao', 'Maranlig', 'Marlangga', 'Matuyatuya', 'Nangka',
-                      'Pakaskasan', 'Payanas', 'Poblacion', 'Poctoy', 'Sibuyao', 'Suha', 'Talawan', 'Tigwi'];
-  while(baranggay_dropdown.firstChild){
-    baranggay_dropdown.removeChild(baranggay_dropdown.firstChild);
-  }
-  if(municipality.value == 'Gasan'){
-    for(var i = 0; i < baranggay_gasan.length; i++){
-      var option = document.createElement('option');
-      option.value = baranggay_gasan[i];
-      option.text = baranggay_gasan[i];
-      baranggay_dropdown.appendChild(option);
+  function change_baranggay_dropdown(){
+    municipality_dropdown = document.getElementById('municipality');
+    baranggay_dropdown = document.getElementById('baranggay');
+    baranggay_gasan = ['All', 'Antipolo', 'Bachao Ibaba', 'Bachao Ilaya', 'Bacong-bacong', 'Bahi', 'Bangbang', 'Banot',
+                        'Banuyo', 'Bognuyan', 'Cabugao', 'Dawis', 'Dili', 'Libtangin', 'Mahunig', 'Mangiliol',
+                        'Masiga', 'Mt. Gasan', 'Pangi', 'Pinggan', 'Tabionan', 'Tapuyan', 'Tiguion',
+                        'Baranggay I', 'Baranggay II', 'Baranggay III'];
+    baranggay_boac = ['All','Agot', 'Agumaymayan', 'Amoingon', 'Apitong', 'Balagasan', 'Balaring', 'Balimbing', 'Balogo',
+                        'Bamban', 'Bangbangalon', 'Bantad', 'Bantay', 'Bayuti', 'Binunga', 'Boi', 'Boton', 
+                        'Buliasnin', 'Bunganay', 'Caganhao', 'Canat', 'Catubugan', 'Cawit', 'Daig', 'Daypay',
+                        'Duyay', 'Hinapulan', 'Ihatub', 'Isok 1', 'Isok 2', 'Laylay', 'Lupac', 'Mahinhin',
+                        'Mainit', 'Malbog', 'Maligaya', 'Malusak', 'Mansiwat', 'Mataas na Bayan', 'Maybo', 'Mercado', 
+                        'Murallon', 'Ogbac', 'Pawa', 'Pili', 'Poctoy', 'Poras', 'Puting Buhangin', 'Puyog', 'Sabong', 
+                        'San Miguel', 'Santol', 'Sawi', 'Tabi', 'Tabigue', 'Tagwak', 'Tambunan', 'Tampus', 'Tanza',
+                        'Tugos', 'Tumagabok', 'Tumapon'];
+    baranggay_buenavista = ['All', 'Bagacay', 'Bagtingon', 'Bicas-bicas', 'Caigangan', 'Daykitin', 'Libas', 'Malbog', 'Sihi',
+                        'Timbo', 'Lipata', 'Yook', 'Baranggay I', 'Baranggay II', 'Baranggay III', 'Baranggay IV'];
+    baranggay_mogpog = ['All', 'Sibucao', 'Argao', 'Balanacan', 'Banto', 'Bintakay', 'Bocboc', 'Butansapa', 'Candahon',
+                        'Capayang', 'Danao', 'Dulong Bayan', 'Gitnang Bayan', 'Guisian', 'Hinadharan', 'Hinanggayon',
+                        'Ino', 'Janagdong', 'Lamesa', 'Laon', 'Magapua', 'Malayak', 'Malusak', 'Mampaitan',
+                        'Mangyan-Mababad', 'Market Site', 'Mataas na Bayan', 'Mendez', 'Nangka I', 'Nangka II', 'Paye',
+                        'Pili', 'Puting Buhangin', 'Sayao', 'Silangan', 'Sumangga', 'Tarug', 'Villa Mendez'];
+    baranggay_stacruz = ['All', 'Alobo', 'Angas', 'Aturan', 'Bagong Silangan', 'Baguidbirin', 'Baliis', 'Balogo', 'Banahaw',
+                        'Bangcuangan', 'Biga', 'Botilao', 'Buyabod', 'Dating Bayan', 'Devilla', 'Dolores', 'Haguimit',
+                        'Hupi', 'Ipil', 'Jolo', 'Kaganhao', 'Kalangkang', 'Kamandugan', 'Kasily', 'Kilo-kilo',
+                        'Kinyaman', 'Labo', 'Lamesa', 'Landy', 'Lapu-lapu', 'Libjo', 'Lipa', 'Lusok', 'Maharlika',
+                        'Makulapnit', 'Maniwaya', 'Manlibunan', 'Masaguisi', 'Masalukot', 'Matalaba', 'Mongpong',
+                        'Morales', 'Napo', 'Pag-asa', 'Pantayin', 'Polo', 'Pulong-parang', 'Punong', 'San Antonio',
+                        'San Isidro', 'Tagum', 'Tamayo', 'Tambangan', 'Tawiran', 'Taytay'];
+    baranggay_torrijos = ['All', 'Bangwayin', 'Bayakbakin', 'Bolo', 'Bonliw', 'Buangan', 'Cabuyo', 'Cagpo', 'Dampulan', 'Kay Duke',
+                        'Mabuhay', 'Makawayan', 'Malibago', 'Malinao', 'Maranlig', 'Marlangga', 'Matuyatuya', 'Nangka',
+                        'Pakaskasan', 'Payanas', 'Poblacion', 'Poctoy', 'Sibuyao', 'Suha', 'Talawan', 'Tigwi'];
+    while(baranggay_dropdown.firstChild){
+      baranggay_dropdown.removeChild(baranggay_dropdown.firstChild);
+    }
+    if(municipality_dropdown.value == 'Gasan'){
+      for(var i = 0; i < baranggay_gasan.length; i++){
+        var option = document.createElement('option');
+        option.value = baranggay_gasan[i];
+        option.text = baranggay_gasan[i];
+        baranggay_dropdown.appendChild(option);
+      }
+    }
+    if(municipality_dropdown.value == 'Boac'){
+      for(var i = 0; i < baranggay_boac.length; i++){
+        var option = document.createElement('option');
+        option.value = baranggay_boac[i];
+        option.text = baranggay_boac[i];
+        baranggay_dropdown.appendChild(option);
+      }
+    }
+    if(municipality_dropdown.value == 'Mogpog'){
+      for(var i = 0; i < baranggay_mogpog.length; i++){
+        var option = document.createElement('option');
+        option.value = baranggay_mogpog[i];
+        option.text = baranggay_mogpog[i];
+        baranggay_dropdown.appendChild(option);
+      }
+    }
+    if(municipality_dropdown.value == 'Sta. Cruz'){
+      for(var i = 0; i < baranggay_stacruz.length; i++){
+        var option = document.createElement('option');
+        option.value = baranggay_stacruz[i];
+        option.text = baranggay_stacruz[i];
+        baranggay_dropdown.appendChild(option);
+      }
+    }
+    if(municipality_dropdown.value == 'Torrijos'){
+      for(var i = 0; i < baranggay_torrijos.length; i++){
+        var option = document.createElement('option');
+        option.value = baranggay_torrijos[i];
+        option.text = baranggay_torrijos[i];
+        baranggay_dropdown.appendChild(option);
+      }
+    }
+    if(municipality_dropdown.value == 'Buenavista'){
+      for(var i = 0; i < baranggay_buenavista.length; i++){
+        var option = document.createElement('option');
+        option.value = baranggay_buenavista[i];
+        option.text = baranggay_buenavista[i];
+        baranggay_dropdown.appendChild(option);
+      }
     }
   }
-  if(municipality.value == 'Boac'){
-    for(var i = 0; i < baranggay_boac.length; i++){
-      var option = document.createElement('option');
-      option.value = baranggay_boac[i];
-      option.text = baranggay_boac[i];
-      baranggay_dropdown.appendChild(option);
-    }
+  function select_area(){
+    select_area_form = document.getElementById('form');
+    municipality = document.getElementById('municipality').value;
+    baranggay = document.getElementById('baranggay').value;
+    address = document.getElementById('address');
+    address.value = baranggay + ', ' + municipality;
+    select_area_form.submit();
   }
-  if(municipality.value == 'Mogpog'){
-    for(var i = 0; i < baranggay_mogpog.length; i++){
-      var option = document.createElement('option');
-      option.value = baranggay_mogpog[i];
-      option.text = baranggay_mogpog[i];
-      baranggay_dropdown.appendChild(option);
-    }
-  }
-  if(municipality.value == 'Sta. Cruz'){
-    for(var i = 0; i < baranggay_stacruz.length; i++){
-      var option = document.createElement('option');
-      option.value = baranggay_stacruz[i];
-      option.text = baranggay_stacruz[i];
-      baranggay_dropdown.appendChild(option);
-    }
-  }
-  if(municipality.value == 'Torrijos'){
-    for(var i = 0; i < baranggay_torrijos.length; i++){
-      var option = document.createElement('option');
-      option.value = baranggay_torrijos[i];
-      option.text = baranggay_torrijos[i];
-      baranggay_dropdown.appendChild(option);
-    }
-  }
-  if(municipality.value == 'Buenavista'){
-    for(var i = 0; i < baranggay_buenavista.length; i++){
-      var option = document.createElement('option');
-      option.value = baranggay_buenavista[i];
-      option.text = baranggay_buenavista[i];
-      baranggay_dropdown.appendChild(option);
-    }
-  }
-}
-function select_area(){
-  select_area_form = document.getElementById('form');
-  municipality = document.getElementById('municipality').value;
-  baranggay = document.getElementById('baranggay').value;
-  address = document.getElementById('address');
-  address.value = baranggay + ', ' + municipality;
-  select_area_form.submit();
-}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
