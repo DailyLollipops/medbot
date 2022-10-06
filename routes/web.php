@@ -46,10 +46,6 @@ Route::get('/dashboard/user', [UserController::class, 'redirectToUserDashboard']
 
 Route::get('/readinglist', [UserController::class, 'redirectToReadingListPage']);
 
-Route::post('/readinglist/order', [FilterController::class, 'getReadingSelector']);
-
-Route::get('/readinglist/order-by-{filter}-{order}', [FilterController::class, 'orderReading']);
-
 Route::get('/manage', [UserController::class, 'redirectToManagePage']);
 
 Route::post('/manage/export', [ReportController::class, 'exportCsv']);
