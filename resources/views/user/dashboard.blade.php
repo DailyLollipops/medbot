@@ -71,7 +71,7 @@
                   &nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_pressure_difference}} %</span> lower this month
                 </p>
                 <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
-                  <img src="{{ asset('images/shocked.png') }}" alt="" >
+                  <img src="{{ asset('images/shocked.png') }}" alt=""  title="Average Blood Pressure: 120-80 mmHg">
                 </span>
               @elseif($this_month_average_blood_pressure_difference > 0)
                 <p class="u-text u-text-5">
@@ -86,7 +86,7 @@
               @else
                 <p class="u-text u-text-5">
                   <span class="u-file-icon u-icon u-text-custom-color-9">
-                    <img src="{{ asset('images/same_trend.png') }}" alt="" title="Average Blood Pressure: 120-80 mmHg">
+                    <img src="{{ asset('images/same_trend.png') }}" alt="">
                   </span>
                   &nbsp;<span class="u-text-palette-3-base">±0 %</span> this month
                 </p>
@@ -113,12 +113,12 @@
                   &nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_saturation_difference}} %</span> lower this month
                 </p>
                 <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
-                  <img src="{{ asset('images/shocked.png') }}" alt="">
+                  <img src="{{ asset('images/shocked.png') }}" alt="" title="Average Blood Saturation: 95% - 100%">
                 </span>
               @elseif($this_month_average_blood_saturation_difference > 0)
                 <p class="u-text u-text-5">
                   <span class="u-file-icon u-icon u-text-custom-color-9">
-                    <img src="{{ asset('images/up_trend.png') }}" alt="" title="Average Blood Saturation: 95% - 100%">
+                    <img src="{{ asset('images/up_trend.png') }}" alt="">
                   </span>
                   &nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_saturation_difference}} %</span> lower this month
                 </p>
@@ -128,12 +128,12 @@
               @else
                 <p class="u-text u-text-5">
                   <span class="u-file-icon u-icon u-text-custom-color-9">
-                    <img src="{{ asset('images/same_trend.png') }}" alt="" title="Average Blood Saturation: 95% - 100%">
+                    <img src="{{ asset('images/same_trend.png') }}" alt="">
                   </span>
                   &nbsp;<span class="u-text-palette-3-base">±0 %</span> this month
                 </p>
                 <span class="u-custom-item u-file-icon u-hover-feature u-icon u-icon-4">
-                  <img src="{{ asset('images/neutral.png') }}" alt="">
+                  <img src="{{ asset('images/neutral.png') }}" alt="" title="Average Blood Saturation: 95% - 100%">
                 </span>
               @endif
 
