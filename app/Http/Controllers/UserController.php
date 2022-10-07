@@ -35,7 +35,7 @@ class UserController extends Controller
         Storage::disk('local')->put($path, $image);
         return $path;
     }
-
+    
     public function registerUser(Request $request){
         $validator = Validator::make($request->all(),[
             'name' => 'required',
@@ -47,7 +47,7 @@ class UserController extends Controller
             'password' => 'required|regex:/^.*(?=[^A-Z\n]*[A-Z]).{8,}.*$/',
             'password_confirmation' => 'required|same:password',
             'bio' => 'required|min:10|max:200',
-            'profile_picture' => 'nullable'
+            'profile_picture' => 'mimes:jpeg,bmp,png'
         ],
         [
             'name.required' => 'Name field is required',
@@ -65,9 +65,10 @@ class UserController extends Controller
             'password_confirmation.same' => 'Passwords does not match',
             'bio.required' => 'Please tell something about yourself',
             'bio.min' => 'Bio field too short',
-            'bio.max' => 'Bio field exceeded maximum characters allowed'
+            'bio.max' => 'Bio field exceeded maximum characters allowed',
+            'profile_picture.mime' => 'The file is not an image file'
         ]);
-        if ($validator->fails()){
+        if($validator->fails()){
             return back()->withError($validator->messages()->all());
         }
         $register_form = $request->all();
@@ -75,8 +76,17 @@ class UserController extends Controller
         $register_form['type'] = 'normal';
         $register_form['address'] = $register_form['baranggay'].', '.$register_form['municipality'];
         $user = User::create($register_form);
+        if($request->has('profile_picture')){
+            $profile_picture = $request->file('profile_picture');
+            $extension = $profile_picture->getClientOriginalExtension();
+            $file_name = $user->id.'.'.$extension;
+            $path = $profile_picture->storeAs('profiles',$file_name,'public');
+            $user->profile_picture_path = $path;
+            $user->update();
+        }
         Auth::login($user);
-        flash()->addInfo('Registration completed\nWelcome '.$user->name);
+        flash()->addInfo('Registration completed');
+        flash()->addInfo('Welcome '.$user->name);
         return redirect('/');
     }
 
