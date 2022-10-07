@@ -247,12 +247,12 @@ class UserController extends Controller
         $pulse_rates_prev = $this->getPreviousMonthReadings($user_id)->pluck('pulse_rate')->toArray();
         if(count($pulse_rates_prev) != 0){
             $average_pulse_rate_prev = round(array_sum($pulse_rates_prev)/count($pulse_rates_prev));
+            $average_pulse_rate_curr = $this->getThisMonthAveragePulseRate($user_id);
+            $pulse_rate_diff = round((($average_pulse_rate_curr - $average_pulse_rate_prev)/abs($average_pulse_rate_prev)) * 100);
         }
         else {
-            $average_pulse_rate_prev = 0;
+            $pulse_rate_diff = 0;
         }
-        $average_pulse_rate_curr = $this->getThisMonthAveragePulseRate($user_id);
-        $pulse_rate_diff = round((($average_pulse_rate_curr - $average_pulse_rate_prev)/abs($average_pulse_rate_prev)) * 100);
         return $pulse_rate_diff;
     }
 
@@ -260,12 +260,12 @@ class UserController extends Controller
         $blood_pressure_prev = $this->getPreviousMonthReadings($user_id)->pluck('blood_pressure')->toArray();
         if(count($blood_pressure_prev) != 0){
             $average_blood_pressure_prev = round(array_sum($blood_pressure_prev)/count($blood_pressure_prev));
+            $average_blood_pressure_curr = $this->getThisMonthAverageBloodPressure($user_id);
+            $blood_pressure_diff = round((($average_blood_pressure_curr - $average_blood_pressure_prev)/abs($average_blood_pressure_prev)) * 100);
         }
         else{
-            $average_blood_pressure_prev = 0;
+            $blood_pressure_diff = 0;
         }
-        $average_blood_pressure_curr = $this->getThisMonthAverageBloodPressure($user_id);
-        $blood_pressure_diff = round((($average_blood_pressure_curr - $average_blood_pressure_prev)/abs($average_blood_pressure_prev)) * 100);
         return $blood_pressure_diff;
     }
 
@@ -273,12 +273,12 @@ class UserController extends Controller
         $blood_saturations_prev = $this->getPreviousMonthReadings($user_id)->pluck('blood_saturation')->toArray();
         if(count($blood_saturations_prev) != 0){
             $average_blood_saturation_prev = round(array_sum($blood_saturations_prev)/count($blood_saturations_prev));
+            $average_blood_saturation_curr = $this->getThisMonthAverageBloodSaturation($user_id);
+            $blood_saturation_diff = round((($average_blood_saturation_curr - $average_blood_saturation_prev)/abs($average_blood_saturation_prev)) * 100);
         }
         else{
-            $average_blood_saturation_prev = 0;
+            $blood_saturation_diff = 0;
         }
-        $average_blood_saturation_curr = $this->getThisMonthAverageBloodSaturation($user_id);
-        $blood_saturation_diff = round((($average_blood_saturation_curr - $average_blood_saturation_prev)/abs($average_blood_saturation_prev)) * 100);
         return $blood_saturation_diff;
     }
 
