@@ -8,7 +8,7 @@
       Downloading please wait...
       <script>
          setTimeout(function(){
-            window.location.href = '/medbot/public/manage/update';
+            window.location.href = '/medbot/public/';
          }, 2000);
       </script>
    </body>
