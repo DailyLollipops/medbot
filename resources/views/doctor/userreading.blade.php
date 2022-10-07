@@ -16,13 +16,13 @@
         </h2>
         <h4 class="u-text u-text-default u-text-3">
           <span class="u-file-icon u-icon">
-            <img src="images/4959927.png" alt="">
+            <img src="{{ asset('images/joined.png') }}" alt="">
           </span>
           &nbsp; {{$user_joined}}
         </h4>
         <h4 class="u-text u-text-default u-text-4">
           <span class="u-file-icon u-icon">
-            <img src="images/5074128.png" alt="">
+            <img src="{{ asset('images/age.png') }}" alt="">
           </span>
           &nbsp;{{$user_age}} years old
         </h4>
