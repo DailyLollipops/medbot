@@ -864,6 +864,9 @@ class UserController extends Controller
             abort(403);
         }
         $user = User::find(Auth::id());
+        if(count($this->getAllTimeReadings($user->id)) == 0){
+            return view('user.noreadings');
+        }
         $user_age = Carbon::parse($user->birthday)->age;
         return view('user.dashboard',[
             'this_month_average_pulse_rate' => $this->getThisMonthAveragePulseRate($user->id),
@@ -905,6 +908,10 @@ class UserController extends Controller
     public function redirectToReadingListPage(Request $request){
         if(Auth::user()->type != 'normal'){
             abort(403);
+        }
+        $user = User::find(Auth::id());
+        if(count($this->getAllTimeReadings($user->id)) == 0){
+            return view('user.noreadings');
         }
         if($request->has('filter')){
             $filter = explode('-',$request['filter']);
