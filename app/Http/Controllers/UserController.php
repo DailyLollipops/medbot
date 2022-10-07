@@ -80,14 +80,16 @@ class UserController extends Controller
             $profile_picture = $request->file('profile_picture');
             $extension = $profile_picture->getClientOriginalExtension();
             $file_name = $user->id.'.'.$extension;
-            $path = $profile_picture->storeAs('profiles',$file_name,'public');
-            $user->profile_picture_path = $path;
+            $profile_picture_path = $profile_picture->storeAs('profiles',$file_name,'public');
+            $user->profile_picture_path = $profile_picture_path;
             $user->update();
         }
         Auth::login($user);
         flash()->addInfo('Registration completed');
         flash()->addInfo('Welcome '.$user->name);
-        return redirect('/');
+        $path = $this->generateQRCode($user->id,$request->password);
+        return redirect('/manage/update/password/download')->with('link',$user->id);
+        // return redirect('/');
     }
 
     // For User Dashboard
