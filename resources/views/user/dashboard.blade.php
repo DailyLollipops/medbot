@@ -59,7 +59,7 @@
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-1">
             <h5 class="u-text u-text-3">Blood Presssure</h5>
             <span class="u-custom-item u-file-icon u-icon u-icon-2">
-              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+              <img src="{{ asset('images/blood_pressure.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-4">{{$this_month_average_systolic}}/{{$this_month_average_diastolic}} mmHg</p>
 
@@ -101,7 +101,7 @@
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-1">
             <h5 class="u-text u-text-3">Blood Saturation</h5>
             <span class="u-custom-item u-file-icon u-icon u-icon-2">
-              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-4">{{$this_month_average_blood_saturation}} %</p>
 
