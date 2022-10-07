@@ -1081,6 +1081,15 @@ class UserController extends Controller
             abort(403);
         }
         $user = User::find($user_id);
+        if(count($this->getAllTimeReadings($user->id)) == 0){
+            return view('doctor.noreport', [
+                'user_id' => $user->id,
+                'user_profile' => $user->profile_picture_path,
+                'user_name' => $user->name,
+                'user_age' => Carbon::parse($user->birthday)->age,
+                'user_joined' => Carbon::parse($user->created_at)->format('M d, Y'),
+            ]);
+        }
         return view('doctor.userreport',[
             'user_id' => $user->id,
             'user_profile' => $user->profile_picture_path,
@@ -1125,6 +1134,15 @@ class UserController extends Controller
             abort(403);
         }
         $user = User::find($user_id);
+        if(count($this->getAllTimeReadings($user->id)) == 0){
+            return view('doctor.noreading', [
+                'user_id' => $user->id,
+                'user_profile' => $user->profile_picture_path,
+                'user_name' => $user->name,
+                'user_age' => Carbon::parse($user->birthday)->age,
+                'user_joined' => Carbon::parse($user->created_at)->format('M d, Y'),
+            ]);
+        }
         if($request->has('order')){
             $filter = explode('-',$request['order']);
             $readings = Reading::where('user_id',$user->id)->orderBy($filter[0],$filter[1])->get();
