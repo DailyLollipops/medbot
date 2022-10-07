@@ -1052,12 +1052,33 @@ class UserController extends Controller
         }
         $user = User::find($user_id);
         $latest_reading = Reading::where('user_id',$user->id)->latest()->first();
+        if($latest_reading == null){
+            $latest_reading_date = 'No Readings Yet';
+            $latest_pulse_rate = 'N/A';
+            $latest_systolic = 'N';
+            $latest_diastolic = 'A';
+            $latest_blood_saturation = 'N/A';
+            $average_pulse_rate = 'N/A';
+            $average_systolic = 'N';
+            $average_diastolic = 'A';
+            $average_blood_saturation = 'N/A';
+        }
+        else{
+            $latest_reading_date = Carbon::parse($latest_reading->created_at)->format('M d, Y');
+            $latest_pulse_rate = $latest_reading->pulse_rate;
+            $latest_systolic = $latest_reading->systolic;
+            $latest_diastolic = $latest_reading->diastolic;
+            $latest_blood_saturation = $latest_reading->blood_saturation;
+            $average_pulse_rate = $this->getAllTimeAveragePulseRate($user->id);
+            $average_systolic = $this->getAllTimeAverageSystolic($user->id);
+            $average_diastolic = $this->getallTimeAverageDiastolic($user->id);
+            $average_blood_saturation = $this->getAllTimeAverageBloodSaturation($user->id);
+        }
         return view('doctor.userinfo',[
             'id' => $user->id,
             'profile' => $user->profile_picture_path,
             'name' => $user->name,
             'joined' => Carbon::parse($user->created_at)->format('M d, Y'),
-            'latest_reading' => Carbon::parse($latest_reading->created_at)->format('M d, Y'),
             'age' => Carbon::parse($user->birthday)->age,
             'gender' => ucfirst($user->gender),
             'phone' => $user->phone_number,
@@ -1065,14 +1086,15 @@ class UserController extends Controller
             'email' => $user->email,
             'address' => $user->address,
             'bio' => $user->bio,
-            'latest_pulse_rate' => $latest_reading->pulse_rate,
-            'average_pulse_rate' => $this->getAllTimeAveragePulseRate($user->id),
-            'latest_systolic' => $latest_reading->systolic,
-            'latest_diastolic' => $latest_reading->diastolic,
-            'average_systolic' => $this->getAllTimeAverageSystolic($user->id),
-            'average_diastolic' => $this->getallTimeAverageDiastolic($user->id),
-            'latest_blood_saturation' => $latest_reading->blood_saturation,
-            'average_blood_saturation' => $this->getAllTimeAverageBloodSaturation($user->id)
+            'latest_reading' => $latest_reading_date,
+            'latest_pulse_rate' => $latest_pulse_rate,
+            'latest_systolic' => $latest_systolic,
+            'latest_diastolic' => $latest_diastolic,
+            'latest_blood_saturation' => $latest_blood_saturation,
+            'average_pulse_rate' => $average_pulse_rate,
+            'average_systolic' => $average_systolic,
+            'average_diastolic' => $average_diastolic,
+            'average_blood_saturation' => $average_blood_saturation
         ]);
     }
 
