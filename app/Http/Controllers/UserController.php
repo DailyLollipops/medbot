@@ -17,6 +17,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class UserController extends Controller
 {
+    // Credentials specific functions
     private function encrypt($decrypted) {
         $password = 'MedbotPRBPM';
         $encrypted=openssl_encrypt($decrypted,'AES-128-ECB',$password);
@@ -34,62 +35,6 @@ class UserController extends Controller
         $path = 'qrcodes/' . $user_id . '.png';
         Storage::disk('local')->put($path, $image);
         return $path;
-    }
-    
-    public function registerUser(Request $request){
-        $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'gender' => 'required|different:null',
-            'birthday' => 'required|before:now',
-            'phone_number' => 'required',
-            'email' => 'required|unique:users,email',
-            'municipality' => 'required|different:null',
-            'password' => 'required|regex:/^.*(?=[^A-Z\n]*[A-Z]).{8,}.*$/',
-            'password_confirmation' => 'required|same:password',
-            'bio' => 'required|min:10|max:200',
-            'profile_picture' => 'mimes:jpeg,bmp,png'
-        ],
-        [
-            'name.required' => 'Name field is required',
-            'gender.different' => 'Please select your gender',
-            'birthday.required' => 'Birthday field is required',
-            'birthday.before' => 'Birthday field has invalid value',
-            'phone_number.required' => 'Phone number field is required',
-            'email.required' => 'Email address field is required',
-            'email.unique' => 'Email address is already registered',
-            'municipality.required' => 'Municipality / Address field is required',
-            'municipality.different' => 'Please select your municipality',
-            'password.required' => 'Password field is required',
-            'password.regex' => 'Password should be at least 8 characters long and contain at least one uppercase letter',
-            'password_confirmation.required' => 'Please confirm your password',
-            'password_confirmation.same' => 'Passwords does not match',
-            'bio.required' => 'Please tell something about yourself',
-            'bio.min' => 'Bio field too short',
-            'bio.max' => 'Bio field exceeded maximum characters allowed',
-            'profile_picture.mime' => 'The file is not an image file'
-        ]);
-        if($validator->fails()){
-            return back()->withError($validator->messages()->all());
-        }
-        $register_form = $request->all();
-        $register_form['password'] = bcrypt($register_form['password']);
-        $register_form['type'] = 'normal';
-        $register_form['address'] = $register_form['baranggay'].', '.$register_form['municipality'];
-        $user = User::create($register_form);
-        if($request->has('profile_picture')){
-            $profile_picture = $request->file('profile_picture');
-            $extension = $profile_picture->getClientOriginalExtension();
-            $file_name = $user->id.'.'.$extension;
-            $profile_picture_path = $profile_picture->storeAs('profiles',$file_name,'public');
-            $user->profile_picture_path = $profile_picture_path;
-            $user->update();
-        }
-        Auth::login($user);
-        flash()->addInfo('Registration completed');
-        flash()->addInfo('Welcome '.$user->name);
-        $path = $this->generateQRCode($user->id,$request->password);
-        return redirect('/manage/update/password/download')->with('link',$user->id);
-        // return redirect('/');
     }
 
     // For User Dashboard
@@ -853,6 +798,64 @@ class UserController extends Controller
         }
         return $users_average_blood_saturation;
     }
+
+    // **-- User Registration Function --** //
+
+    public function registerUser(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'gender' => 'required|different:null',
+            'birthday' => 'required|before:now',
+            'phone_number' => 'required',
+            'email' => 'required|unique:users,email',
+            'municipality' => 'required|different:null',
+            'password' => 'required|regex:/^.*(?=[^A-Z\n]*[A-Z]).{8,}.*$/',
+            'password_confirmation' => 'required|same:password',
+            'bio' => 'required|min:10|max:200',
+            'profile_picture' => 'mimes:jpeg,bmp,png'
+        ],
+        [
+            'name.required' => 'Name field is required',
+            'gender.different' => 'Please select your gender',
+            'birthday.required' => 'Birthday field is required',
+            'birthday.before' => 'Birthday field has invalid value',
+            'phone_number.required' => 'Phone number field is required',
+            'email.required' => 'Email address field is required',
+            'email.unique' => 'Email address is already registered',
+            'municipality.required' => 'Municipality / Address field is required',
+            'municipality.different' => 'Please select your municipality',
+            'password.required' => 'Password field is required',
+            'password.regex' => 'Password should be at least 8 characters long and contain at least one uppercase letter',
+            'password_confirmation.required' => 'Please confirm your password',
+            'password_confirmation.same' => 'Passwords does not match',
+            'bio.required' => 'Please tell something about yourself',
+            'bio.min' => 'Bio field too short',
+            'bio.max' => 'Bio field exceeded maximum characters allowed',
+            'profile_picture.mime' => 'The file is not an image file'
+        ]);
+        if($validator->fails()){
+            return back()->withError($validator->messages()->all());
+        }
+        $register_form = $request->all();
+        $register_form['password'] = bcrypt($register_form['password']);
+        $register_form['type'] = 'normal';
+        $register_form['address'] = $register_form['baranggay'].', '.$register_form['municipality'];
+        $user = User::create($register_form);
+        if($request->has('profile_picture')){
+            $profile_picture = $request->file('profile_picture');
+            $extension = $profile_picture->getClientOriginalExtension();
+            $file_name = $user->id.'.'.$extension;
+            $profile_picture_path = $profile_picture->storeAs('profiles',$file_name,'public');
+            $user->profile_picture_path = $profile_picture_path;
+            $user->update();
+        }
+        Auth::login($user);
+        flash()->addInfo('Registration completed');
+        flash()->addInfo('Welcome '.$user->name);
+        $path = $this->generateQRCode($user->id,$request->password);
+        return redirect('/manage/update/password/download')->with('link',$user->id);
+    }
+
     // **-- User Normal Type Specific Functions --** //
 
     // Redirect to User Dashboard
