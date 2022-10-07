@@ -34,6 +34,10 @@ Route::get('/login/user', [MainController::class, 'redirectToUserLoginPage']);
 
 Route::get('/about', [MainController::class, 'redirectToAboutPage']);
 
+Route::get('/register', [MainController::class, 'redirectToRegisterPage']);
+
+Route::post('/register/store', [UserController::class, 'registerUser']);
+
 Route::post('/authenticate/doctor', [LoginController::class, 'authenticateDoctor']);
 
 Route::post('/authenticate/user/upload', [LoginController::class, 'authenticateUserByUpload']);

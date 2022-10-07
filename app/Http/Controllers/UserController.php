@@ -36,6 +36,50 @@ class UserController extends Controller
         return $path;
     }
 
+    public function registerUser(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'gender' => 'required|different:null',
+            'birthday' => 'required|before:now',
+            'phone_number' => 'required',
+            'email' => 'required|unique:users,email',
+            'municipality' => 'required|different:null',
+            'password' => 'required|regex:/^.*(?=[^A-Z\n]*[A-Z]).{8,}.*$/',
+            'password_confirmation' => 'required|same:password',
+            'bio' => 'required|min:10|max:200',
+            'profile_picture' => 'nullable'
+        ],
+        [
+            'name.required' => 'Name field is required',
+            'gender.different' => 'Please select your gender',
+            'birthday.required' => 'Birthday field is required',
+            'birthday.before' => 'Birthday field has invalid value',
+            'phone_number.required' => 'Phone number field is required',
+            'email.required' => 'Email address field is required',
+            'email.unique' => 'Email address is already registered',
+            'municipality.required' => 'Municipality / Address field is required',
+            'municipality.different' => 'Please select your municipality',
+            'password.required' => 'Password field is required',
+            'password.regex' => 'Password should be at least 8 characters long and contain at least one uppercase letter',
+            'password_confirmation.required' => 'Please confirm your password',
+            'password_confirmation.same' => 'Passwords does not match',
+            'bio.required' => 'Please tell something about yourself',
+            'bio.min' => 'Bio field too short',
+            'bio.max' => 'Bio field exceeded maximum characters allowed'
+        ]);
+        if ($validator->fails()){
+            return back()->withError($validator->messages()->all());
+        }
+        $register_form = $request->all();
+        $register_form['password'] = bcrypt($register_form['password']);
+        $register_form['type'] = 'normal';
+        $register_form['address'] = $register_form['baranggay'].', '.$register_form['municipality'];
+        $user = User::create($register_form);
+        Auth::login($user);
+        flash()->addInfo('Registration completed\nWelcome '.$user->name);
+        return redirect('/');
+    }
+
     // For User Dashboard
     private function getLowPulseRate($age){
         if($age <= 1){

@@ -11,6 +11,7 @@ class MainController extends Controller
     public function redirectToAboutPage(){
         return view('main.about');
     }
+
     // Redirects to User Login page
     public function redirectToUserLoginPage(){
         return view('main.loginuser');
@@ -44,5 +45,12 @@ class MainController extends Controller
         else {
             return view('main.index');
         }
+    }
+
+    public function redirectToRegisterPage(){
+        if(Auth::check()){
+            abort(403);
+        }
+        return view('main.registration');
     }
 }
