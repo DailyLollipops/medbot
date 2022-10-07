@@ -1,4 +1,4 @@
-@extends('layout',[$style = 'doctor/dashboards', $title = 'Dashboard'])
+@extends('layout',[$style = 'doctor/dashboard', $title = 'Dashboard'])
 
 @section('content')
 @php
