@@ -724,12 +724,14 @@ class UserController extends Controller
         if(count($users) != 0){
             foreach($users as $user){
                 $user_pulse_rate = $this->getAllReadings($user->id)->pluck('pulse_rate')->toArray();
-                $user_pulse_rates = array();
-                foreach($user_pulse_rate as $pulse_rate){
-                    array_push($user_pulse_rates, $pulse_rate);
+                if(count($user_pulse_rate) != 0){
+                    $user_pulse_rates = array();
+                    foreach($user_pulse_rate as $pulse_rate){
+                        array_push($user_pulse_rates, $pulse_rate);
+                    }
+                    $user_average_pulse_rate = round(array_sum($user_pulse_rate)/count($user_pulse_rate));
+                    array_push($users_pulse_rate, $user_average_pulse_rate);
                 }
-                $user_average_pulse_rate = round(array_sum($user_pulse_rate)/count($user_pulse_rate));
-                array_push($users_pulse_rate, $user_average_pulse_rate);
             }
            $users_average_pulse_rate = round(array_sum($users_pulse_rate)/count($users_pulse_rate));
         }
@@ -744,12 +746,14 @@ class UserController extends Controller
         if(count($users) != 0){
             foreach($users as $user){
                 $user_systolic = $this->getAllReadings($user->id)->pluck('systolic')->toArray();
-                $user_systolics = array();
-                foreach($user_systolic as $systolic){
-                    array_push($user_systolics, $systolic);
+                if(count($user_systolic) != 0){
+                    $user_systolics = array();
+                    foreach($user_systolic as $systolic){
+                        array_push($user_systolics, $systolic);
+                    }
+                    $user_average_systolic = round(array_sum($user_systolic)/count($user_systolic));
+                    array_push($users_systolic, $user_average_systolic);
                 }
-                $user_average_systolic = round(array_sum($user_systolic)/count($user_systolic));
-                array_push($users_systolic, $user_average_systolic);
             }
            $users_average_systolic = round(array_sum($users_systolic)/count($users_systolic));
         }
@@ -764,12 +768,14 @@ class UserController extends Controller
         if(count($users) != 0){
             foreach($users as $user){
                 $user_diastolic = $this->getAllReadings($user->id)->pluck('diastolic')->toArray();
-                $user_diastolics = array();
-                foreach($user_diastolic as $diastolic){
-                    array_push($user_diastolics, $diastolic);
+                if(count($user_diastolic) != 0){
+                    $user_diastolics = array();
+                    foreach($user_diastolic as $diastolic){
+                        array_push($user_diastolics, $diastolic);
+                    }
+                    $user_average_diastolic = round(array_sum($user_diastolic)/count($user_diastolic));
+                    array_push($users_diastolic, $user_average_diastolic);
                 }
-                $user_average_diastolic = round(array_sum($user_diastolic)/count($user_diastolic));
-                array_push($users_diastolic, $user_average_diastolic);
             }
            $users_average_diastolic = round(array_sum($users_diastolic)/count($users_diastolic));
         }
@@ -784,12 +790,14 @@ class UserController extends Controller
         if(count($users) != 0){
             foreach($users as $user){
                 $user_blood_saturation = $this->getAllReadings($user->id)->pluck('blood_saturation')->toArray();
-                $user_blood_saturations = array();
-                foreach($user_blood_saturation as $blood_saturation){
-                    array_push($user_blood_saturations, $blood_saturation);
+                if(count($user_blood_saturation) != 0){
+                    $user_blood_saturations = array();
+                    foreach($user_blood_saturation as $blood_saturation){
+                        array_push($user_blood_saturations, $blood_saturation);
+                    }
+                    $user_average_blood_saturation = round(array_sum($user_blood_saturation)/count($user_blood_saturation));
+                    array_push($users_blood_saturation, $user_average_blood_saturation);
                 }
-                $user_average_blood_saturation = round(array_sum($user_blood_saturation)/count($user_blood_saturation));
-                array_push($users_blood_saturation, $user_average_blood_saturation);
             }
            $users_average_blood_saturation = round(array_sum($users_blood_saturation)/count($users_blood_saturation));
         }
