@@ -43,7 +43,7 @@ class ReadingFactory extends Factory
         $created = date("Y-m-d H:i:s", rand($start, $end));
         
         return [
-            'pulse_rate' => fake()->numberBetween(1,120),
+            'pulse_rate' => fake()->numberBetween(50,120),
             'blood_saturation' => fake()->numberBetween(70,100),
             'systolic' => $systolic,
             'diastolic' => $diastolic,
