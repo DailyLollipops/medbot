@@ -76,7 +76,7 @@ class UserFactory extends Factory
             $baranggay = $this->faker->randomElement($baranggay_buenavista);
         }
         $address = $baranggay.', '.$municipality;
-        if(rand(0,100) < 90){
+        if(rand(0,100) < 95){
             $type = 'normal';
         }
         else{
@@ -87,7 +87,8 @@ class UserFactory extends Factory
             'email' => fake()->safeEmail(),
             'birthday' => $random_birthday,
             'gender' => $this->faker->randomElement(['female','male']),
-            'address' => $address,
+            'municipality' => $municipality,
+            'baranggay' => $baranggay,
             'bio' => fake()->paragraph(2),
             // 'phone_number' => $number,
             'email_verified_at' => now(),

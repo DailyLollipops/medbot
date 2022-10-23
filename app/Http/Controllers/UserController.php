@@ -605,106 +605,15 @@ class UserController extends Controller
         return $users_per_gender;
     }
 
-    private function getAddress($temp_address){
-        $municipalities = array('All', 'Gasan', 'Boac', 'Mogpog', 'Sta. Cruz', 'Torrijos', 'Buenavista');
-        $baranggay_gasan = array('All', 'Antipolo', 'Bachao Ibaba', 'Bachao Ilaya', 'Bacong-bacong', 'Bahi', 'Bangbang', 'Banot',
-                                    'Banuyo', 'Bognuyan', 'Cabugao', 'Dawis', 'Dili', 'Libtangin', 'Mahunig', 'Mangiliol',
-                                    'Masiga', 'Mt. Gasan', 'Pangi', 'Pinggan', 'Tabionan', 'Tapuyan', 'Tiguion',
-                                    'Baranggay I', 'Baranggay II', 'Baranggay III');
-        $baranggay_boac = array('All','Agot', 'Agumaymayan', 'Amoingon', 'Apitong', 'Balagasan', 'Balaring', 'Balimbing', 'Balogo',
-                                    'Bamban', 'Bangbangalon', 'Bantad', 'Bantay', 'Bayuti', 'Binunga', 'Boi', 'Boton', 
-                                    'Buliasnin', 'Bunganay', 'Caganhao', 'Canat', 'Catubugan', 'Cawit', 'Daig', 'Daypay',
-                                    'Duyay', 'Hinapulan', 'Ihatub', 'Isok 1', 'Isok 2', 'Laylay', 'Lupac', 'Mahinhin',
-                                    'Mainit', 'Malbog', 'Maligaya', 'Malusak', 'Mansiwat', 'Mataas na Bayan', 'Maybo', 'Mercado', 
-                                    'Murallon', 'Ogbac', 'Pawa', 'Pili', 'Poctoy', 'Poras', 'Puting Buhangin', 'Puyog', 'Sabong', 
-                                    'San Miguel', 'Santol', 'Sawi', 'Tabi', 'Tabigue', 'Tagwak', 'Tambunan', 'Tampus', 'Tanza',
-                                    'Tugos', 'Tumagabok', 'Tumapon');
-        $baranggay_buenavista = array('All', 'Bagacay', 'Bagtingon', 'Bicas-bicas', 'Caigangan', 'Daykitin', 'Libas', 'Malbog', 'Sihi',
-                                    'Timbo', 'Lipata', 'Yook', 'Baranggay I', 'Baranggay II', 'Baranggay III', 'Baranggay IV');
-        $baranggay_mogpog = array('All', 'Sibucao', 'Argao', 'Balanacan', 'Banto', 'Bintakay', 'Bocboc', 'Butansapa', 'Candahon',
-                                    'Capayang', 'Danao', 'Dulong Bayan', 'Gitnang Bayan', 'Guisian', 'Hinadharan', 'Hinanggayon',
-                                    'Ino', 'Janagdong', 'Lamesa', 'Laon', 'Magapua', 'Malayak', 'Malusak', 'Mampaitan',
-                                    'Mangyan-Mababad', 'Market Site', 'Mataas na Bayan', 'Mendez', 'Nangka I', 'Nangka II', 'Paye',
-                                    'Pili', 'Puting Buhangin', 'Sayao', 'Silangan', 'Sumangga', 'Tarug', 'Villa Mendez');
-        $baranggay_stacruz = array('All', 'Alobo', 'Angas', 'Aturan', 'Bagong Silangan', 'Baguidbirin', 'Baliis', 'Balogo', 'Banahaw',
-                                    'Bangcuangan', 'Biga', 'Botilao', 'Buyabod', 'Dating Bayan', 'Devilla', 'Dolores', 'Haguimit',
-                                    'Hupi', 'Ipil', 'Jolo', 'Kaganhao', 'Kalangkang', 'Kamandugan', 'Kasily', 'Kilo-kilo',
-                                    'Kinyaman', 'Labo', 'Lamesa', 'Landy', 'Lapu-lapu', 'Libjo', 'Lipa', 'Lusok', 'Maharlika',
-                                    'Makulapnit', 'Maniwaya', 'Manlibunan', 'Masaguisi', 'Masalukot', 'Matalaba', 'Mongpong',
-                                    'Morales', 'Napo', 'Pag-asa', 'Pantayin', 'Polo', 'Pulong-parang', 'Punong', 'San Antonio',
-                                    'San Isidro', 'Tagum', 'Tamayo', 'Tambangan', 'Tawiran', 'Taytay');
-        $baranggay_torrijos = array('All', 'Bangwayin', 'Bayakbakin', 'Bolo', 'Bonliw', 'Buangan', 'Cabuyo', 'Cagpo', 'Dampulan', 'Kay Duke',
-                                    'Mabuhay', 'Makawayan', 'Malibago', 'Malinao', 'Maranlig', 'Marlangga', 'Matuyatuya', 'Nangka',
-                                    'Pakaskasan', 'Payanas', 'Poblacion', 'Poctoy', 'Sibuyao', 'Suha', 'Talawan', 'Tigwi');
-        foreach($municipalities as $temp_municipality){
-            if(str_contains($temp_address, $temp_municipality)){
-                $municipality = $temp_municipality;
-            }  
-        }
-        if($municipality == 'Gasan'){
-            foreach($baranggay_gasan as $temp_baranggay){
-                if(str_contains($temp_address, $temp_baranggay)){
-                    $baranggay = $temp_baranggay;
-                }
-            }
-        }
-        else if($municipality == 'Boac'){
-            foreach($baranggay_boac as $temp_baranggay){
-                if(str_contains($temp_address, $temp_baranggay)){
-                    $baranggay = $temp_baranggay;
-                }
-            }
-        }
-        else if($municipality == 'Mogpog'){
-            foreach($baranggay_mogpog as $temp_baranggay){
-                if(str_contains($temp_address, $temp_baranggay)){
-                    $baranggay = $temp_baranggay;
-                }
-            }
-        }
-        else if($municipality == 'Sta. Cruz'){
-            foreach($baranggay_stacruz as $temp_baranggay){
-                if(str_contains($temp_address, $temp_baranggay)){
-                    $baranggay = $temp_baranggay;
-                }
-            }
-        }
-        else if($municipality == 'Torrijos'){
-            foreach($baranggay_torrijos as $temp_baranggay){
-                if(str_contains($temp_address, $temp_baranggay)){
-                    $baranggay = $temp_baranggay;
-                }
-            }
-        }
-        else if($municipality == 'Buenavista'){
-            foreach($baranggay_buenavista as $temp_baranggay){
-                if(str_contains($temp_address, $temp_baranggay)){
-                    $baranggay = $temp_baranggay;
-                }
-            }
-        }
-        else{
-            $baranggay = 'All';
-        }
-        $address = array(
-            'municipality' => $municipality,
-            'baranggay' => $baranggay
-        );
-        return $address;
-    }
-
-    private function getUserByAddress($temp_address){
-        $address = $this->getAddress($temp_address);
-        $municipality = $address['municipality'];
-        $baranggay = $address['baranggay'];
+    private function getUserByAddress($municipality, $baranggay){
         if($municipality == 'All'){
             $users = User::where('type','normal')->get();
         }
         else if($baranggay == 'All'){
-            $users = User::where('type','normal')->where('address','like','%'.$municipality.'%')->get();
+            $users = User::where('type','normal')->where('municipality','like','%'.$municipality.'%')->get();
         }
         else{
-            $users = User::where('type','normal')->where('address','like','%'.$municipality.'%')->where('address','like','%'.$baranggay.'%')->get();
+            $users = User::where('type','normal')->where('municipality','like','%'.$municipality.'%')->where('baranggay','like','%'.$baranggay.'%')->get();
         }
         return $users;
     }
@@ -847,7 +756,6 @@ class UserController extends Controller
         $register_form = $request->all();
         $register_form['password'] = bcrypt($register_form['password']);
         $register_form['type'] = 'normal';
-        $register_form['address'] = $register_form['baranggay'].', '.$register_form['municipality'];
         $user = User::create($register_form);
         if($request->has('profile_picture')){
             $profile_picture = $request->file('profile_picture');
@@ -967,17 +875,18 @@ class UserController extends Controller
         if(Auth::user()->type != 'doctor'){
             abort(403);
         }
-        if($request->has('address')){
-            $users = $this->getUserByAddress($request->address);
-            $temp_address = $this->getAddress($request->address);
-            if($temp_address['municipality'] == 'All'){
+        if($request->has('munipality') && $request->has('baranggay')){
+            $municipality = $request->municipality;
+            $baranggay = $request->baranggay;
+            $users = $this->getUserByAddress($municipality, $baranggay);
+            if($municipality == 'All'){
                 $address = 'Whole Province';
             }
-            else if($temp_address['baranggay'] == 'All'){
-                $address = 'Town of '.$temp_address['municipality'];
+            else if($baranggay == 'All'){
+                $address = 'Town of '.$municipality;
             }
             else{
-                $address = $temp_address['baranggay'].', '.$temp_address['municipality'];
+                $address = $baranggay.', '.$municipality;
             }
         }
         else{
@@ -1074,6 +983,7 @@ class UserController extends Controller
             $average_diastolic = $this->getallTimeAverageDiastolic($user->id);
             $average_blood_saturation = $this->getAllTimeAverageBloodSaturation($user->id);
         }
+        $address = $user->baranggay.', '.$user->municipality;
         return view('doctor.userinfo',[
             'id' => $user->id,
             'profile' => $user->profile_picture_path,
@@ -1084,7 +994,7 @@ class UserController extends Controller
             'phone' => $user->phone_number,
             'birthday' => Carbon::parse($user->birthday)->format('M d, Y'),
             'email' => $user->email,
-            'address' => $user->address,
+            'address' => $address,
             'bio' => $user->bio,
             'latest_reading' => $latest_reading_date,
             'latest_pulse_rate' => $latest_pulse_rate,
@@ -1211,7 +1121,8 @@ class UserController extends Controller
             'user_gender' => $user->gender,
             'user_phone' => $user->phone_number,
             'user_birthday' => date('Y-m-d',strtotime($user->birthday)),
-            'user_address' => $user->address,
+            'user_baranggay' => $user->baranggay,
+            'user_municipality' => $user->municipality,
             'user_email' => $user->email,
             'user_bio' => $user->bio,
         ]);
@@ -1245,7 +1156,8 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->gender = $request->gender;
         $user->birthday = $request->birthday;
-        $user->address = $request->address;
+        $user->municipality = $request->municipality;
+        $user->baranggay = $request->baranggay;
         $user->phone_number = $request->phone_number;
         $user->email = $request->email;
         $user->bio = $request->bio;

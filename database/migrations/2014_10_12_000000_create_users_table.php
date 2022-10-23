@@ -19,7 +19,8 @@ return new class extends Migration
             $table->date('birthday');
             $table->string('gender');
             $table->string('phone_number')->nullable();
-            $table->string('address')->nullable();
+            $table->string('baranggay')->nullable();
+            $table->string('municipality')->nullable();
             $table->string('email')->unique();
             $table->string('bio')->nullable();
             $table->string('profile_picture_path')->nullable();

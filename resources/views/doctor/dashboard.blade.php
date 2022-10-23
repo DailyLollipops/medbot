@@ -135,7 +135,7 @@
 <section class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-section-2" id="sec-7557">
   <div class="u-clearfix u-sheet u-valign-middle-xs u-sheet-1">
     <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
-      <form id="form" action="#" method="GET" onsubmit="select_area()" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" name="form" style="padding: 10px;">
+      <form id="form" action="#" method="GET" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" name="form" style="padding: 10px;">
         <div class="u-form-group u-form-select u-label-none u-form-group-1">
           <label for="select-d839" class="u-label">Dropdown</label>
           <div class="u-form-select-wrapper">
@@ -162,7 +162,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
           </div>
         </div>
-        <input id="address" name="address" style="display: none;">
         <div class="u-align-left u-form-group u-form-submit u-label-none">
           <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-15 u-text-hover-palette-2-light-1 u-btn-1">
             <span class="u-file-icon u-icon">
@@ -377,14 +376,6 @@
         baranggay_dropdown.appendChild(option);
       }
     }
-  }
-  function select_area(){
-    select_area_form = document.getElementById('form');
-    municipality = document.getElementById('municipality').value;
-    baranggay = document.getElementById('baranggay').value;
-    address = document.getElementById('address');
-    address.value = baranggay + ', ' + municipality;
-    select_area_form.submit();
   }
 </script>
 
