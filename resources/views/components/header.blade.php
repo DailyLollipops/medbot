@@ -32,30 +32,30 @@
       <div class="u-custom-menu u-nav-container">
         <ul class="u-nav u-unstyled u-nav-1">
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/" style="padding: 10px 15px;">Home</a>
+            <a class="u-button-style u-nav-link" href="/" style="padding: 10px 15px;">Home</a>
           </li>
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/about" style="padding: 10px 15px;">About</a>
+            <a class="u-button-style u-nav-link" href="/about" style="padding: 10px 15px;">About</a>
           </li>
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/register" style="padding: 10px 15px;">Register</a>
+            <a class="u-button-style u-nav-link" href="/register" style="padding: 10px 15px;">Register</a>
           </li>
           <li class="u-nav-item">
             <a class="u-button-style u-nav-link" style="padding: 10px 15px;">Login</a>
             <div class="u-nav-popup">
               <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-2">
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/medbot/public/login/doctor">Login as Doctor</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/login/doctor">Login as Doctor</a>
                 </li>
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/medbot/public/login/user">Login as User</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/login/user">Login as User</a>
                   <div class="u-nav-popup">
                     <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-2">
                       <li class="u-nav-item">
-                        <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/medbot/public/login/user/scan">Scan QRCode</a>
+                        <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/login/user/scan">Scan QRCode</a>
                       </li>
                       <li class="u-nav-item">
-                        <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/medbot/public/login/user/upload">Upload QRCode</a>
+                        <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/login/user/upload">Upload QRCode</a>
                       </li>
                     </ul>
                   </div>
@@ -71,30 +71,30 @@
             <div class="u-menu-close"></div>
             <ul class="u-align-center u-nav u-popupmenu-items u-text-hover-palette-2-light-1 u-unstyled u-nav-3">
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/">Home</a>
+                <a class="u-button-style u-nav-link" href="/">Home</a>
               </li>
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/about">About</a>
+                <a class="u-button-style u-nav-link" href="/about">About</a>
               </li>
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/register" style="padding: 10px 15px;">Register</a>
+                <a class="u-button-style u-nav-link" href="/register" style="padding: 10px 15px;">Register</a>
               </li>
               <li class="u-nav-item">
                 <a class="u-button-style u-nav-link">Login</a>
                 <div class="u-nav-popup">
                   <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-4">
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="/medbot/public/login/doctor">Login as Doctor</a>
+                      <a class="u-button-style u-nav-link" href="/login/doctor">Login as Doctor</a>
                     </li>
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="/medbot/public/login/user">Login as User</a>
+                      <a class="u-button-style u-nav-link" href="/login/user">Login as User</a>
                       <div class="u-nav-popup">
                         <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-4">
                           <li class="u-nav-item">
-                            <a class="u-button-style u-nav-link" href="/medbot/public/login/user/scan">Scan QRCode</a>
+                            <a class="u-button-style u-nav-link" href="/login/user/scan">Scan QRCode</a>
                           </li>
                           <li class="u-nav-item">
-                            <a class="u-button-style u-nav-link" href="/medbot/public/login/user/upload">Upload QRCode</a>
+                            <a class="u-button-style u-nav-link" href="/login/user/upload">Upload QRCode</a>
                           </li>
                         </ul>
                       </div>
@@ -108,7 +108,7 @@
         <div class="u-menu-overlay u-opacity u-opacity-0 u-palette-5-light-3"></div>
       </div>
     </nav>
-    <a href="/medbot/public/" class="u-image u-logo u-image-1" data-image-width="200" data-image-height="200">
+    <a href="/" class="u-image u-logo u-image-1" data-image-width="200" data-image-height="200">
       <img src="{{ asset('images/logo2.png') }}" class="u-logo-image u-logo-image-1">
     </a>
   </div>
