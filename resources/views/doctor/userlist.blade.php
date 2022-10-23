@@ -38,7 +38,7 @@
               <p class="u-text u-text-2">{{$user->name}}</p>
               <p class="u-text u-text-3">{{Carbon::parse($user->birthday)->age}} years old</p>
               <p class="u-text u-text-4">{{ucfirst($user->gender)}}</p>
-              <p class="u-text u-text-5">{{$user->address}}<br>
+              <p class="u-text u-text-5">{{$user->baranggay}}, {{$user->municipality}}<br>
                 <br>
               </p>
               <blockquote class="u-text u-text-6">{{$user->bio}}</blockquote>
