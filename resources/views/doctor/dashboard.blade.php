@@ -135,7 +135,7 @@
 <section class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-section-2" id="sec-7557">
   <div class="u-clearfix u-sheet u-valign-middle-xs u-sheet-1">
     <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
-      <form id="form" action="#" method="GET" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" name="form" style="padding: 10px;">
+      <form id="form" action="#" method="GET" onsubmit="select_area()" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" name="form" style="padding: 10px;">
         <div class="u-form-group u-form-select u-label-none u-form-group-1">
           <label for="select-d839" class="u-label">Dropdown</label>
           <div class="u-form-select-wrapper">
@@ -376,6 +376,10 @@
         baranggay_dropdown.appendChild(option);
       }
     }
+  }
+  function select_area(){
+    select_area_form = document.getElementById('form');
+    select_area_form.submit();
   }
 </script>
 
