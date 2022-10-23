@@ -610,10 +610,10 @@ class UserController extends Controller
             $users = User::where('type','normal')->get();
         }
         else if($baranggay == 'All'){
-            $users = User::where('type','normal')->where('municipality','like','%'.$municipality.'%')->get();
+            $users = User::where('type','normal')->where('municipality',$municipality)->get();
         }
         else{
-            $users = User::where('type','normal')->where('municipality','like','%'.$municipality.'%')->where('baranggay','like','%'.$baranggay.'%')->get();
+            $users = User::where('type','normal')->where('municipality',$municipality)->where('baranggay',$baranggay)->get();
         }
         return $users;
     }
@@ -875,7 +875,7 @@ class UserController extends Controller
         if(Auth::user()->type != 'doctor'){
             abort(403);
         }
-        if($request->has('munipality') && $request->has('baranggay')){
+        if($request->has('municipality') && $request->has('baranggay')){
             $municipality = $request->municipality;
             $baranggay = $request->baranggay;
             $users = $this->getUserByAddress($municipality, $baranggay);
