@@ -1,3 +1,4 @@
+# Website for Med-bot
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -6,6 +7,23 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
+
+## Installation and Run
+### Local
+To run locally, use the `main` branch and it recommended to use XAMPP as the localhost server but anything will do. After setting the environment, navigate to your folder and run
+```
+composer install
+```
+After that you can edit the `.env` file or create a new one by running
+```
+php artisan env:encrypt
+```
+and changing some settings such as your database provider. After configuring your environment, you can migrate and seed the tables by running
+```
+php artisan migrate --seed
+```
+### Hosting
+To host the project on online hosting services, use the `deployment` branch
 
 ## About Laravel
 
