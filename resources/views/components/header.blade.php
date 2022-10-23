@@ -38,6 +38,9 @@
             <a class="u-button-style u-nav-link" href="/medbot/public/about" style="padding: 10px 15px;">About</a>
           </li>
           <li class="u-nav-item">
+            <a class="u-button-style u-nav-link" href="/medbot/public/register" style="padding: 10px 15px;">Register</a>
+          </li>
+          <li class="u-nav-item">
             <a class="u-button-style u-nav-link" style="padding: 10px 15px;">Login</a>
             <div class="u-nav-popup">
               <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-2">
@@ -72,6 +75,9 @@
               </li>
               <li class="u-nav-item">
                 <a class="u-button-style u-nav-link" href="/medbot/public/about">About</a>
+              </li>
+              <li class="u-nav-item">
+                <a class="u-button-style u-nav-link" href="/medbot/public/register" style="padding: 10px 15px;">Register</a>
               </li>
               <li class="u-nav-item">
                 <a class="u-button-style u-nav-link">Login</a>
