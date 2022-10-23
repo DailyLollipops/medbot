@@ -523,7 +523,7 @@ class UserController extends Controller
     private function getMonthlyUserGrowthRate(){
         $first_month = User::where('type','normal')->oldest()->get()->first()->created_at->format('m');
         $first_year = User::where('type','normal')->oldest()->get()->first()->created_at->format('Y');
-        $first_monthly_users = User::where('type','normal')->whereYear('created_at', date('Y'))->whereMonth('created_at', $first_month)->pluck('id')->toArray();
+        $first_monthly_users = User::where('type','normal')->whereYear('created_at', $first_year)->whereMonth('created_at', $first_month)->pluck('id')->toArray();
         $first_monthly_users_count = count($first_monthly_users);
         $first_date = Carbon::createFromFormat('Y-m', $first_year.'-'.$first_month);
         $today = Carbon::now();
