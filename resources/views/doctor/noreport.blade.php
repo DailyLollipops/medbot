@@ -32,7 +32,7 @@
           </span>
           &nbsp;Reports
         </a>
-        <a href="{{'/medbot/public/userlist/id-'.$user_id.'/reading'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-2">
+        <a href="{{'/userlist/id-'.$user_id.'/reading'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-2">
           <span class="u-file-icon u-icon u-icon-4">
             <img src="{{ asset('images/monitor.png') }}" alt="">
           </span>

@@ -32,23 +32,23 @@
       <div class="u-custom-menu u-nav-container">
         <ul class="u-nav u-unstyled u-nav-1">
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/" style="padding: 10px 15px;">Home</a>
+            <a class="u-button-style u-nav-link" href="/" style="padding: 10px 15px;">Home</a>
           </li>
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/about" style="padding: 10px 15px;">About</a>
+            <a class="u-button-style u-nav-link" href="/about" style="padding: 10px 15px;">About</a>
           </li>
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/userlist" style="padding: 10px 15px;">Users</a>
+            <a class="u-button-style u-nav-link" href="/userlist" style="padding: 10px 15px;">Users</a>
           </li>
           <li class="u-nav-item">
             <a class="u-button-style u-nav-link" style="padding: 10px 15px;">Profile</a>
             <div class="u-nav-popup">
               <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-2">
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/medbot/public/update">Update Info</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/update">Update Info</a>
                 </li>
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/medbot/public/logout" rel="nofollow">Logout</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/logout" rel="nofollow">Logout</a>
                 </li>
               </ul>
             </div>
@@ -61,23 +61,23 @@
             <div class="u-menu-close"></div>
             <ul class="u-align-center u-nav u-popupmenu-items u-text-hover-palette-2-light-1 u-unstyled u-nav-3">
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/">Home</a>
+                <a class="u-button-style u-nav-link" href="/">Home</a>
               </li>
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/about">About</a>
+                <a class="u-button-style u-nav-link" href="/about">About</a>
               </li>
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/userlist">Users</a>
+                <a class="u-button-style u-nav-link" href="/userlist">Users</a>
               </li>
               <li class="u-nav-item">
                 <a class="u-button-style u-nav-link">Profile</a>
                 <div class="u-nav-popup">
                   <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-4">
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="/medbot/public/update">Update Info</a>
+                      <a class="u-button-style u-nav-link" href="/update">Update Info</a>
                     </li>
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="/medbot/public/logout" rel="nofollow">Logout</a>
+                      <a class="u-button-style u-nav-link" href="/logout" rel="nofollow">Logout</a>
                     </li>
                   </ul>
                 </div>
@@ -88,7 +88,7 @@
         <div class="u-menu-overlay u-opacity u-opacity-0 u-palette-5-light-3"></div>
       </div>
     </nav>
-    <form action="/medbot/public/userlist" method="GET" id="search_form" onsubmit="submitAll();" class="u-border-1 u-border-grey-30 u-border-no-right u-search u-search-left u-white u-search-1">
+    <form action="/userlist" method="GET" id="search_form" onsubmit="submitAll();" class="u-border-1 u-border-grey-30 u-border-no-right u-search u-search-left u-white u-search-1">
       <button class="u-search-button" type="submit">
         <span class="u-search-icon u-spacing-10">
           <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 56.966 56.966">
@@ -104,7 +104,7 @@
       <input type="text" id="order" name="order" value="" style="display: none;">
     </form>
     <div class="u-form u-form-1">
-      <form action="/medbot/public/userlist" method="GET" id="filter_form" class="u-clearfix u-form-spacing-0 u-form-vertical u-inner-form" source="email" name="form" style="padding: 0px;">
+      <form action="/userlist" method="GET" id="filter_form" class="u-clearfix u-form-spacing-0 u-form-vertical u-inner-form" source="email" name="form" style="padding: 0px;">
         <div class="u-form-group u-form-select u-label-none u-form-group-1">
           <div class="u-form-select-wrapper">
             <select id="filter_select" name="filter_select" class="u-border-1 u-border-grey-30 u-border-no-left u-custom-font u-input u-input-rectangle u-text-black u-text-font u-white u-input-1">

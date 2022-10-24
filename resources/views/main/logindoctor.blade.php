@@ -10,7 +10,7 @@
           </span>
           <h2 class="u-align-center u-text u-text-default u-text-palette-2-base u-text-1">Login Now</h2>
           <div class="u-form u-login-control u-form-1">
-            <form action="/medbot/public/authenticate/doctor" method="POST">
+            <form action="/authenticate/doctor" method="POST">
               @csrf
               <div class="u-form-group u-form-name u-label-top">
                 <label for="username-a30d" class="u-label u-text-grey-30 u-label-1">Username *</label>
@@ -31,7 +31,7 @@
               <input type="hidden" value="" name="recaptchaResponse">
             </form>
           </div>
-          <a href="/medbot/public/login/user" data-page-id="36626688" class="u-border-active-palette-2-base u-border-hover-palette-2-base u-border-none u-btn u-button-style u-login-control u-login-create-account u-none u-text-palette-2-base u-btn-2">Login as User?</a>
+          <a href="/login/user" data-page-id="36626688" class="u-border-active-palette-2-base u-border-hover-palette-2-base u-border-none u-btn u-button-style u-login-control u-login-create-account u-none u-text-palette-2-base u-btn-2">Login as User?</a>
         </div>
       </div>
     </div>

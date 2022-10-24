@@ -32,23 +32,23 @@
       <div class="u-custom-menu u-nav-container">
         <ul class="u-nav u-unstyled u-nav-1">
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/" style="padding: 10px 15px;">Home</a>
+            <a class="u-button-style u-nav-link" href="/" style="padding: 10px 15px;">Home</a>
           </li>
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/about" style="padding: 10px 15px;">About</a>
+            <a class="u-button-style u-nav-link" href="/about" style="padding: 10px 15px;">About</a>
           </li>
           <li class="u-nav-item">
-            <a class="u-button-style u-nav-link" href="/medbot/public/readinglist" style="padding: 10px 15px;">Readings</a>
+            <a class="u-button-style u-nav-link" href="/readinglist" style="padding: 10px 15px;">Readings</a>
           </li>
           <li class="u-nav-item">
             <a class="u-button-style u-nav-link" style="padding: 10px 15px;">Profile</a>
             <div class="u-nav-popup">
               <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-2">
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/medbot/public/manage">User Info</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/manage">User Info</a>
                 </li>
                 <li class="u-nav-item">
-                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/medbot/public/logout">Logout</a>
+                  <a class="u-button-style u-hover-palette-2-light-1 u-nav-link u-palette-5-light-3" href="/logout">Logout</a>
                 </li>
               </ul>
             </div>
@@ -61,23 +61,23 @@
             <div class="u-menu-close"></div>
             <ul class="u-align-center u-nav u-popupmenu-items u-text-hover-palette-2-light-1 u-unstyled u-nav-3">
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/">Home</a>
+                <a class="u-button-style u-nav-link" href="/">Home</a>
               </li>
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/about">About</a>
+                <a class="u-button-style u-nav-link" href="/about">About</a>
               </li>
               <li class="u-nav-item">
-                <a class="u-button-style u-nav-link" href="/medbot/public/readinglist">Readings</a>
+                <a class="u-button-style u-nav-link" href="/readinglist">Readings</a>
               </li>
               <li class="u-nav-item">
                 <a class="u-button-style u-nav-link">Profile</a>
                 <div class="u-nav-popup">
                   <ul class="u-h-spacing-10 u-nav u-unstyled u-v-spacing-20 u-nav-4">
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="/medbot/public/manage">User Info</a>
+                      <a class="u-button-style u-nav-link" href="/manage">User Info</a>
                     </li>
                     <li class="u-nav-item">
-                      <a class="u-button-style u-nav-link" href="/medbot/public/logout">Logout</a>
+                      <a class="u-button-style u-nav-link" href="/logout">Logout</a>
                     </li>
                   </ul>
                 </div>
@@ -88,7 +88,7 @@
         <div class="u-menu-overlay u-opacity u-opacity-0 u-palette-5-light-3"></div>
       </div>
     </nav>
-    <a href="/medbot/public/" class="u-image u-logo u-image-1" data-image-width="200" data-image-height="200">
+    <a href="/" class="u-image u-logo u-image-1" data-image-width="200" data-image-height="200">
       <img src="{{ asset('images/logo2.png') }}" class="u-logo-image u-logo-image-1">
     </a>
   </div>

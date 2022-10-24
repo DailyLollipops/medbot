@@ -23,7 +23,7 @@
       &nbsp;BACK CAM
     </button>
     <div class="u-form u-form-1">
-      <form action="/medbot/public/authenticate/user/scan" method="POST" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" id="qrcode_form" name="qrcode_form" style="padding: 10px;">
+      <form action="/authenticate/user/scan" method="POST" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" id="qrcode_form" name="qrcode_form" style="padding: 10px;">
       @csrf 
         <div class="u-form-group u-form-name">
           <input type="text" placeholder="Enter encrypted qrcode" id="qrcode" name="qrcode" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" style="display: none;" required="">

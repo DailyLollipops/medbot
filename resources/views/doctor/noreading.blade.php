@@ -26,7 +26,7 @@
           </span>
           &nbsp;{{$user_age}} years old
         </h4>
-        <a href="{{'/medbot/public/userlist/id-'.$user_id.'/report'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-1-base u-btn-1">
+        <a href="{{'/userlist/id-'.$user_id.'/report'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-1-base u-btn-1">
           <span class="u-file-icon u-icon u-icon-3">
             <img src="{{ asset('images/chart.png') }}" alt="">
           </span>

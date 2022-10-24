@@ -32,7 +32,7 @@
       <div class="u-repeater u-repeater-1">
         @foreach($users as $user)
         <div class="u-align-left u-container-style u-list-item u-palette-5-light-3 u-radius-10 u-repeater-item u-shape-round u-list-item-1" data-animation-name="" data-animation-duration="0" data-animation-direction="">
-          <a href="{{'/medbot/public/userlist/id-'.$user->id}}" style="text-decoration: none; color: inherit">
+          <a href="{{'/userlist/id-'.$user->id}}" style="text-decoration: none; color: inherit">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <p class="u-text u-text-2">{{$user->name}}</p>
               <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user->profile_picture_path ? asset('storage/'.$user->profile_picture_path) : asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
