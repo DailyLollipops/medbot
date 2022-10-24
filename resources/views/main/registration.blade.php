@@ -6,7 +6,7 @@
     <div class="u-border-2 u-border-palette-1-base u-container-style u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-radius-50 u-shape-round u-white u-group-1">
       <div class="u-container-layout u-container-layout-1">
         <span class="u-file-icon u-icon u-icon-circle u-palette-1-base u-icon-1">
-          <img src="{{ asset('images/register1.png') }}" alt="">
+          <img src="{{ secure_asset('images/register1.png') }}" alt="">
         </span>
         <h2 class="u-align-center u-text u-text-default u-text-palette-2-base u-text-1">Register Now</h2>
         <div class="u-form u-form-1">
@@ -80,7 +80,7 @@
             <div class="u-align-center u-form-group u-form-submit">
               <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-10 u-btn-1">
                 <span class="u-file-icon u-icon u-icon-2">
-                  <img src="{{ asset('images/register2.png') }}" alt="">
+                  <img src="{{ secure_asset('images/register2.png') }}" alt="">
                 </span>
                 &nbsp;​&nbsp;Register
               </a>
@@ -88,7 +88,7 @@
             </div>
           </form>
         </div>
-        <img id="profile_picture_holder" class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
+        <img id="profile_picture_holder" class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ secure_asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
         <a href="#" onclick="$('#profile_picture').trigger('click'); return false;" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-2">Add PIcture</a>
         <p class="u-small-text u-text u-text-default u-text-variant u-text-2">(optional)</p>
       </div>

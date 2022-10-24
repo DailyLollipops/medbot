@@ -2,7 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('css/pagination.css') }}">
 
 <section class="u-clearfix u-section-1" id="sec-c6d7">
   <div class="u-clearfix u-sheet u-sheet-1">
@@ -35,7 +35,7 @@
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <p class="u-custom-font u-heading-font u-text u-text-2">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/calendar.png') }}" alt="">
+                  <img src="{{ secure_asset('images/calendar.png') }}" alt="">
                 </span>
                 <span style="font-weight: 700;">&nbsp;{{date('M d, Y', strtotime($reading->created_at))}}
                   <span style="font-size: 1.125rem;"></span>
@@ -43,7 +43,7 @@
               </p>
               <p class="u-custom-font u-heading-font u-text u-text-3">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/clock.png') }}" alt=""></span>
+                  <img src="{{ secure_asset('images/clock.png') }}" alt=""></span>
                 <span style="font-weight: 700;">&nbsp;{{date('H:i:s', strtotime($reading->created_at))}}
                   <span style="font-size: 1.125rem;">
                   </span>
@@ -52,19 +52,19 @@
               <p class="u-heading-font u-text u-text-4">Normal</p>
               <p class="u-text u-text-default u-text-5">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+                  <img src="{{ secure_asset('images/pulse_rate.png') }}" alt="">
                 </span>&nbsp;{{$reading->pulse_rate}} bpm
               </p>
               <p class="u-heading-font u-text u-text-4">Below Normal</p>
               <p class="u-text u-text-default u-text-5">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+                  <img src="{{ secure_asset('images/blood_pressure.png') }}" alt="">
                 </span>&nbsp;{{$reading->systolic}}/{{$reading->diastolic}} mmHg
               </p>
               <p class="u-heading-font u-text u-text-4">Above Normal</p>
               <p class="u-text u-text-default u-text-5">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+                  <img src="{{ secure_asset('images/blood_saturation.png') }}" alt="">
                 </span>&nbsp;{{$reading->blood_saturation}}%
               </p>
             </div>

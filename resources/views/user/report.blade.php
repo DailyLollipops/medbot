@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Reading #{{$id}} Report</title>
-    <link href="{{ asset('css/user/report.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('css/user/report.css') }}" rel="stylesheet">
   </head>
   <body>
     <div id="wb_Text1" style="position:absolute;left:197px;top:49px;width:384px;height:36px;z-index:1;">

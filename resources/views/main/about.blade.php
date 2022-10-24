@@ -22,19 +22,19 @@
         <div class="u-repeater u-repeater-1">
           <div class="u-container-style u-list-item u-repeater-item">
             <div class="u-container-layout u-similar-container u-container-layout-1">
-              <img class="u-border-2 u-border-grey-75 u-expanded-width u-image u-image-circle u-preserve-proportions u-image-1" src="{{ asset('images/dev1.png') }}" alt="" data-image-width="128" data-image-height="128">
+              <img class="u-border-2 u-border-grey-75 u-expanded-width u-image u-image-circle u-preserve-proportions u-image-1" src="{{ secure_asset('images/dev1.png') }}" alt="" data-image-width="128" data-image-height="128">
               <p class="u-align-center u-small-text u-text u-text-default u-text-variant u-text-2">Clarence Madrigal</p>
             </div>
           </div>
           <div class="u-container-style u-list-item u-repeater-item">
             <div class="u-container-layout u-similar-container u-container-layout-2">
-              <img class="u-border-2 u-border-grey-75 u-expanded-width u-image u-image-circle u-preserve-proportions u-image-2" src="{{ asset('images/dev2.png') }}" alt="" data-image-width="128" data-image-height="128">
+              <img class="u-border-2 u-border-grey-75 u-expanded-width u-image u-image-circle u-preserve-proportions u-image-2" src="{{ secure_asset('images/dev2.png') }}" alt="" data-image-width="128" data-image-height="128">
               <p class="u-align-center u-small-text u-text u-text-default u-text-variant u-text-3">James Arvie Malapote</p>
             </div>
           </div>
           <div class="u-container-style u-list-item u-repeater-item">
             <div class="u-container-layout u-similar-container u-container-layout-3">
-              <img class="u-border-2 u-border-grey-75 u-expanded-width u-image u-image-circle u-image-contain u-preserve-proportions u-image-3" src="{{ asset('images/dev3.png') }}" alt="" data-image-width="128" data-image-height="128">
+              <img class="u-border-2 u-border-grey-75 u-expanded-width u-image u-image-circle u-image-contain u-preserve-proportions u-image-3" src="{{ secure_asset('images/dev3.png') }}" alt="" data-image-width="128" data-image-height="128">
               <p class="u-align-center u-small-text u-text u-text-default u-text-variant u-text-4">Gilbert Esplana</p>
             </div>
           </div>

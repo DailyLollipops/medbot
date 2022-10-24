@@ -3,7 +3,7 @@
 @section('content')
 <section class="u-clearfix u-section-1" id="sec-c134">
   <div class="u-clearfix u-sheet u-sheet-1">
-    <img class="u-image u-image-contain u-image-default u-image-1" src="{{ asset('images/nothing_found.png') }}" alt="" data-image-width="411" data-image-height="250">
+    <img class="u-image u-image-contain u-image-default u-image-1" src="{{ secure_asset('images/nothing_found.png') }}" alt="" data-image-width="411" data-image-height="250">
     <h4 class="u-text u-text-default-lg u-text-default-md u-text-default-xl u-text-1">Your search for 
       <span style="font-weight: 700;">"{{$search}}"</span> 
       did not match any results

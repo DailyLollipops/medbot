@@ -68,7 +68,7 @@
             <form action="/manage/update/profile_picture" method="POST" enctype="multipart/form-data">
             @csrf
               <input type="file" name="profile_picture" id="profile_picture" accept="image/png, image/gif, image/jpeg" style="display:none" onchange="this.form.submit()"/>
-              <img class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user_profile ? asset('storage/'.$user_profile) : asset('images/blank_profile.png') }}" alt="" data-image-width="128" data-image-height="128" style="cursor: pointer">
+              <img class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user_profile ? secure_asset('storage/'.$user_profile) : secure_asset('images/blank_profile.png') }}" alt="" data-image-width="128" data-image-height="128" style="cursor: pointer">
               <a href="#" onclick="$('#profile_picture').trigger('click'); return false;" class="u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-2">Update</a></label>
             </form>
           </div>
@@ -106,7 +106,7 @@
         </div>
         <blockquote class="u-text u-text-2"> Changing your password requires you to download a newly generated QR Code. Upon downloading the QR Code please print it ASAP</blockquote>
         <span class="u-file-icon u-icon u-icon-1">
-          <img src="{{ asset('images/warning.png') }}" alt="">
+          <img src="{{ secure_asset('images/warning.png') }}" alt="">
         </span>
       </div>
     </div>

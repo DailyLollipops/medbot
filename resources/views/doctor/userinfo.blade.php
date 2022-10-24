@@ -11,30 +11,30 @@
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-border-3 u-border-palette-1-light-3 u-container-style u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-palette-5-light-3 u-radius-9 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
-        <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $profile ? asset('storage/'.$profile) : asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
+        <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $profile ? secure_asset('storage/'.$profile) : secure_asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
         <h2 class="u-text u-text-default u-text-2">
           {{$name}}
           <span style="font-weight: 700;"></span>
         </h2>
         <h4 class="u-text u-text-default u-text-3">
           <span class="u-file-icon u-icon">
-            <img src="{{ asset('images/joined.png') }}" alt="">
+            <img src="{{ secure_asset('images/joined.png') }}" alt="">
           </span>
           &nbsp;{{$joined}}
         </h4>
         <h4 class="u-text u-text-default u-text-4">
           <span class="u-file-icon u-icon">
-            <img src="{{ asset('images/age.png') }}" alt=""></span>
+            <img src="{{ secure_asset('images/age.png') }}" alt=""></span>
             &nbsp;{{$age}} years old
         </h4>
         <a href="{{'/userlist/id-'.$id.'/report'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-1">
           <span class="u-file-icon u-icon u-icon-3">
-            <img src="{{ asset('images/chart.png') }}" alt=""></span>
+            <img src="{{ secure_asset('images/chart.png') }}" alt=""></span>
             &nbsp;Reports
         </a>
         <a href="{{'/userlist/id-'.$id.'/reading'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-2">
           <span class="u-file-icon u-icon u-icon-4">
-            <img src="{{ asset('images/monitor.png') }}" alt=""></span>
+            <img src="{{ secure_asset('images/monitor.png') }}" alt=""></span>
             &nbsp;Readings
         </a>
       </div>
@@ -56,12 +56,12 @@
                 <h3 class="u-text u-text-default u-text-5">Personal Information</h3>
                 <h4 class="u-text u-text-default u-text-6">
                   <span class="u-file-icon u-icon u-icon-5">
-                    <img src="{{ asset('images/phone.png') }}" alt=""></span>
+                    <img src="{{ secure_asset('images/phone.png') }}" alt=""></span>
                     &nbsp;​&nbsp;Phone No.
                 </h4>
                 <h4 class="u-text u-text-default u-text-7">
                   <span class="u-file-icon u-icon u-icon-6">
-                    <img src="{{ asset('images/gender.png') }}" alt="">
+                    <img src="{{ secure_asset('images/gender.png') }}" alt="">
                   </span>
                   &nbsp;Gender
                 </h4>
@@ -69,13 +69,13 @@
                 <h4 class="u-text u-text-default u-text-9">{{ $phone ? $phone : 'N/A' }}</h4>
                 <h4 class="u-text u-text-default u-text-10">
                   <span class="u-file-icon u-icon u-icon-7">
-                    <img src="{{ asset('images/birthday.png') }}" alt=""></span>
+                    <img src="{{ secure_asset('images/birthday.png') }}" alt=""></span>
                     &nbsp;​
                     &nbsp;Birthday
                 </h4>
                 <h4 class="u-text u-text-default u-text-11">
                   <span class="u-file-icon u-icon u-icon-8">
-                    <img src="{{ asset('images/email.png') }}" alt=""></span>
+                    <img src="{{ secure_asset('images/email.png') }}" alt=""></span>
                     &nbsp;​
                     &nbsp;Email
                 </h4>
@@ -83,14 +83,14 @@
                 <h4 class="u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-13">{{ $email ? $email : 'N/A' }}</h4>
                 <h4 class="u-text u-text-default u-text-14">
                   <span class="u-file-icon u-icon u-icon-9">
-                    <img src="{{ asset('images/location.png') }}" alt="">
+                    <img src="{{ secure_asset('images/location.png') }}" alt="">
                   </span>
                   &nbsp;​ Address
                 </h4>
                 <h4 class="u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xl u-text-15">{{ $address ? $address : 'N/A' }}</h4>
                 <h4 class="u-text u-text-default u-text-16">
                   <span class="u-file-icon u-icon u-icon-10">
-                    <img src="{{ asset('images/bio.png') }}" alt="">
+                    <img src="{{ secure_asset('images/bio.png') }}" alt="">
                   </span>
                   &nbsp;​ Bio
                 </h4>
@@ -106,7 +106,7 @@
                       <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
                         <div class="u-align-center u-border-3 u-border-grey-50 u-container-style u-group u-group-3">
                           <div class="u-container-layout u-container-layout-6">
-                            <img class="u-image u-image-circle u-image-contain u-preserve-proportions u-image-2" src="{{ asset('images/pulse_rate.png') }}" alt="" data-image-width="128" data-image-height="128">
+                            <img class="u-image u-image-circle u-image-contain u-preserve-proportions u-image-2" src="{{ secure_asset('images/pulse_rate.png') }}" alt="" data-image-width="128" data-image-height="128">
                             <h3 class="u-align-center u-text u-text-default u-text-19">{{$latest_pulse_rate}}</h3>
                             <h4 class="u-align-center u-text u-text-default u-text-20">bpm</h4>
                             <h5 class="u-align-center u-text u-text-default u-text-21">
@@ -125,7 +125,7 @@
                       <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
                         <div class="u-align-center u-border-3 u-border-grey-50 u-container-style u-group u-group-3">
                           <div class="u-container-layout u-container-layout-6">
-                            <img class="u-image u-image-circle u-image-contain u-preserve-proportions u-image-2" src="{{ asset('images/blood_pressure.png') }}" alt="" data-image-width="128" data-image-height="128">
+                            <img class="u-image u-image-circle u-image-contain u-preserve-proportions u-image-2" src="{{ secure_asset('images/blood_pressure.png') }}" alt="" data-image-width="128" data-image-height="128">
                             <h3 class="u-align-center u-text u-text-default u-text-19">{{$latest_systolic}}/{{$latest_diastolic}}</h3>
                             <h4 class="u-align-center u-text u-text-default u-text-20">mmHg</h4>
                             <h5 class="u-align-center u-text u-text-default u-text-21">
@@ -144,7 +144,7 @@
                       <div class="u-container-layout u-similar-container u-valign-top u-container-layout-5">
                         <div class="u-align-center u-border-3 u-border-grey-50 u-container-style u-group u-group-3">
                           <div class="u-container-layout u-container-layout-6">
-                            <img class="u-image u-image-circle u-image-contain u-preserve-proportions u-image-2" src="{{ asset('images/blood_saturation.png') }}" alt="" data-image-width="128" data-image-height="128">
+                            <img class="u-image u-image-circle u-image-contain u-preserve-proportions u-image-2" src="{{ secure_asset('images/blood_saturation.png') }}" alt="" data-image-width="128" data-image-height="128">
                             <h3 class="u-align-center u-text u-text-default u-text-19">{{$latest_blood_saturation}}</h3>
                             <h4 class="u-align-center u-text u-text-default u-text-20"> %</h4>
                             <h5 class="u-align-center u-text u-text-default u-text-21">

@@ -12,13 +12,13 @@
     </div>
     <button id="front" class="u-btn u-btn-round u-button-style u-hidden-lg u-hidden-xl u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-1">
       <span class="u-file-icon u-icon u-icon-1">
-        <img src="{{ asset('images/front_camera.png') }}" alt="">
+        <img src="{{ secure_asset('images/front_camera.png') }}" alt="">
       </span>
       &nbsp;FRONT CAM
     </button>
     <button id="back" class="u-btn u-btn-round u-button-style u-hidden-lg u-hidden-xl u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-2">
       <span class="u-file-icon u-icon u-icon-2">
-        <img src="{{ asset('images/back_camera.png') }}" alt="">
+        <img src="{{ secure_asset('images/back_camera.png') }}" alt="">
       </span>
       &nbsp;BACK CAM
     </button>
@@ -32,7 +32,7 @@
     </div>
   </div>
 </section>
-<script type="text/javascript" src="{{ asset('js/html5-qrcode.min.js') }}"></script>
+<script type="text/javascript" src="{{ secure_asset('js/html5-qrcode.min.js') }}"></script>
 <script>
   const html5QrCode = new Html5Qrcode('scanner');
   const qrCodeSuccessCallback = (decodedText, decodedResult) => {

@@ -6,16 +6,16 @@
     <div class="u-align-center u-container-style u-group u-radius-50 u-shape-round u-white u-group-1">
       <div class="u-container-layout u-container-layout-1">
         <span class="u-border-2 u-border-palette-1-base u-file-icon u-icon u-icon-circle u-icon-1">
-          <img src="{{ asset('images/login2.png') }}" alt="">
+          <img src="{{ secure_asset('images/login2.png') }}" alt="">
         </span>
         <a href="/login/user" class="u-btn u-button-style u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-1">
           <span class="u-file-icon u-icon">
-            <img src="{{ asset('images/back.png') }}" alt="">
+            <img src="{{ secure_asset('images/back.png') }}" alt="">
           </span>&nbsp;Go Back
         </a>
         <h2 class="u-text u-text-default u-text-palette-2-base u-text-1">Upload QR Code</h2>
         <span class="u-file-icon u-icon u-icon-3">
-          <img src="{{ asset('images/qrcode2.png') }}" alt="">
+          <img src="{{ secure_asset('images/qrcode2.png') }}" alt="">
         </span>
 
         <form action="/authenticate/user/upload" method="POST" enctype="multipart/form-data">

@@ -7,7 +7,7 @@
 
 <section class="u-clearfix u-section-1" id="sec-c5ee">
   <div class="u-clearfix u-sheet u-sheet-1">
-    <p class="u-custom-font u-heading-font u-text u-text-default u-text-1"><span class="u-file-icon u-icon"><img src="{{ asset('images/chart.png') }}" alt=""></span>&nbsp;Users Reports
+    <p class="u-custom-font u-heading-font u-text u-text-default u-text-1"><span class="u-file-icon u-icon"><img src="{{ secure_asset('images/chart.png') }}" alt=""></span>&nbsp;Users Reports
     </p>
     <h4 class="u-text u-text-default u-text-2">Users This Month</h4>
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
@@ -18,25 +18,25 @@
             <h5 class="u-align-center u-text u-text-3">New Patients</h5>
             <p class="u-align-center u-heading-font u-text u-text-4">{{$this_month_new_user_count}} user</p>
             <span class="u-custom-item u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/patient.png') }}" alt="">
+              <img src="{{ secure_asset('images/patient.png') }}" alt="">
             </span>
             <p class="u-custom-item u-text u-text-default-xl u-text-5", style="text-align: center;">
 
               @if($this_month_new_user_difference < 0)
                 <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
-                  <img src="{{ asset('images/down_trend.png') }}" alt="">
+                  <img src="{{ secure_asset('images/down_trend.png') }}" alt="">
                 </span>
                 &nbsp;
                 <span class="u-text-custom-color-1">{{$this_month_new_user_difference}}%</span> higher this month
               @elseif($this_month_new_user_difference > 0)
                 <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9">
-                  <img src="{{ asset('images/up_trend.png') }}" alt="">
+                  <img src="{{ secure_asset('images/up_trend.png') }}" alt="">
                 </span>
                 &nbsp;
                 <span class="u-text-custom-color-9">+{{$this_month_new_user_difference}}%</span> higher this month
               @else
                 <span class="u-custom-item u-file-icon u-icon u-text-palette-3-base">
-                  <img src="{{ asset('images/same_trend.png') }}" alt="">
+                  <img src="{{ secure_asset('images/same_trend.png') }}" alt="">
                 </span>
                 &nbsp;
                 <span class="u-text-palette-3-base">±0%</span> higher this month
@@ -50,11 +50,11 @@
             <h5 class="u-align-center u-text u-text-6">Old Patients</h5>
             <p class="u-align-center u-heading-font u-text u-text-7">{{$old_user_count}} user</p>
             <span class="u-custom-item u-file-icon u-icon u-icon-4" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/two_patient.png') }}" alt="">
+              <img src="{{ secure_asset('images/two_patient.png') }}" alt="">
             </span>
             <p class="u-custom-item u-text u-text-default-xl u-text-8", style="margin-left: 140px;">
               <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
-                <img src="{{ asset('images/calendar.png') }}" alt="">
+                <img src="{{ secure_asset('images/calendar.png') }}" alt="">
               </span>
               &nbsp;
               <span class="u-text-custom-color-9">Since</span> {{$first_record}}
@@ -66,25 +66,25 @@
             <h5 class="u-align-center u-text u-text-9">Total Patients</h5>
             <p class="u-align-center u-heading-font u-text u-text-10">{{$all_user_count}} user</p>
             <span class="u-custom-item u-file-icon u-icon u-icon-6" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/three_patient.png') }}" alt="">
+              <img src="{{ secure_asset('images/three_patient.png') }}" alt="">
             </span>
             <p class="u-custom-item u-text u-text-default-xl u-text-11", style="text-align: center;">
 
                 @if($monthly_user_growth_rate < 0)
                   <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
-                    <img src="{{ asset('images/down_trend.png') }}" alt="">
+                    <img src="{{ secure_asset('images/down_trend.png') }}" alt="">
                   </span>
                   &nbsp;
                   <span class="u-text-custom-color-1">{{$monthly_user_growth_rate}}%</span> monthly growth rate
                 @elseif($monthly_user_growth_rate > 0)
                   <span class="u-custom-item u-file-icon u-icon u-text-custom-color-9">
-                    <img src="{{ asset('images/up_trend.png') }}" alt="">
+                    <img src="{{ secure_asset('images/up_trend.png') }}" alt="">
                   </span>
                 &nbsp;
                   <span class="u-text-custom-color-9">+{{$monthly_user_growth_rate}}%</span> monthly growth rate
                 @else
                   <span class="u-custom-item u-file-icon u-icon u-text-palette-3-base">
-                    <img src="{{ asset('images/same_trend.png') }}" alt="">
+                    <img src="{{ secure_asset('images/same_trend.png') }}" alt="">
                   </span>
                   &nbsp;
                   <span class="u-text-palette-3-base">±0%</span> monthly growth rate
@@ -165,7 +165,7 @@
         <div class="u-align-left u-form-group u-form-submit u-label-none">
           <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-15 u-text-hover-palette-2-light-1 u-btn-1">
             <span class="u-file-icon u-icon">
-              <img src="{{ asset('images/location.png') }}" alt="">
+              <img src="{{ secure_asset('images/location.png') }}" alt="">
             </span>
             &nbsp;Select
           </a>
@@ -181,28 +181,28 @@
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
             <h5 class="u-align-center u-text u-text-2">Pulse Rate</h5>
             <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+              <img src="{{ secure_asset('images/pulse_rate.png') }}" alt="">
             </span>
             <p class="u-align-center u-heading-font u-text u-text-3">{{$users_average_pulse_rate}} bpm</p>
 
               @if($users_average_pulse_rate < 60)
                 <h5 class="u-align-center u-text u-text-4">
                   <span class="u-file-icon u-icon">
-                    <img src="{{ asset('images/sad.png') }}" alt="">
+                    <img src="{{ secure_asset('images/sad.png') }}" alt="">
                   </span>&nbsp;
                   <span class="u-text-palette-1-base">&nbsp;B​elo​w Normal</span>
                 </h5>
               @elseif($users_average_pulse_rate < 100)
                 <h5 class="u-align-center u-text u-text-4">
                   <span class="u-file-icon u-icon">
-                    <img src="{{ asset('images/happy.png') }}" alt="">
+                    <img src="{{ secure_asset('images/happy.png') }}" alt="">
                   </span>&nbsp;
                   <span class="u-text-custom-color-9">Normal</span>
                 </h5>
               @else
                 <h5 class="u-align-center u-text u-text-4">
                   <span class="u-file-icon u-icon">
-                    <img src="{{ asset('images/shocked.png') }}" alt="">
+                    <img src="{{ secure_asset('images/shocked.png') }}" alt="">
                   </span>&nbsp;
                   <span class="u-text-custom-color-1">Above Normal</span>
                 </h5>
@@ -214,28 +214,28 @@
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
             <h5 class="u-align-center u-text u-text-2">Blood Pressure</h5>
             <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+              <img src="{{ secure_asset('images/blood_pressure.png') }}" alt="">
             </span>
             <p class="u-align-center u-heading-font u-text u-text-3">{{$users_average_systolic}}/{{$users_average_diastolic}} mmHg</p>
 
               @if($users_average_systolic < 60)
               <h5 class="u-align-center u-text u-text-4">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/sad.png') }}" alt="">
+                  <img src="{{ secure_asset('images/sad.png') }}" alt="">
                 </span>&nbsp;
                 <span class="u-text-palette-1-base">&nbsp;B​elo​w Normal</span>
               </h5>
             @elseif($users_average_systolic <= 120)
               <h5 class="u-align-center u-text u-text-4">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/happy.png') }}" alt="">
+                  <img src="{{ secure_asset('images/happy.png') }}" alt="">
                 </span>&nbsp;
                 <span class="u-text-custom-color-9">Normal</span>
               </h5>
             @else
               <h5 class="u-align-center u-text u-text-4">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/shocked.png') }}" alt="">
+                  <img src="{{ secure_asset('images/shocked.png') }}" alt="">
                 </span>&nbsp;
                 <span class="u-text-custom-color-1">Above Normal</span>
               </h5>
@@ -247,28 +247,28 @@
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
             <h5 class="u-align-center u-text u-text-2">Blood Saturation</h5>
             <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+              <img src="{{ secure_asset('images/blood_saturation.png') }}" alt="">
             </span>
             <p class="u-align-center u-heading-font u-text u-text-3">{{$users_average_blood_saturation}} %</p>
 
               @if($users_average_blood_saturation < 95)
               <h5 class="u-align-center u-text u-text-4">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/sad.png') }}" alt="">
+                  <img src="{{ secure_asset('images/sad.png') }}" alt="">
                 </span>&nbsp;
                 <span class="u-text-palette-1-base">&nbsp;B​elo​w Normal</span>
               </h5>
             @elseif($users_average_blood_saturation <= 100)
               <h5 class="u-align-center u-text u-text-4">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/happy.png') }}" alt="">
+                  <img src="{{ secure_asset('images/happy.png') }}" alt="">
                 </span>&nbsp;
                 <span class="u-text-custom-color-9">Normal</span>
               </h5>
             @else
               <h5 class="u-align-center u-text u-text-4">
                 <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/shocked.png') }}" alt="">
+                  <img src="{{ secure_asset('images/shocked.png') }}" alt="">
                 </span>&nbsp;
                 <span class="u-text-custom-color-1">Above Normal</span>
               </h5>

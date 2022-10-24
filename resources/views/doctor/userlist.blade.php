@@ -2,7 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
+<link rel="stylesheet" href="{{ secure_asset('css/pagination.css') }}">
 
 @php
   use Carbon\Carbon;
@@ -35,7 +35,7 @@
           <a href="{{'/userlist/id-'.$user->id}}" style="text-decoration: none; color: inherit">
             <div class="u-container-layout u-similar-container u-container-layout-1">
               <p class="u-text u-text-2">{{$user->name}}</p>
-              <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user->profile_picture_path ? asset('storage/'.$user->profile_picture_path) : asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
+              <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user->profile_picture_path ? secure_asset('storage/'.$user->profile_picture_path) : secure_asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
               <p class="u-text u-text-3">{{Carbon::parse($user->birthday)->age}} years old</p>
               <p class="u-text u-text-4">{{ucfirst($user->gender)}}</p>
               <p class="u-text u-text-5">{{$user->baranggay}}, {{$user->municipality}}</p>

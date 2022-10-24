@@ -10,32 +10,32 @@
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-border-3 u-border-palette-1-light-3 u-container-style u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-palette-5-light-3 u-radius-9 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
-        <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user_profile ? asset('storage/'.$user_profile) : asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
+        <img class="u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user_profile ? secure_asset('storage/'.$user_profile) : secure_asset('images/blank_profile.png') }}" alt="" data-image-width="640" data-image-height="640">
         <h2 class="u-text u-text-default u-text-2">
           {{$user_name}}
           <span style="font-weight: 700;"></span>
         </h2>
         <h4 class="u-text u-text-default u-text-3">
           <span class="u-file-icon u-icon">
-            <img src="{{ asset('images/joined.png') }}" alt="">
+            <img src="{{ secure_asset('images/joined.png') }}" alt="">
           </span>
           &nbsp;{{$user_joined}}
         </h4>
         <h4 class="u-text u-text-default u-text-4">
           <span class="u-file-icon u-icon">
-            <img src="{{ asset('images/age.png') }}" alt="">
+            <img src="{{ secure_asset('images/age.png') }}" alt="">
           </span>
           &nbsp;{{$user_age}} years old
         </h4>
         <a href="#" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-1-base u-btn-1">
           <span class="u-file-icon u-icon u-icon-3">
-            <img src="{{ asset('images/chart.png') }}" alt="">
+            <img src="{{ secure_asset('images/chart.png') }}" alt="">
           </span>
           &nbsp;Reports
         </a>
         <a href="{{'/userlist/id-'.$user_id.'/reading'}}" class="u-btn u-button-style u-none u-text-hover-palette-1-base u-text-palette-2-base u-btn-2">
           <span class="u-file-icon u-icon u-icon-4">
-            <img src="{{ asset('images/monitor.png') }}" alt="">
+            <img src="{{ secure_asset('images/monitor.png') }}" alt="">
           </span>
           &nbsp;Readings
         </a>
@@ -47,7 +47,7 @@
   <div class="u-clearfix u-sheet u-sheet-1">
     <p class="u-custom-font u-heading-font u-text u-text-default u-text-1">
       <span class="u-file-icon u-icon">
-        <img src="{{ asset('images/chart.png') }}" alt="">
+        <img src="{{ secure_asset('images/chart.png') }}" alt="">
       </span>
       &nbsp;Readings Reports
     </p>
@@ -59,22 +59,22 @@
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-1">
             <h5 class="u-text u-text-3">Pulse Rate</h5>
             <span class="u-custom-item u-file-icon u-icon u-icon-2">
-              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+              <img src="{{ secure_asset('images/pulse_rate.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-4">{{$this_month_average_pulse_rate}} bpm</p>
             <p class="u-text u-text-5">
 
               @if($this_month_average_pulse_rate_difference < 0)
                 <span class="u-file-icon u-icon u-text-custom-color-1">
-                  <img src="{{ asset('images/down_trend.png') }}" alt="">
+                  <img src="{{ secure_asset('images/down_trend.png') }}" alt="">
                 </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_pulse_rate_difference}}%</span> lower this month
               @elseif($this_month_average_pulse_rate_difference > 0)
                 <span class="u-file-icon u-icon u-text-custom-color-9">
-                  <img src="{{ asset('images/up_trend.png') }}" alt="">
+                  <img src="{{ secure_asset('images/up_trend.png') }}" alt="">
                 </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_pulse_rate_difference}}%</span> higher this month
               @else
                 <span class="u-file-icon u-icon u-text-palette-3-base">
-                  <img src="{{ asset('images/same_trend.png') }}" alt="">
+                  <img src="{{ secure_asset('images/same_trend.png') }}" alt="">
                 </span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
               @endif
 
@@ -85,22 +85,22 @@
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-2">
             <h5 class="u-text u-text-6">Blood Pressure</h5>
             <span class="u-custom-item u-file-icon u-icon u-icon-4">
-              <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+              <img src="{{ secure_asset('images/blood_pressure.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-7">{{$this_month_average_systolic}}/{{$this_month_average_diastolic}} mmHg</p>
             <p class="u-text u-text-8">
 
               @if($this_month_average_blood_pressure_difference < 0)
               <span class="u-file-icon u-icon u-text-custom-color-1">
-                <img src="{{ asset('images/down_trend.png') }}" alt="">
+                <img src="{{ secure_asset('images/down_trend.png') }}" alt="">
               </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_pressure_difference}}%</span> lower this month
               @elseif($this_month_average_blood_pressure_difference > 0)
               <span class="u-file-icon u-icon u-text-custom-color-9">
-                <img src="{{ asset('images/up_trend.png') }}" alt="">
+                <img src="{{ secure_asset('images/up_trend.png') }}" alt="">
               </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_pressure_difference}}%</span> higher this month
               @else
               <span class="u-file-icon u-icon u-text-palette-3-base">
-                <img src="{{ asset('images/same_trend.png') }}" alt="">
+                <img src="{{ secure_asset('images/same_trend.png') }}" alt="">
               </span>&nbsp;<span class="u-text-palette-3-base">±0%</span> higher this month
               @endif
 
@@ -111,22 +111,22 @@
           <div class="u-container-layout u-similar-container u-valign-middle-sm u-container-layout-3">
             <h5 class="u-text u-text-9">Blood Saturation</h5>
             <span class="u-custom-item u-file-icon u-icon u-icon-6">
-              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+              <img src="{{ secure_asset('images/blood_saturation.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-10">{{$this_month_average_blood_saturation}} %</p>
             <p class="u-text u-text-11">
 
               @if($this_month_average_blood_saturation_difference < 0)
               <span class="u-file-icon u-icon u-text-custom-color-1">
-                <img src="{{ asset('images/down_trend.png') }}" alt="">
+                <img src="{{ secure_asset('images/down_trend.png') }}" alt="">
               </span>&nbsp;<span class="u-text-custom-color-1">{{$this_month_average_blood_saturation_difference}} %</span> lower this month
               @elseif($this_month_average_blood_saturation_difference > 0)
               <span class="u-file-icon u-icon u-text-custom-color-9">
-                <img src="{{ asset('images/up_trend.png') }}" alt="">
+                <img src="{{ secure_asset('images/up_trend.png') }}" alt="">
               </span>&nbsp;<span class="u-text-custom-color-9">+{{$this_month_average_blood_saturation_difference}} %</span> higher this month
               @else
               <span class="u-file-icon u-icon u-text-palette-3-base">
-                <img src="{{ asset('images/same_trend.png') }}" alt="">
+                <img src="{{ secure_asset('images/same_trend.png') }}" alt="">
               </span>&nbsp;<span class="u-text-palette-3-base">±0 %</span> higher this month
               @endif
               
@@ -162,7 +162,7 @@
         <div class="u-align-center u-border-1 u-border-palette-5-light-1 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
           <div class="u-container-layout u-similar-container u-container-layout-1">
             <span class="u-file-icon u-icon u-icon-1" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/monitor.png') }}" alt="">
+              <img src="{{ secure_asset('images/monitor.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-2">{{$all_reading_count}}</p>
             <h5 class="u-text u-text-3">Total Reading<br>
@@ -172,7 +172,7 @@
         <div class="u-align-center u-border-1 u-border-palette-5-light-1 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-2">
           <div class="u-container-layout u-similar-container u-container-layout-2">
             <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+              <img src="{{ secure_asset('images/pulse_rate.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-4">{{$all_time_average_pulse_rate}} bpm</p>
             <h5 class="u-text u-text-5">Pulse Rate<br>
@@ -182,7 +182,7 @@
         <div class="u-align-center u-border-1 u-border-palette-5-light-1 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-3">
           <div class="u-container-layout u-similar-container u-container-layout-3">
             <span class="u-file-icon u-icon u-icon-3" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+              <img src="{{ secure_asset('images/blood_pressure.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-6">{{$all_time_average_systolic}}/{{$all_time_average_diastolic}} mmHg </p>
             <h5 class="u-text u-text-7">Blood Pressure<br>
@@ -192,7 +192,7 @@
         <div class="u-align-center u-border-1 u-border-palette-5-light-1 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-4">
           <div class="u-container-layout u-similar-container u-container-layout-4">
             <span class="u-file-icon u-icon u-icon-4">
-              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+              <img src="{{ secure_asset('images/blood_saturation.png') }}" alt="">
             </span>
             <p class="u-custom-item u-heading-font u-text u-text-8">{{$all_time_average_blood_saturation}} %</p>
             <h5 class="u-text u-text-9">Sp02<br>
@@ -211,19 +211,19 @@
       <div class="u-container-layout u-container-layout-1">
         <button id="allTimeBloodPressureRatings" class="u-border-none u-btn u-btn-round u-button-style u-palette-2-light-1 u-radius-4 u-text-body-alt-color u-btn-1">
           <span class="u-file-icon u-icon">
-            <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+            <img src="{{ secure_asset('images/pulse_rate.png') }}" alt="">
           </span>
           &nbsp;BP
         </button>
         <button id="allTimePulseRateRatings" class="u-border-none u-btn u-btn-round u-button-style u-palette-1-light-1 u-radius-4 u-text-body-alt-color u-btn-2">
           <span class="u-file-icon u-icon">
-            <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+            <img src="{{ secure_asset('images/blood_pressure.png') }}" alt="">
           </span>
           &nbsp;PR
         </button>
         <button id="allTimeBloodSaturationRatings" class="u-border-none u-btn u-btn-round u-button-style u-grey-70 u-radius-4 u-text-body-alt-color u-btn-3">
           <span class="u-file-icon u-icon">
-            <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+            <img src="{{ secure_asset('images/blood_saturation.png') }}" alt="">
           </span>
           &nbsp;SP02
         </button>

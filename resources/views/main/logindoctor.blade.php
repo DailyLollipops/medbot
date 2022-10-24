@@ -6,7 +6,7 @@
       <div class="u-container-style u-group u-radius-50 u-shape-round u-white u-group-1">
         <div class="u-container-layout u-container-layout-1">
           <span class="u-border-8 u-border-white u-file-icon u-icon u-icon-circle u-icon-1">
-            <img src="{{ asset('images/login1.png') }}" alt="">
+            <img src="{{ secure_asset('images/login1.png') }}" alt="">
           </span>
           <h2 class="u-align-center u-text u-text-default u-text-palette-2-base u-text-1">Login Now</h2>
           <div class="u-form u-login-control u-form-1">
