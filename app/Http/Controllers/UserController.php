@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/medbot/vendor/autoload.php';
 
 use Response;
 use Carbon\Carbon;
