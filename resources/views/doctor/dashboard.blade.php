@@ -20,7 +20,7 @@
             <span class="u-custom-item u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/patient.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-text u-text-default-xl u-text-5">
+            <p class="u-custom-item u-text u-text-default-xl u-text-5", style="text-align: center;">
 
               @if($this_month_new_user_difference < 0)
                 <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
@@ -52,7 +52,7 @@
             <span class="u-custom-item u-file-icon u-icon u-icon-4" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/two_patient.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-text u-text-default-xl u-text-8">
+            <p class="u-custom-item u-text u-text-default-xl u-text-8", style="margin-left: 140px;">
               <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
                 <img src="{{ asset('images/calendar.png') }}" alt="">
               </span>
@@ -68,7 +68,7 @@
             <span class="u-custom-item u-file-icon u-icon u-icon-6" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
               <img src="{{ asset('images/three_patient.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-text u-text-default-xl u-text-11">
+            <p class="u-custom-item u-text u-text-default-xl u-text-11", style="text-align: center;">
 
                 @if($monthly_user_growth_rate < 0)
                   <span class="u-custom-item u-file-icon u-icon u-text-custom-color-1">
@@ -173,7 +173,7 @@
         </div>
       </form>
     </div>
-    <h4 class="u-text u-text-default u-text-1">Users Overview ({{$current_users}} out of {{$total_users}} users)</h4>
+    <h5 class="u-text u-text-default u-text-1">Users Overview ({{$current_users}} out of {{$total_users}} users)</h5>
     <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
     <div class="u-list u-list-1">
       <div class="u-repeater u-repeater-1">

@@ -239,11 +239,17 @@
 
   .u-section-1 .u-container-layout-1 {
     padding-bottom: 0;
+    height: 1100px;
   }
 
   .u-section-1 .u-group-2 {
-    margin-top: -1011px;
+    margin-top: -1080px;
     margin-right: 44px;
+  }
+
+  .u-section-1 .u-container-layout-2 {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }
 

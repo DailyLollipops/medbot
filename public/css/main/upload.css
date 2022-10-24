@@ -1,5 +1,5 @@
 .u-section-1 .u-sheet-1 {
-  min-height: 655px;
+  min-height: 683px;
 }
 
 .u-section-1 .u-group-1 {
@@ -7,7 +7,7 @@
   min-height: 546px;
   box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.4);
   height: auto;
-  margin: 63px auto 46px;
+  margin: 110px auto 27px;
 }
 
 .u-section-1 .u-container-layout-1 {
@@ -73,6 +73,7 @@
 @media (max-width: 575px) {
   .u-section-1 .u-group-1 {
     width: 340px;
+    min-height: 547px;
   }
 
   .u-section-1 .u-container-layout-1 {
@@ -81,11 +82,23 @@
   }
 
   .u-section-1 .u-btn-1 {
+    margin-top: -11px;
     margin-left: 0;
   }
 
   .u-section-1 .u-text-1 {
     font-size: 2.25rem;
+    width: auto;
+    margin-top: 34px;
+    margin-right: 0;
+  }
+
+  .u-section-1 .u-icon-3 {
+    margin-top: 26px;
+  }
+
+  .u-section-1 .u-btn-2 {
+    margin-top: 85px;
   }
 }
 
@@ -109,13 +122,4 @@
 
 .u-container-layout.hover .u-section-1 .u-btn-2 {
   transform: rotate(0deg) scale(1) translateX(0px) translateY(0px) !important;
-}
-
-.uploadfile {
-  width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	position: absolute;
-	z-index: -1;
-
 }

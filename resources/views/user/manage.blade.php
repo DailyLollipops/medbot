@@ -55,7 +55,7 @@
     </div>
     <div class="u-align-left u-border-3 u-border-palette-1-light-3 u-container-style u-group u-palette-5-light-3 u-radius-9 u-shape-round u-group-2">
       <div class="u-container-layout u-container-layout-2">
-        <h4 class="u-text u-text-default u-text-3">Download a Single Reading Report</h4>
+        <h4 class="u-text u-text-default u-text-3", style="text-align: center; margin-top: 30px;">Download a Single Reading Report</h4>
         <div class="u-border-2 u-border-palette-5-light-2 u-form u-palette-4-light-3 u-form-2">
           <form action="/medbot/public/manage/generate" method="POST" class="u-clearfix u-form-spacing-26 u-inner-form" name="generate" style="padding: 26px;">
           @csrf

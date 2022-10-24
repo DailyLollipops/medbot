@@ -1,4 +1,4 @@
-@extends('layout',[$style = 'doctor/updateinfo', $title = 'Update Info'])
+@extends('layout',[$style = 'user/update', $title = 'Update Info'])
 
 @section('content')
 <section class="u-clearfix u-section-1" id="sec-4a91">
@@ -8,7 +8,7 @@
     <div class="u-container-style u-expanded-width-lg u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-palette-5-light-3 u-radius-10 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
         <div class="u-form u-form-1">
-          <form action="/medbot/public/update/info" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" id="informationform" name="form-1" style="padding: 10px;">
+          <form action="/medbot/public/manage/update/info" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" id="informationform" name="form-1" style="padding: 10px;">
           @csrf 
             <div class="u-form-group u-form-name u-label-top">
               <label for="name" class="u-label u-label-1">Name</label>
@@ -17,7 +17,7 @@
             <div class="u-form-group u-form-partition-factor-2 u-form-select u-label-top u-form-group-2">
               <label for="gender" class="u-label u-label-2">Gender</label>
               <div class="u-form-select-wrapper">
-                <select id="gender" value="{{$user_gender}}" name="gender" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-radius-15">
+                <select id="gender" value="{{$user_gender}}" name="gender" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
@@ -49,7 +49,7 @@
               <label for="phone" class="u-label u-label-5">Phone</label>
               <input type="tel" id="phone" pattern="\+?\d{0,3}[\s\(\-]?([0-9]{2,3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone (e.g. +14155552675)" value="{{$user_phone}}" name="phone_number" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" required="">
             </div>
-            <div class="u-form-group u-label-top">
+            <div class="u-form-group u-label-top u-form-group-6">
               <label for="email" class="u-label u-label-6">Email Address</label>
               <input type="email" id="email" value="{{$user_email}}" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-15 u-white" placeholder="Enter a valid email address">
             </div>
@@ -65,7 +65,7 @@
         </div>
         <div class="u-container-style u-group u-palette-5-light-3 u-group-2">
           <div class="u-container-layout u-valign-middle u-container-layout-2">
-            <form action="/medbot/public/update/profile_picture" method="POST" enctype="multipart/form-data">
+            <form action="/medbot/public/manage/update/profile_picture" method="POST" enctype="multipart/form-data">
             @csrf
               <input type="file" name="profile_picture" id="profile_picture" accept="image/png, image/gif, image/jpeg" style="display:none" onchange="this.form.submit()"/>
               <img class="u-border-2 u-border-grey-75 u-image u-image-circle u-preserve-proportions u-image-1" src="{{ $user_profile ? asset('storage/'.$user_profile) : asset('images/blank_profile.png') }}" alt="" data-image-width="128" data-image-height="128" style="cursor: pointer">
@@ -84,7 +84,7 @@
     <div class="u-container-style u-expanded-width-lg u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-palette-5-light-3 u-radius-10 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-1">
         <div class="u-form u-form-1">
-          <form id="passwordform" action="/medbot/public/update/password" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" source="email" name="form-1" style="padding: 10px;">
+          <form id="passwordform" action="/medbot/public/manage/update/password" method="POST" class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" source="email" name="form-1" style="padding: 10px;">
           @csrf  
             <div class="u-form-group u-form-name u-form-partition-factor-3 u-label-top">
               <label for="current-password" class="u-label">Current Password</label>
@@ -104,7 +104,7 @@
             </div>
           </form>
         </div>
-        <blockquote class="u-text u-text-2"> Please remember your password upon changing. The devs are so lazy to provide any reset password links</blockquote>
+        <blockquote class="u-text u-text-2"> Changing your password requires you to download a newly generated QR Code. Upon downloading the QR Code please print it ASAP</blockquote>
         <span class="u-file-icon u-icon u-icon-1">
           <img src="{{ asset('images/warning.png') }}" alt="">
         </span>

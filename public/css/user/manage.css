@@ -303,18 +303,33 @@
   }
 
   .u-section-2 .u-group-1 {
-    width: 340px;
+    min-height: 405px;
+    margin-right: initial;
+    margin-left: initial;
+    width: auto;
   }
 
   .u-section-2 .u-form-1 {
-    width: 340px;
+    margin-top: 28px;
+    margin-right: initial;
+    margin-left: initial;
+    width: auto;
   }
 
   .u-section-2 .u-group-2 {
     width: 340px;
+    margin-top: 39px;
+    margin-bottom: 38px;
+  }
+
+  .u-section-2 .u-text-3 {
+    margin-top: 0;
   }
 
   .u-section-2 .u-form-2 {
+    height: 309px;
     width: 340px;
+    margin-left: -3px;
+    margin-right: -3px;
   }
 }
