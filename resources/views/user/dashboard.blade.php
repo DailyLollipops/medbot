@@ -409,7 +409,7 @@
       plugins: {
         title: {
           display: true,
-          text: 'Readings from the Last 30 Days'
+          text: 'Readings This Month'
         },
         tooltip: {
           yAlign: 'bottom',
@@ -471,7 +471,7 @@
       plugins: {
         title: {
           display: true,
-          text: 'Ratings from the Last 30 Days'
+          text: 'Ratings This Month'
         }
       }
     }
