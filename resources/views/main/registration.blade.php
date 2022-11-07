@@ -34,7 +34,7 @@
             </div>
             <div class="u-form-group u-form-partition-factor-3 u-form-phone u-form-group-4">
               <label for="phone_number" class="u-label">Phone</label>
-              <input type="tel" pattern="\+?\d{0,3}[\s\(\-]?([0-9]{2,3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone (e.g. +14155552675)" id="phone_number" name="phone_number" value="{{old('phone')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
+              <input type="tel" pattern="\+?\d{0,3}[\s\(\-]?([0-9]{2,3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone (e.g. +14155552675)" id="phone_number" name="phone_number" value="{{old('phone_number')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
             </div>
             <div class="u-form-group u-form-partition-factor-3 u-form-select u-form-group-5">
               <label for="municipality" class="u-label">Municipality</label>
@@ -182,11 +182,20 @@
     if(municipality_dropdown.value == 'Buenavista'){
       for(var i = 0; i < baranggay_buenavista.length; i++){
         var option = document.createElement('option');
-        option.value = baranggay_buenavista[i];
+        option.value = baranggay_buenavista[i];                        ;
         option.text = baranggay_buenavista[i];
         baranggay_dropdown.appendChild(option);
       }
     }
   }
+  function on_failure(){
+    var test = {{Js::from(old('baranggay') )}};
+    if(test != null){
+      change_baranggay_dropdown();
+      var dropdown = document.getElementById('baranggay');
+      dropdown.value = {{Js::from(old('baranggay') )}};
+    }
+  }
+  on_failure();
 </script>
 @endsection
