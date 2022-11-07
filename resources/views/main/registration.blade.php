@@ -22,31 +22,31 @@
               <div class="u-form-select-wrapper">
                 <select id="gender" name="gender" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white">
                   <option value="null">Select gender...</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="male" {{"male" === old('gender') ? 'selected': ''}}>Male</option>
+                  <option value="female" {{"female" === old('gender') ? 'selected': ''}}>Female</option>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
             </div>
             <div class="u-form-date u-form-group u-form-partition-factor-2 u-form-group-3">
               <label for="birthday" class="u-label">Birthday</label>
-              <input type="date" placeholder="MM/DD/YYYY" id="birthday" name="birthday" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
+              <input type="date" placeholder="MM/DD/YYYY" id="birthday" name="birthday" value="{{old('birthday')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
             </div>
             <div class="u-form-group u-form-partition-factor-3 u-form-phone u-form-group-4">
               <label for="phone_number" class="u-label">Phone</label>
-              <input type="tel" pattern="\+?\d{0,3}[\s\(\-]?([0-9]{2,3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone (e.g. +14155552675)" id="phone_number" name="phone_number" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
+              <input type="tel" pattern="\+?\d{0,3}[\s\(\-]?([0-9]{2,3})[\s\)\-]?([\s\-]?)([0-9]{3})[\s\-]?([0-9]{2})[\s\-]?([0-9]{2})" placeholder="Enter your phone (e.g. +14155552675)" id="phone_number" name="phone_number" value="{{old('phone')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
             </div>
             <div class="u-form-group u-form-partition-factor-3 u-form-select u-form-group-5">
               <label for="municipality" class="u-label">Municipality</label>
               <div class="u-form-select-wrapper">
                 <select id="municipality" name="municipality" onchange="change_baranggay_dropdown()" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="required">
                   <option value="null">Select Municipality...</option>
-                  <option value="Boac">Boac</option>
-                  <option value="Buenavista">Buenavista</option>
-                  <option value="Gasan">Gasan</option>
-                  <option value="Mogpog">Mogpog</option>
-                  <option value="Sta. Cruz">Sta. Cruz</option>
-                  <option value="Torrijos">Torrijos</option>
+                  <option value="Boac" {{"Boac" === old('municipality') ? 'selected': ''}}>Boac</option>
+                  <option value="Buenavista" {{"Buenavista" === old('municipality') ? 'selected': ''}}>Buenavista</option>
+                  <option value="Gasan" {{"Gasan" === old('municipality') ? 'selected': ''}}>Gasan</option>
+                  <option value="Mogpog" {{"Mogpog" === old('municipality') ? 'selected': ''}}>Mogpog</option>
+                  <option value="Sta. Cruz" {{"Sta.Cruz" === old('municipality') ? 'selected': ''}}>Sta. Cruz</option>
+                  <option value="Torrijos" {{"Torrijos" === old('municipality') ? 'selected': ''}}>Torrijos</option>
                 </select>
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
               </div>
@@ -62,7 +62,7 @@
             </div>
             <div class="u-form-email u-form-group">
               <label for="email" class="u-label">Email</label>
-              <input type="email" placeholder="Enter a valid email address" id="email" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
+              <input type="email" placeholder="Enter a valid email address" id="email" name="email" value="{{old('email')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
             </div>
             <div class="u-form-group u-form-partition-factor-2 u-form-group-8">
               <label for="password" class="u-label">Password</label>
@@ -74,7 +74,7 @@
             </div>
             <div class="u-form-group u-form-message">
               <label for="bio" class="u-label">Bio</label>
-              <textarea placeholder="Say something about yourself" rows="4" cols="50" id="bio" name="bio" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="" maxlength="200"></textarea>
+              <textarea placeholder="Say something about yourself" rows="4" cols="50" id="bio" name="bio" value="{{old('bio')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="" maxlength="200"></textarea>
             </div>
             <input type="file" name="profile_picture" id="profile_picture" accept="image/png, image/gif, image/jpeg" style="display:none" onchange="changeImage(event)"/>
             <div class="u-align-center u-form-group u-form-submit">
