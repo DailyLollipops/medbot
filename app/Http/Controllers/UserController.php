@@ -751,7 +751,10 @@ class UserController extends Controller
             'profile_picture.mime' => 'The file is not an image file'
         ]);
         if($validator->fails()){
-            return back()->withError($validator->messages()->all());
+            foreach($validator->messages()->all() as $message){
+                flash()->addError($message);
+            }
+            return back()->withInput();
         }
         $register_form = $request->all();
         $register_form['password'] = bcrypt($register_form['password']);
