@@ -10,7 +10,7 @@
         </span>
         <h2 class="u-align-center u-text u-text-default u-text-palette-2-base u-text-1">Register Now</h2>
         <div class="u-form u-form-1">
-          <form action="/medbot/public/register/store" method="POST" enctype="multipart/form-data" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;">
+          <form action="/register/store" method="POST" enctype="multipart/form-data" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;">
           @csrf
             <input type="text" name="null" value="null" style="display: none;">
             <div class="u-form-group u-form-name">

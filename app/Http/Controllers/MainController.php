@@ -47,6 +47,7 @@ class MainController extends Controller
         }
     }
 
+    // Redirect to Register Page
     public function redirectToRegisterPage(){
         if(Auth::check()){
             abort(403);
