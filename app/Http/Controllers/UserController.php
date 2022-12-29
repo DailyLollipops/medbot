@@ -724,7 +724,7 @@ class UserController extends Controller
             'gender' => 'required|different:null',
             'birthday' => 'required|before:now',
             'phone_number' => 'required',
-            'email' => 'required|unique:users,email',
+            'email' => 'required|unique:users|email',
             'municipality' => 'required|different:null',
             'baranggay' => 'required|different:null',
             'password' => 'required|regex:/^.*(?=[^A-Z\n]*[A-Z]).{8,}.*$/',
