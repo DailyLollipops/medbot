@@ -157,7 +157,7 @@
             <span class="u-custom-item u-file-icon u-icon u-icon-4">
               <img src="{{ asset('images/blood_pressure.png') }}" alt="">
             </span>
-            <p class="u-custom-item u-heading-font u-text u-text-5">{{$previous_recent_reading->systolic}}/{{$previous_recent_reading->diastolic}} mmHg120/100 mmHg</p>
+            <p class="u-custom-item u-heading-font u-text u-text-5">{{$previous_recent_reading->systolic}}/{{$previous_recent_reading->diastolic}} mmHg</p>
           </div>
         </div>
         <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-3">
