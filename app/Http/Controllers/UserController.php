@@ -8,6 +8,7 @@ use Response;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Reading;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -105,10 +106,10 @@ class UserController extends Controller
         else if($systolic <= 129 && $diastolic < 80){
             $rating = 1;
         }
-        else if($systolic <= 139 && $diastolic <= 89){
+        else if($systolic <= 139 || $diastolic <= 89){
             $rating = 2;
         }
-        else if($systolic <= 180 && $diastolic <= 120){
+        else if($systolic <= 180 || $diastolic <= 120){
             $rating = 3;
         }
         else{
@@ -122,12 +123,23 @@ class UserController extends Controller
             $rating = 0;
         }
         else if($blood_saturation <= 100){
-            $rating = 0;
+            $rating = 1;
         }
         else{
-            $rating = 0;
+            $rating = 2;
         }
         return $rating;
+    }
+
+    private function getLatestReading($user_id){
+        $latest_reading = Reading::where('user_id',$user_id)->latest('created_at')->first();
+        return $latest_reading;
+    }
+
+    private function getPreviousRecentReading($user_id){
+        $readings = Reading::where('user_id',$user_id)->latest('created_at')->get();
+        $previous_recent_reading = $readings[1];
+        return $previous_recent_reading;
     }
 
     private function getThisMonthReadings($user_id){
@@ -139,10 +151,85 @@ class UserController extends Controller
         $previous_month_readings = Reading::where('user_id', $user_id)->where('created_at','>', Carbon::now()->subMonths(2))->where('created_at','<', Carbon::now()->subMonths(1))->oldest()->get();
         return $previous_month_readings;
     }
-    
+
+    private function getThisYearReadings($user_id){
+        $this_year_readings = Reading::where('user_id',$user_id)->whereYear('created_at',date('Y'))->oldest()->get();
+        return $this_year_readings;
+    }
+
     private function getAllTimeReadings($user_id){
         $all_time_readings = Reading::where('user_id', $user_id)->oldest()->get();
         return $all_time_readings;
+    }
+
+    private function getMonthlyPerYearReadings($user_id){
+        $per_month_readings = array();
+        for($month = 1; $month <= 12; $month++){
+            $per_month_readings_curr = Reading::where('user_id',$user_id)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->oldest()->get();
+            array_push($per_month_readings, $per_month_readings_curr);
+        }
+        return $per_month_readings;
+    }
+
+    private function getDailyThisMonthReading($user_id){
+        $daily_per_month_readings = array();
+        $with_31 = [1,3,5,7,8,10,12];
+        if(in_array(date('m'), $with_31)){
+            $days = 31;
+        }
+        else{
+            $days = 30;
+        }
+        for($day = 1; $day <= $days; $day++){
+            $daily_readings = Reading::where('user_id',$user_id)->whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))->whereDay('created_at', $day)->get();  
+            array_push($daily_per_month_readings, $daily_readings);
+        }
+        return $daily_per_month_readings;
+    }
+
+    private function getDailyPerMonthReadings($user_id, $month){
+        $daily_per_month_readings = array();
+        $with_31 = [1,3,5,7,8,10,12];
+        if(in_array($month, $with_31)){
+            $days = 31;
+        }
+        else{
+            $days = 30;
+        }
+        for($day = 1; $day <= $days; $day++){
+            $daily_readings = Reading::where('user_id',$user_id)->whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->whereDay('created_at', $day)->get();  
+            array_push($daily_per_month_readings, $daily_readings);
+        }
+        return $daily_per_month_readings;
+    }
+
+    private function getDailyPerMonthYearlyReadings($user_id){
+        $daily_per_month_yearly_readings = array();
+        for($month = 1; $month <= 12; $month++){
+            $daily_per_month_readings = $this->getDailyPerMonthReadings($user_id, $month);
+            array_push($daily_per_month_yearly_readings, $daily_per_month_readings);
+        }
+        return $daily_per_month_yearly_readings;
+    }
+
+    private function getReadingsFromRange($user_id, $from, $to){
+        $start_date = Carbon::createFromFormat('Y-m-d', $from);
+        $end_date = Carbon::createFromFormat('Y-m-d', $to);
+        $readings = Reading::where('user_id',$user_id)->whereBetween('created_at', [$start_date, $end_date])->oldest()->get();
+        return $readings;
+    }
+
+    private function getDailyReadingsFromRange($user_id, $from, $to){
+        $daily_readings_by_date_range = array();
+        $start_date = Carbon::createFromFormat('Y-m-d', $from);
+        $end_date = Carbon::createFromFormat('Y-m-d', $to);
+        $period = CarbonPeriod::create($start_date, $end_date);
+        $dates = $period->toArray();
+        foreach($dates as $date){
+            $daily_readings = Reading::where('user_id', $user_id)->whereYear('created_at', $date->year)->whereMonth('created_at', $date->month)->whereDay('created_at', $date->day)->oldest()->get();
+            array_push($daily_readings_by_date_range, $daily_readings);
+        }
+        return $daily_readings_by_date_range;
     }
 
     private function getThisMonthReadingDates($user_id){
@@ -720,7 +807,9 @@ class UserController extends Controller
 
     public function registerUser(Request $request){
         $validator = Validator::make($request->all(),[
-            'name' => 'required',
+            'first_name' => 'required',
+            'middle_initial' => 'required',
+            'last_name' => 'required',
             'gender' => 'required|different:null',
             'birthday' => 'required|before:now',
             'phone_number' => 'required',
@@ -729,11 +818,13 @@ class UserController extends Controller
             'baranggay' => 'required|different:null',
             'password' => 'required|regex:/^.*(?=[^A-Z\n]*[A-Z]).{8,}.*$/',
             'password_confirmation' => 'required|same:password',
-            'bio' => 'required|min:10|max:200',
+            'bio' => 'max:200',
             'profile_picture' => 'mimes:jpeg,bmp,png'
         ],
         [
-            'name.required' => 'Name field is required',
+            'first_name.required' => 'First Name is required',
+            'middle_initial.required' => 'Middle Initial is required',
+            'last_name.required' => 'Last Name is required',
             'gender.different' => 'Please select your gender',
             'birthday.required' => 'Birthday field is required',
             'birthday.before' => 'Birthday field has invalid value',
@@ -748,8 +839,6 @@ class UserController extends Controller
             'password.regex' => 'Password should be at least 8 characters long and contain at least one uppercase letter',
             'password_confirmation.required' => 'Please confirm your password',
             'password_confirmation.same' => 'Passwords does not match',
-            'bio.required' => 'Please tell something about yourself',
-            'bio.min' => 'Bio field too short',
             'bio.max' => 'Bio field exceeded maximum characters allowed',
             'profile_picture.mime' => 'The file is not an image file'
         ]);
@@ -760,6 +849,12 @@ class UserController extends Controller
             return back()->withInput();
         }
         $register_form = $request->all();
+        if(!str_contains($register_form['middle_initial'], '.')){
+            $register_form['middle_initial'] = $register_form['middle_initial'].'.';
+        }
+        $name = $register_form['first_name'] . ' ' . $register_form['middle_initial'] . ' ' . $register_form['last_name'];
+        $name = ucwords($name);
+        $register_form['name'] = $name;
         $register_form['password'] = bcrypt($register_form['password']);
         $register_form['type'] = 'normal';
         $user = User::create($register_form);
@@ -781,7 +876,7 @@ class UserController extends Controller
     // **-- User Normal Type Specific Functions --** //
 
     // Redirect to User Dashboard
-    public function redirectToUserDashboard() {
+    public function redirectToUserDashboard(Request $request) {
         if(Auth::user()->type != 'normal'){
             abort(403);
         }
@@ -790,39 +885,40 @@ class UserController extends Controller
             return view('user.noreadings');
         }
         $user_age = Carbon::parse($user->birthday)->age;
+        if($request->has('from') && $request->has('to')){
+            $from = $request->from;
+            $validator = Validator::make($request->all(),[
+                'to' => 'after:from'
+            ],[
+                'to.after' => 'Invalid Date Range'
+            ]);
+            if($validator->fails()){
+                foreach($validator->messages()->all() as $message){
+                    flash()->addError($message);
+                }
+                return back();
+            }
+            $to = $request->to;
+            $readings_from_range = $this->getReadingsFromRange($user->id, $from, $to);
+            $daily_readings_from_range = $this->getDailyReadingsFromRange($user->id, $from, $to);
+        }
+        else{
+            $from = Carbon::now()->subMonths(1)->isoFormat('YYYY-MM-DD');
+            $to = Carbon::now()->isoFormat('YYYY-MM-DD');
+            $readings_from_range = $this->getReadingsFromRange($user->id, $from, $to);
+            $daily_readings_from_range = $this->getDailyReadingsFromRange($user->id, $from, $to);
+        }
         return view('user.dashboard',[
-            'this_month_average_pulse_rate' => $this->getThisMonthAveragePulseRate($user->id),
-            'this_month_average_systolic' => $this->getThisMonthAverageSystolic($user->id),
-            'this_month_average_diastolic' => $this->getThisMonthAverageDiastolic($user->id),
-            'this_month_average_blood_saturation' => $this->getThisMonthAverageBloodSaturation($user->id),
-            'this_month_average_pulse_rate_difference' => $this->getThisMonthAveragePulseRateDifference($user->id),
-            'this_month_average_blood_pressure_difference' => $this->getThisMonthAverageBloodPressureDifference($user->id),
-            'this_month_average_blood_saturation_difference' => $this->getThisMonthAverageBloodSaturationDifference($user->id),
-            'low_pulse_rate' => $this->getLowPulseRate($user_age),
-            'high_pulse_rate' => $this->getHighPulseRate($user_age),
-            'this_month_pulse_rates' => $this->getThisMonthPulseRates($user->id), 
-            'this_month_systolics' => $this->getThisMonthSystolics($user->id), 
-            'this_month_diastolics' => $this->getThisMonthDiastolics($user->id), 
-            'this_month_blood_pressures' => $this->getThisMonthBloodPressures($user->id), 
-            'this_month_blood_saturations' => $this->getThisMonthBloodSaturations($user->id), 
-            'this_month_dates' => $this->getThisMonthReadingDates($user->id), 
-            'this_month_times' => $this->getThisMonthReadingTimes($user->id),
-            'this_month_pulse_rate_ratings' => $this->getThisMonthPulseRateRatings($user->id),
-            'this_month_blood_pressure_ratings' => $this->getThisMonthBloodPressureRatings($user->id),
-            'this_month_blood_saturation_ratings' => $this->getThisMonthBloodSaturationRatings($user->id),
-            'all_reading_count' => $this->getAllReadingCount($user->id),
-            'all_time_average_pulse_rate' => $this->getAllTimeAveragePulseRate($user->id),
-            'all_time_average_systolic' => $this->getAllTimeAverageSystolic($user->id),
-            'all_time_average_diastolic' => $this->getAllTimeAverageDiastolic($user->id),
-            'all_time_average_blood_saturation' => $this->getAllTimeAverageBloodSaturation($user->id),
-            'yearly_pulse_rates' => $this->getYearlyPulseRates($user->id),
-            'yearly_systolics' => $this->getYearlySystolics($user->id),
-            'yearly_diastolics' => $this->getYearlyDiastolics($user->id),
-            'yearly_blood_pressures' => $this->getYearlyBloodPressures($user->id),
-            'yearly_blood_saturations' => $this->getYearlyBloodSaturations($user->id),
-            'all_time_pulse_rate_ratings' => $this->getallTimePulseRateRatings($user->id),
-            'all_time_blood_pressure_ratings' => $this->getallTimeBloodPressureRatings($user->id),
-            'all_time_blood_saturation_ratings' => $this->getallTimeBloodSaturationRatings($user->id)
+            'user_age' => $user_age,
+            'from' => $from,
+            'to' => $to,
+            'latest_reading' => $this->getLatestReading($user->id),
+            'previous_recent_reading' => $this->getPreviousRecentReading($user->id),
+            'daily_per_month_readings' => $this->getDailyThisMonthReading($user->id),
+            'this_month_readings' => $this->getThisMonthReadings($user->id),
+            'daily_readings_from_range' => $daily_readings_from_range,
+            'readings_from_range' => $readings_from_range,
+            'daily_per_month_yearly_readings' => $this->getDailyPerMonthYearlyReadings($user->id)
         ]);
     }
 
@@ -1014,11 +1110,34 @@ class UserController extends Controller
         ]);
     }
 
-    public function redirectToUserReportPage($user_id){
+    public function redirectToUserReportPage(Request $request, $user_id){
         if(Auth::user()->type != 'doctor'){
             abort(403);
         }
         $user = User::find($user_id);
+        if($request->has('from') && $request->has('to')){
+            $from = $request->from;
+            $validator = Validator::make($request->all(),[
+                'to' => 'after:from'
+            ],[
+                'to.after' => 'Invalid Date Range'
+            ]);
+            if($validator->fails()){
+                foreach($validator->messages()->all() as $message){
+                    flash()->addError($message);
+                }
+                return back();
+            }
+            $to = $request->to;
+            $readings_from_range = $this->getReadingsFromRange($user->id, $from, $to);
+            $daily_readings_from_range = $this->getDailyReadingsFromRange($user->id, $from, $to);
+        }
+        else{
+            $from = Carbon::now()->subMonths(1)->isoFormat('YYYY-MM-DD');
+            $to = Carbon::now()->isoFormat('YYYY-MM-DD');
+            $readings_from_range = $this->getReadingsFromRange($user->id, $from, $to);
+            $daily_readings_from_range = $this->getDailyReadingsFromRange($user->id, $from, $to);
+        }
         if(count($this->getAllTimeReadings($user->id)) == 0){
             return view('doctor.noreport', [
                 'user_id' => $user->id,
@@ -1034,36 +1153,15 @@ class UserController extends Controller
             'user_name' => $user->name,
             'user_age' => Carbon::parse($user->birthday)->age,
             'user_joined' => Carbon::parse($user->created_at)->format('M d, Y'),
-            'this_month_average_pulse_rate' => $this->getThisMonthAveragePulseRate($user_id),
-            'this_month_average_systolic' => $this->getThisMonthAverageSystolic($user_id),
-            'this_month_average_diastolic' => $this->getThisMonthAverageDiastolic($user_id),
-            'this_month_average_blood_saturation' => $this->getThisMonthAverageBloodSaturation($user_id),
-            'this_month_average_pulse_rate_difference' => $this->getThisMonthAveragePulseRateDifference($user_id),
-            'this_month_average_blood_pressure_difference' => $this->getThisMonthAverageBloodPressureDifference($user_id),
-            'this_month_average_blood_saturation_difference' => $this->getThisMonthAverageBloodSaturationDifference($user_id),
-            'this_month_pulse_rates' => $this->getThisMonthPulseRates($user_id), 
-            'this_month_systolics' => $this->getThisMonthSystolics($user_id), 
-            'this_month_diastolics' => $this->getThisMonthDiastolics($user_id), 
-            'this_month_blood_pressures' => $this->getThisMonthBloodPressures($user_id), 
-            'this_month_blood_saturations' => $this->getThisMonthBloodSaturations($user_id), 
-            'this_month_dates' => $this->getThisMonthReadingDates($user_id), 
-            'this_month_times' => $this->getThisMonthReadingTimes($user_id),
-            'this_month_pulse_rate_ratings' => $this->getThisMonthPulseRateRatings($user_id),
-            'this_month_blood_pressure_ratings' => $this->getThisMonthBloodPressureRatings($user_id),
-            'this_month_blood_saturation_ratings' => $this->getThisMonthBloodSaturationRatings($user_id),
-            'all_reading_count' => $this->getAllReadingCount($user_id),
-            'all_time_average_pulse_rate' => $this->getAllTimeAveragePulseRate($user_id),
-            'all_time_average_systolic' => $this->getAllTimeAverageSystolic($user_id),
-            'all_time_average_diastolic' => $this->getAllTimeAverageDiastolic($user_id),
-            'all_time_average_blood_saturation' => $this->getAllTimeAverageBloodSaturation($user_id),
-            'yearly_pulse_rates' => $this->getYearlyPulseRates($user_id),
-            'yearly_systolics' => $this->getYearlySystolics($user_id),
-            'yearly_diastolics' => $this->getYearlyDiastolics($user_id),
-            'yearly_blood_pressures' => $this->getYearlyBloodPressures($user_id),
-            'yearly_blood_saturations' => $this->getYearlyBloodSaturations($user_id),
-            'all_time_pulse_rate_ratings' => $this->getallTimePulseRateRatings($user_id),
-            'all_time_blood_pressure_ratings' => $this->getallTimeBloodPressureRatings($user_id),
-            'all_time_blood_saturation_ratings' => $this->getallTimeBloodSaturationRatings($user_id)
+            'from' => $from,
+            'to' => $to,
+            'latest_reading' => $this->getLatestReading($user->id),
+            'previous_recent_reading' => $this->getPreviousRecentReading($user->id),
+            'daily_per_month_readings' => $this->getDailyThisMonthReading($user->id),
+            'this_month_readings' => $this->getThisMonthReadings($user->id),
+            'daily_readings_from_range' => $daily_readings_from_range,
+            'readings_from_range' => $readings_from_range,
+            'daily_per_month_yearly_readings' => $this->getDailyPerMonthYearlyReadings($user->id)
         ]);
     }
 

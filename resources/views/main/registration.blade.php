@@ -13,9 +13,23 @@
           <form action="/medbot/public/register/store" method="POST" enctype="multipart/form-data" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;">
           @csrf
             <input type="text" name="null" value="null" style="display: none;">
-            <div class="u-form-group u-form-name">
-              <label for="name" class="u-label">Name</label>
-              <input type="text" placeholder="Enter your Name" id="name" name="name" value="{{old('name')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
+            <div class="u-form-group u-form-partition-factor-3 u-form-select u-form-group-6">
+              <div class="u-form-group u-form-name">
+                <label for="name" class="u-label">First Name</label>
+                <input type="text" placeholder="Enter your Name" id="first_name" name="first_name" value="{{old('first_name')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
+              </div>
+            </div>
+            <div class="u-form-group u-form-partition-factor-3 u-form-select u-form-group-6">
+              <div class="u-form-group u-form-name">
+                <label for="name" class="u-label">Middle Initial</label>
+                <input type="text" placeholder="Enter your Name" id="middle_initial" name="middle_initial" value="{{old('middle_initial')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
+              </div>
+            </div>
+            <div class="u-form-group u-form-partition-factor-3 u-form-select u-form-group-6">
+              <div class="u-form-group u-form-name">
+                <label for="name" class="u-label">Last Name</label>
+                <input type="text" placeholder="Enter your Name" id="last_name" name="last_name" value="{{old('last_name')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="">
+              </div>
             </div>
             <div class="u-form-group u-form-partition-factor-2 u-form-select u-form-group-2">
               <label for="gender" class="u-label">Gender</label>
@@ -73,7 +87,7 @@
               <input type="password" placeholder="Confirm your password" id="password_confirmation" name="password_confirmation" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white">
             </div>
             <div class="u-form-group u-form-message">
-              <label for="bio" class="u-label">Bio</label>
+              <label for="bio" class="u-label">Bio (optional)</label>
               <textarea placeholder="Say something about yourself" rows="4" cols="50" id="bio" name="bio" value="{{old('bio')}}" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-radius-10 u-white" required="" maxlength="200"></textarea>
             </div>
             <input type="file" name="profile_picture" id="profile_picture" accept="image/png, image/gif, image/jpeg" style="display:none" onchange="changeImage(event)"/>
