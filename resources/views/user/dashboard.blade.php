@@ -79,6 +79,7 @@
   </div>
 </section>
 
+@if($previous_recent_reading == 'null')
 <section class="u-clearfix u-section-2" id="sec-5d4b">
   <div class="u-clearfix u-sheet u-sheet-1">
     <h4 class="u-text u-text-default u-text-1">Previous Recent Reading (Taken Last {{$previous_recent_reading->created_at->format('M-d-Y h:i A')}})
@@ -151,7 +152,58 @@
     </div>
   </div>
 </section>
-
+@else
+<section class="u-clearfix u-section-2" id="sec-5d4b">
+  <div class="u-clearfix u-sheet u-sheet-1">
+    <h4 class="u-text u-text-default u-text-1">Previous Recent Reading (Taken Last N/A)
+    </h4>
+    <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
+    <div class="u-expanded-width-sm u-expanded-width-xs u-list u-list-1">
+      <div class="u-repeater u-repeater-1">
+        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
+          <div class="u-container-layout u-similar-container u-container-layout-1">
+            <h5 class="u-text u-text-2">
+              <span class="u-file-icon u-icon">
+                <img src="{{ asset('images/sad.png') }}" alt="" title="No Record">
+              </span>&nbsp;Pulse Rate<br>
+            </h5>
+            <span class="u-custom-item u-file-icon u-icon u-icon-2">
+              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+            </span>
+            <p class="u-custom-item u-heading-font u-text u-text-3">N/A</p>
+          </div>
+        </div>
+        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-2">
+          <div class="u-container-layout u-similar-container u-container-layout-2">
+            <h5 class="u-text u-text-4">
+              <span class="u-file-icon u-icon u-icon-3">
+                <img src="{{ asset('images/sad.png') }}" alt="" title="No Record">
+              </span>&nbsp;Blood Pressure
+            </h5>
+            <span class="u-custom-item u-file-icon u-icon u-icon-4">
+              <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+            </span>
+            <p class="u-custom-item u-heading-font u-text u-text-5">N/A</p>
+          </div>
+        </div>
+        <div class="u-align-center u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-3">
+          <div class="u-container-layout u-similar-container u-container-layout-3">
+            <h5 class="u-text u-text-6">
+              <span class="u-file-icon u-icon">
+                <img src="{{ asset('images/sad.png') }}" alt="" title="No Record">
+              </span>&nbsp;Blood Saturation
+            </h5>
+            <span class="u-custom-item u-file-icon u-icon u-icon-6">
+              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+            </span>
+            <p class="u-custom-item u-heading-font u-text u-text-7">N/A</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+@endif
 <section class="u-clearfix u-section-3" id="sec-1e9e">
   <div class="u-clearfix u-sheet u-sheet-1">
     <h4 class="u-text u-text-default u-text-1">Monthly Report</h4>
@@ -459,22 +511,24 @@
     return rating;
   }
 
+  function subtractMonths(numOfMonths, date = new Date()) {
+    date.setMonth(date.getMonth() - numOfMonths);
+    return date;
+  }
+
   const dailyPerMonthReadings = {{ Js::from($daily_per_month_readings) }};
-  console.log(dailyPerMonthReadings);
 
   const userAge = {{ Js::from($user_age) }};
   const thisMonthReadings = {{ Js::from($this_month_readings) }};
-  console.log(thisMonthReadings);
 
   const startDate = {{ Js::from($from) }};
   const endDate = {{ Js::from($to)}};
   const dailyReadingsFromRange = {{ Js::from($daily_readings_from_range) }};
   const readingsFromRange = {{ Js::from($readings_from_range) }};
-  console.log(dailyReadingsFromRange);
-  console.log(readingsFromRange);
   
-  const perMonthReadings = {{ Js::from($daily_per_month_yearly_readings) }};
-  console.log(perMonthReadings);
+  const perMonthReadings = {{ Js::from($daily_past_month_readings) }};
+  
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   /*
     -----------------------------------------
     *                                       *
@@ -782,8 +836,6 @@
     -----------------------------------------
   */
 
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
   var thisMonthReadingsDates = [];
   thisMonthReadings.forEach(function(item){
     var date = new Date(item['created_at']);
@@ -848,6 +900,10 @@
             display: true,
             drawOnChartArea: true,
             drawTicks: true,
+          },
+          title: {
+            display: true,
+            text: 'Date'
           }
         },
         y: {
@@ -859,13 +915,17 @@
               if (context.tick.value < 60){
                 return '#FFB600';
               }
-              else if(context.tick.value < 101){
+              else if(context.tick.value < 100){
                 return '#A6CE39';
               }
               else{
                 return '#990711';
               }
             }
+          },
+          title: {
+            display: true,
+            text: 'Pulse Rate'
           }
         }
       },
@@ -932,6 +992,10 @@
             display: true,
             drawOnChartArea: true,
             drawTicks: true,
+          },
+          title: {
+            display: true,
+            text: 'Date'
           }
         },
         y: {
@@ -956,6 +1020,10 @@
                 return '#990711';
               }
             }
+          },
+          title: {
+            display: true,
+            text: 'Blood Pressure'
           }
         }
       },
@@ -1022,6 +1090,10 @@
             display: true,
             drawOnChartArea: true,
             drawTicks: true,
+          },
+          title: {
+            display: true,
+            text: 'Date'
           }
         },
         y: {
@@ -1040,6 +1112,10 @@
                 return '#990711';
               }
             }
+          },
+          title: {
+            display: true,
+            text: 'Blood Saturation'
           }
         }
       },
@@ -1580,6 +1656,10 @@
             display: true,
             drawOnChartArea: true,
             drawTicks: true,
+          },
+          title: {
+            display: true,
+            text: 'Date'
           }
         },
         y: {
@@ -1591,13 +1671,17 @@
               if (context.tick.value < 60){
                 return '#FFB600';
               }
-              else if(context.tick.value < 101){
+              else if(context.tick.value < 100){
                 return '#A6CE39';
               }
               else{
                 return '#990711';
               }
             }
+          },
+          title: {
+            display: true,
+            text: 'Pulse Rate'
           }
         }
       },
@@ -1664,6 +1748,10 @@
             display: true,
             drawOnChartArea: true,
             drawTicks: true,
+          },
+          title: {
+            display: true,
+            text: 'Date'
           }
         },
         y: {
@@ -1688,6 +1776,10 @@
                 return '#990711';
               }
             }
+          },
+          title: {
+            display: true,
+            text: 'Blood Pressure'
           }
         }
       },
@@ -1754,6 +1846,10 @@
             display: true,
             drawOnChartArea: true,
             drawTicks: true,
+          },
+          title: {
+            display: true,
+            text: 'Date'
           }
         },
         y: {
@@ -1772,6 +1868,10 @@
                 return '#990711';
               }
             }
+          },
+          title: {
+            display: true,
+            text: 'Blood Saturation'
           }
         }
       },
@@ -1950,6 +2050,13 @@
     -----------------------------------------
   */
 
+  var past_months = [];
+  for(var i = 0; i <= 11; i++){
+    temp = months[subtractMonths(i).getMonth()];
+    past_months.push(temp);
+  }
+  past_months = past_months.reverse();
+
   var belowNormalPulseRates = [0,0,0,0,0,0,0,0,0,0,0,0];
   var normalPulseRates = [0,0,0,0,0,0,0,0,0,0,0,0];
   var aboveNormalPulseRates = [0,0,0,0,0,0,0,0,0,0,0,0];
@@ -2062,7 +2169,7 @@
 
   // Pulse Rate
   const perMonthPulseRateRatingsData = {
-    labels: months,
+    labels: past_months,
     datasets: [{
       label: 'Below Normal',
       data: belowNormalPulseRates,
@@ -2088,9 +2195,17 @@
       scales: {
         x: {
           stacked: true,
+          title: {
+            display: true,
+            text: 'Month'
+          }
         },
         y: {
-          stacked: true
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Count'
+          }
         }
       },
       plugins: {
@@ -2135,7 +2250,7 @@
 
   // Blood Pressure
   const perMonthBloodPressureRatingsData = {
-    labels: months,
+    labels: past_months,
     datasets: [{
       label: 'Normal',
       data: normalBloodPressures,
@@ -2171,9 +2286,17 @@
       scales: {
         x: {
           stacked: true,
+          title: {
+            display: true,
+            text: 'Month'
+          }
         },
         y: {
-          stacked: true
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Count'
+          }
         }
       },
       plugins: {
@@ -2224,7 +2347,7 @@
 
   // Blood Saturation
   const perMonthBloodSaturationRatingsData = {
-    labels: months,
+    labels: past_months,
     datasets: [{
       label: 'Below Normal',
       data: belowNormalBloodSaturations,
@@ -2250,9 +2373,17 @@
       scales: {
         x: {
           stacked: true,
+          title: {
+            display: true,
+            text: 'Month'
+          }
         },
         y: {
-          stacked: true
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Count'
+          }
         }
       },
       plugins: {

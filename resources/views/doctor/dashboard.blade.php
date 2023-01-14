@@ -96,7 +96,7 @@
     </div>
     <div class="u-container-style u-group u-palette-5-light-3 u-radius-10 u-shape-round u-group-1">
       <div class="u-container-layout u-container-layout-4">
-        <h4 class="u-text u-text-default u-text-12">New Users This Month</h4>
+        <h4 class="u-text u-text-default u-text-12">New Users From the Last 30 Days</h4>
         <div class="u-table u-table-responsive u-table-1"  style="overflow: scroll; height: 350px">
           <table class="u-table-entity" style="height: 350px;">
             <colgroup>
@@ -133,9 +133,9 @@
   </div>
 </section>
 <section class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-clearfix u-section-2" id="sec-7557">
-  <div class="u-clearfix u-sheet u-valign-middle-xs u-sheet-1">
+  <div class="u-clearfix u-sheet u-sheet-1">
     <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
-      <form id="form" action="#" method="GET" onsubmit="select_area()" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" name="form" style="padding: 10px;">
+      <form action="#" method="GET" onsubmit="select_area()" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" source="email" name="form" style="padding: 10px;">
         <div class="u-form-group u-form-select u-label-none u-form-group-1">
           <label for="select-d839" class="u-label">Dropdown</label>
           <div class="u-form-select-wrapper">
@@ -148,9 +148,7 @@
               <option value="Torrijos">Torrijos</option>
               <option value="Buenavista">Buenavista</option>
             </select>
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret">
-              <path fill="currentColor" d="M4 8L0 4h8z"></path>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" version="1" class="u-caret"><path fill="currentColor" d="M4 8L0 4h8z"></path></svg>
           </div>
         </div>
         <div class="u-form-group u-form-select u-label-none u-form-group-2">
@@ -163,129 +161,97 @@
           </div>
         </div>
         <div class="u-align-left u-form-group u-form-submit u-label-none">
-          <a href="#" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-15 u-text-hover-palette-2-light-1 u-btn-1">
+          <button href="#" onclick="this.form.submit()" class="u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-dark-1 u-palette-1-light-1 u-radius-15 u-text-hover-palette-2-light-1 u-btn-1">
             <span class="u-file-icon u-icon">
               <img src="{{ asset('images/location.png') }}" alt="">
-            </span>
-            &nbsp;Select
-          </a>
+            </span>&nbsp;Select
+          </button>
           <input type="submit" value="submit" class="u-form-control-hidden">
         </div>
       </form>
     </div>
-    <h5 class="u-text u-text-default u-text-1">Users Overview ({{$current_users}} out of {{$total_users}} users)</h5>
-    <div class="u-border-3 u-border-grey-dark-1 u-line u-line-horizontal u-line-1"></div>
-    <div class="u-list u-list-1">
-      <div class="u-repeater u-repeater-1">
-        <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
-          <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
-            <h5 class="u-align-center u-text u-text-2">Pulse Rate</h5>
-            <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/pulse_rate.png') }}" alt="">
-            </span>
-            <p class="u-align-center u-heading-font u-text u-text-3">{{$users_average_pulse_rate}} bpm</p>
-
-              @if($users_average_pulse_rate < 60)
-                <h5 class="u-align-center u-text u-text-4">
-                  <span class="u-file-icon u-icon">
-                    <img src="{{ asset('images/sad.png') }}" alt="">
-                  </span>&nbsp;
-                  <span class="u-text-palette-1-base">&nbsp;B​elo​w Normal</span>
-                </h5>
-              @elseif($users_average_pulse_rate < 100)
-                <h5 class="u-align-center u-text u-text-4">
-                  <span class="u-file-icon u-icon">
-                    <img src="{{ asset('images/happy.png') }}" alt="">
-                  </span>&nbsp;
-                  <span class="u-text-custom-color-9">Normal</span>
-                </h5>
-              @else
-                <h5 class="u-align-center u-text u-text-4">
-                  <span class="u-file-icon u-icon">
-                    <img src="{{ asset('images/shocked.png') }}" alt="">
-                  </span>&nbsp;
-                  <span class="u-text-custom-color-1">Above Normal</span>
-                </h5>
-              @endif    
-
-          </div>
-        </div>
-        <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
-          <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
-            <h5 class="u-align-center u-text u-text-2">Blood Pressure</h5>
-            <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/blood_pressure.png') }}" alt="">
-            </span>
-            <p class="u-align-center u-heading-font u-text u-text-3">{{$users_average_systolic}}/{{$users_average_diastolic}} mmHg</p>
-
-              @if($users_average_systolic < 60)
-              <h5 class="u-align-center u-text u-text-4">
-                <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/sad.png') }}" alt="">
-                </span>&nbsp;
-                <span class="u-text-palette-1-base">&nbsp;B​elo​w Normal</span>
-              </h5>
-            @elseif($users_average_systolic <= 120)
-              <h5 class="u-align-center u-text u-text-4">
-                <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/happy.png') }}" alt="">
-                </span>&nbsp;
-                <span class="u-text-custom-color-9">Normal</span>
-              </h5>
-            @else
-              <h5 class="u-align-center u-text u-text-4">
-                <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/shocked.png') }}" alt="">
-                </span>&nbsp;
-                <span class="u-text-custom-color-1">Above Normal</span>
-              </h5>
-            @endif   
-
-          </div>
-        </div>
-        <div class="u-border-1 u-border-palette-5-light-2 u-container-style u-list-item u-palette-5-light-3 u-radius-5 u-repeater-item u-shape-round u-list-item-1">
-          <div class="u-container-layout u-similar-container u-valign-middle-sm u-valign-middle-xs u-container-layout-1">
-            <h5 class="u-align-center u-text u-text-2">Blood Saturation</h5>
-            <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
-              <img src="{{ asset('images/blood_saturation.png') }}" alt="">
-            </span>
-            <p class="u-align-center u-heading-font u-text u-text-3">{{$users_average_blood_saturation}} %</p>
-
-              @if($users_average_blood_saturation < 95)
-              <h5 class="u-align-center u-text u-text-4">
-                <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/sad.png') }}" alt="">
-                </span>&nbsp;
-                <span class="u-text-palette-1-base">&nbsp;B​elo​w Normal</span>
-              </h5>
-            @elseif($users_average_blood_saturation <= 100)
-              <h5 class="u-align-center u-text u-text-4">
-                <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/happy.png') }}" alt="">
-                </span>&nbsp;
-                <span class="u-text-custom-color-9">Normal</span>
-              </h5>
-            @else
-              <h5 class="u-align-center u-text u-text-4">
-                <span class="u-file-icon u-icon">
-                  <img src="{{ asset('images/shocked.png') }}" alt="">
-                </span>&nbsp;
-                <span class="u-text-custom-color-1">Above Normal</span>
-              </h5>
-            @endif   
-
-          </div>
-        </div>  
-      </div>
-    </div>
-    <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-1">
-      <div class="u-container-layout u-container-layout-4">
+    <h5 class="u-text u-text-default u-text-1">Users Overview</h5>
+    <div class="u-border-3 u-border-grey-dark-1 u-expanded-width-xs u-line u-line-horizontal u-line-1"></div>
+    <div class="u-border-1 u-border-grey-15 u-container-style u-expanded-width-xs u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-1">
+      <div class="u-container-layout u-container-layout-1">
         <canvas id="usersGenderCountChart"></canvas>
       </div>
     </div>
-    <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-2">
-      <div class="u-container-layout u-container-layout-5">
+    <div class="u-border-1 u-border-grey-15 u-container-style u-expanded-width-sm u-expanded-width-xs u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-2">
+      <div class="u-container-layout u-container-layout-2">
         <canvas id="usersByAgeChart"></canvas>
+      </div>
+    </div>
+    <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-3">
+      <div class="u-container-layout u-container-layout-3">
+        <canvas id="usersRatingByGenderChart"></canvas>
+      </div>
+    </div>
+    <div class="u-border-1 u-border-grey-15 u-container-style u-group u-palette-5-light-3 u-radius-14 u-shape-round u-group-4">
+      <div class="u-container-layout u-container-layout-4">
+        <canvas id="usersRatingByAgeChart"></canvas>
+      </div>
+    </div>
+    <div class="u-list u-list-1">
+      <div class="u-repeater u-repeater-1">
+        <div class="u-container-style u-custom-item u-list-item u-repeater-item u-shape-rectangle">
+          <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-5">
+            <button id="showPulseRateByGender" class="u-btn u-btn-round u-button-style u-custom-item u-palette-1-light-1 u-radius-4 u-text-body-alt-color u-btn-2">
+              <span class="u-file-icon u-icon u-icon-2" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+                <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+              </span>&nbsp;PR&nbsp;&nbsp;
+            </button>
+          </div>
+        </div>
+        <div class="u-container-style u-custom-item u-list-item u-repeater-item u-shape-rectangle">
+          <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-6">
+            <button id="showBloodPressureByGender" class="u-border-none u-btn u-btn-round u-button-style u-custom-item u-palette-2-light-1 u-radius-4 u-text-body-alt-color u-btn-3">
+              <span class="u-file-icon u-icon u-icon-3" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+                <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+              </span>&nbsp;BP&nbsp;&nbsp;
+            </button>
+          </div>
+        </div>
+        <div class="u-container-style u-custom-item u-list-item u-repeater-item u-shape-rectangle">
+          <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-7">
+            <button id="showBloodSaturationByGender" class="u-border-none u-btn u-btn-round u-button-style u-custom-item u-grey-70 u-radius-4 u-text-body-alt-color u-btn-4">
+              <span class="u-file-icon u-icon u-icon-4" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+                <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+              </span>&nbsp;SP02
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="u-list u-list-2">
+      <div class="u-repeater u-repeater-2">
+        <div class="u-container-style u-custom-item u-list-item u-repeater-item u-shape-rectangle">
+          <div class="u-container-layout u-similar-container u-container-layout-8">
+            <button id="showPulseRateByAge" class="u-btn u-btn-round u-button-style u-custom-item u-palette-1-light-1 u-radius-4 u-text-body-alt-color u-btn-5">
+              <span class="u-file-icon u-icon u-icon-5" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+                <img src="{{ asset('images/pulse_rate.png') }}" alt="">
+              </span>&nbsp;PR&nbsp;&nbsp;
+            </button>
+          </div>
+        </div>
+        <div class="u-container-style u-custom-item u-list-item u-repeater-item u-shape-rectangle">
+          <div class="u-container-layout u-similar-container u-container-layout-9">
+            <button id="showBloodPressureByAge" class="u-border-none u-btn u-btn-round u-button-style u-custom-item u-palette-2-light-1 u-radius-4 u-text-body-alt-color u-btn-6">
+              <span class="u-file-icon u-icon u-icon-6" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+                <img src="{{ asset('images/blood_pressure.png') }}" alt="">
+              </span>&nbsp;BP&nbsp;&nbsp;
+            </button>
+          </div>
+        </div>
+        <div class="u-container-style u-custom-item u-list-item u-repeater-item u-shape-rectangle">
+          <div class="u-container-layout u-similar-container u-container-layout-10">
+            <button id="showBloodSaturationByAge" class="u-border-none u-btn u-btn-round u-button-style u-custom-item u-grey-70 u-radius-4 u-text-body-alt-color u-btn-7">
+              <span class="u-file-icon u-icon u-icon-7" data-animation-name="" data-animation-duration="0" data-animation-delay="0" data-animation-direction="">
+                <img src="{{ asset('images/blood_saturation.png') }}" alt="">
+              </span>&nbsp;SP02
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -386,6 +352,11 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
+  function subtractMonths(numOfMonths, date = new Date()) {
+    date.setMonth(date.getMonth() - numOfMonths);
+    return date;
+  }
+
   // Address Title
   var address = {{Js::from($address)}};
 
@@ -397,9 +368,19 @@
 
   const usersGenderCount = {{Js::from($users_gender_count)}};
 
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  // Past 12 Months Label
+  var past_months = [];
+  for(var i = 0; i <= 11; i++){
+    temp = months[subtractMonths(i).getMonth()];
+    past_months.push(temp);
+  }
+  past_months = past_months.reverse();
+
   // Monthly New Users Per Month Chart Datasets
   const monthlyNewUsersPerMonthData = {
-    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    labels: past_months,
     datasets: [{
       label: 'Users',
       backgroundColor: '#ffd966',
@@ -448,10 +429,24 @@
     type: 'line',
     data: monthlyNewUsersPerMonthData,
     options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Month'
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'User'
+          }
+        }
+      },
       plugins: {
         title: {
           display: true,
-          text: 'New Users Per Month'
+          text: 'New Users From Past 12 Months'
         }
       }
     }
@@ -462,6 +457,20 @@
     type: 'bar',
     data: usersByAgeData,
     options: {
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Age'
+          }
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'User'
+          }
+        }
+      },
       plugins: {
         title: {
           display: true,
@@ -483,9 +492,8 @@
       }
     }
   }
-</script>
-<script>
-    const monthlyNewUsersPerMonthChart = new Chart(
+
+  const monthlyNewUsersPerMonthChart = new Chart(
     document.getElementById('monthlyNewUsersPerMonthChart'),
     monthlyNewUsersPerMonthConfig
   );
@@ -499,5 +507,484 @@
     document.getElementById('usersGenderCountChart'),
     usersGenderCountConfig
   );
+</script>
+<script>
+  
+  const usersRatingsCountByGender = {{ Js::from($users_ratings_count_by_gender) }};
+  const usersRatingsCountByAge = {{ Js::from($users_ratings_count_by_age) }};
+  console.log(usersRatingsCountByGender);
+  console.log(usersRatingsCountByAge);
+
+    /*
+    -----------------------------------------
+    *                                       *
+    *          RATINGS PER GENDER           *
+    *                                       *
+    -----------------------------------------
+  */
+
+  const pulseRateByGenderData = {
+    labels: ['Male', 'Female'],
+    datasets: [{
+      label: 'Below Normal',
+      data: [usersRatingsCountByGender['male']['pulse_rate'][0], usersRatingsCountByGender['female']['pulse_rate'][0]],
+      backgroundColor: ['#FFB600'],
+      borderColor: ['#FFB600']
+    }, {
+      label: 'Normal',
+      data: [usersRatingsCountByGender['male']['pulse_rate'][1], usersRatingsCountByGender['female']['pulse_rate'][1]],
+      backgroundColor: ['#A6CE39'],
+      borderColor: ['#A6CE39'] 
+    }, {
+      label: 'Above Normal',
+      data: [usersRatingsCountByGender['male']['pulse_rate'][2], usersRatingsCountByGender['female']['pulse_rate'][2]],
+      backgroundColor: ['#990711'],
+      borderColor: ['#990711']
+    }]
+  }
+
+  const pulseRateByGenderConfig = {
+    type: 'bar',
+    data: pulseRateByGenderData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Users Pulse Rate Rating Pervasiveness by Gender'
+        },
+      },
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Gender'
+          }
+        },
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'User'
+          }
+        }
+      }
+    }
+  };
+
+  const bloodPressureByGenderData = {
+    labels: ['Male', 'Female'],
+    datasets: [{
+      label: 'Normal',
+      data: [usersRatingsCountByGender['male']['blood_pressure'][0], usersRatingsCountByGender['female']['blood_pressure'][0]],
+      backgroundColor: ['#A6CE39'],
+      borderColor: ['#A6CE39']
+    }, {
+      label: 'Elevated High Blood Pressure',
+      data: [usersRatingsCountByGender['male']['blood_pressure'][1], usersRatingsCountByGender['female']['blood_pressure'][1]],
+      backgroundColor: ['#FFEC01'],
+      borderColor: ['#FFEC01'] 
+    }, {
+      label: 'Hypertension Stage I',
+      data: [usersRatingsCountByGender['male']['blood_pressure'][2], usersRatingsCountByGender['female']['blood_pressure'][2]],
+      backgroundColor: ['#FFB600'],
+      borderColor: ['#FFB600']
+    }, {
+      label: 'Hypertension Stage II',
+      data: [usersRatingsCountByGender['male']['blood_pressure'][3], usersRatingsCountByGender['female']['blood_pressure'][3]],
+      backgroundColor: ['#BB3A01'],
+      borderColor: ['#BB3A01']
+    }, {
+      label: 'Hypertensive Crisis',
+      data: [usersRatingsCountByGender['male']['blood_pressure'][4], usersRatingsCountByGender['female']['blood_pressure'][4]],
+      backgroundColor: ['#990711'],
+      borderColor: ['#990711']
+    }]
+  }
+
+  const bloodPressureByGenderConfig = {
+    type: 'bar',
+    data: bloodPressureByGenderData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Users Blood Pressure Rating Pervasiveness by Gender'
+        },
+      },
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Gender'
+          }
+        },
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'User'
+          }
+        }
+      }
+    }
+  };
+
+  const bloodSaturationByGenderData = {
+    labels: ['Male', 'Female'],
+    datasets: [{
+      label: 'Below Normal',
+      data: [usersRatingsCountByGender['male']['blood_saturation'][0], usersRatingsCountByGender['female']['blood_saturation'][0]],
+      backgroundColor: ['#FFB600'],
+      borderColor: ['#FFB600']
+    }, {
+      label: 'Normal',
+      data: [usersRatingsCountByGender['male']['blood_saturation'][1], usersRatingsCountByGender['female']['blood_saturation'][1]],
+      backgroundColor: ['#A6CE39'],
+      borderColor: ['#A6CE39'] 
+    }, {
+      label: 'Above Normal',
+      data: [usersRatingsCountByGender['male']['blood_saturation'][2], usersRatingsCountByGender['female']['blood_saturation'][2]],
+      backgroundColor: ['#990711'],
+      borderColor: ['#990711']
+    }]
+  }
+
+  const bloodSaturationByGenderConfig = {
+    type: 'bar',
+    data: bloodSaturationByGenderData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Users Blood Saturation Rating Pervasiveness by Gender'
+        },
+      },
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Gender'
+          }
+        },
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'User'
+          }
+        }
+      }
+    }
+  };
+
+  var usersRatingByGenderChart = new Chart(
+    document.getElementById('usersRatingByGenderChart'),
+    pulseRateByGenderConfig
+  );
+  function showUsersRatingByGenderChart(id) {
+    usersRatingByGenderChart.destroy();
+    if (id == 'pulseRateByGender') {
+      usersRatingByGenderChart = new Chart(
+        document.getElementById('usersRatingByGenderChart'),
+        pulseRateByGenderConfig
+      );
+    }
+    else if (id == 'bloodPressureByGender') {
+      usersRatingByGenderChart = new Chart(
+        document.getElementById('usersRatingByGenderChart'),
+        bloodPressureByGenderConfig
+      );
+    }
+    else if (id == 'bloodSaturationByGender') {
+      usersRatingByGenderChart = new Chart(
+        document.getElementById('usersRatingByGenderChart'),
+        bloodSaturationByGenderConfig
+      );
+    }
+  }
+  document.getElementById("showPulseRateByGender").addEventListener("click", function() {
+    showUsersRatingByGenderChart("pulseRateByGender");
+  });
+  document.getElementById("showBloodPressureByGender").addEventListener("click", function() {
+    showUsersRatingByGenderChart("bloodPressureByGender");
+  });
+  document.getElementById("showBloodSaturationByGender").addEventListener("click", function() {
+    showUsersRatingByGenderChart("bloodSaturationByGender");
+  });
+
+    /*
+    -----------------------------------------
+    *                                       *
+    *           RATINGS PER AGE             *
+    *                                       *
+    -----------------------------------------
+  */
+
+  const pulseRateByAgeData = {
+    labels: ['0-19', '20-39', '40-59', '60-79', '80 and above'],
+    datasets: [{
+      label: 'Below Normal',
+      data: [
+        usersRatingsCountByAge['0-19']['pulse_rate'][0], 
+        usersRatingsCountByAge['20-39']['pulse_rate'][0],
+        usersRatingsCountByAge['40-59']['pulse_rate'][0],
+        usersRatingsCountByAge['60-79']['pulse_rate'][0],
+        usersRatingsCountByAge['80-above']['pulse_rate'][0]
+      ],
+      backgroundColor: ['#FFB600'],
+      borderColor: ['#FFB600']
+    }, {
+      label: 'Normal',
+      data: [
+        usersRatingsCountByAge['0-19']['pulse_rate'][1], 
+        usersRatingsCountByAge['20-39']['pulse_rate'][1],
+        usersRatingsCountByAge['40-59']['pulse_rate'][1],
+        usersRatingsCountByAge['60-79']['pulse_rate'][1],
+        usersRatingsCountByAge['80-above']['pulse_rate'][1]
+      ],
+      backgroundColor: ['#A6CE39'],
+      borderColor: ['#A6CE39'] 
+    }, {
+      label: 'Above Normal',
+      data: [
+        usersRatingsCountByAge['0-19']['pulse_rate'][2], 
+        usersRatingsCountByAge['20-39']['pulse_rate'][2],
+        usersRatingsCountByAge['40-59']['pulse_rate'][2],
+        usersRatingsCountByAge['60-79']['pulse_rate'][2],
+        usersRatingsCountByAge['80-above']['pulse_rate'][2]
+      ],
+      backgroundColor: ['#990711'],
+      borderColor: ['#990711']
+    }]
+  }
+
+  const pulseRateByAgeConfig = {
+    type: 'bar',
+    data: pulseRateByAgeData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Users Pulse Rate Rating Pervasiveness by Age'
+        },
+      },
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Age'
+          }
+        },
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'User'
+          }
+        }
+      }
+    }
+  };
+
+  const bloodPressureByAgeData = {
+    labels: ['0-19', '20-39', '40-59', '60-79', '80 and above'],
+    datasets: [{
+      label: 'Normal',
+      data: [
+        usersRatingsCountByAge['0-19']['blood_pressure'][0], 
+        usersRatingsCountByAge['20-39']['blood_pressure'][0],
+        usersRatingsCountByAge['40-59']['blood_pressure'][0],
+        usersRatingsCountByAge['60-79']['blood_pressure'][0],
+        usersRatingsCountByAge['80-above']['blood_pressure'][0]
+      ],
+      backgroundColor: ['#A6CE39'],
+      borderColor: ['#A6CE39']
+    }, {
+      label: 'Elevated Blood Pressure',
+      data: [
+        usersRatingsCountByAge['0-19']['blood_pressure'][1], 
+        usersRatingsCountByAge['20-39']['blood_pressure'][1],
+        usersRatingsCountByAge['40-59']['blood_pressure'][1],
+        usersRatingsCountByAge['60-79']['blood_pressure'][1],
+        usersRatingsCountByAge['80-above']['blood_pressure'][1]
+      ],
+      backgroundColor: ['#FFEC01'],
+      borderColor: ['#FFEC01'] 
+    }, {
+      label: 'Hypertension Stage I',
+      data: [
+        usersRatingsCountByAge['0-19']['blood_pressure'][2], 
+        usersRatingsCountByAge['20-39']['blood_pressure'][2],
+        usersRatingsCountByAge['40-59']['blood_pressure'][2],
+        usersRatingsCountByAge['60-79']['blood_pressure'][2],
+        usersRatingsCountByAge['80-above']['blood_pressure'][2]
+      ],
+      backgroundColor: ['#FFB600'],
+      borderColor: ['#FFB600']
+    }, {
+      label: 'Hypertension Stage II',
+      data: [
+        usersRatingsCountByAge['0-19']['blood_pressure'][3], 
+        usersRatingsCountByAge['20-39']['blood_pressure'][3],
+        usersRatingsCountByAge['40-59']['blood_pressure'][3],
+        usersRatingsCountByAge['60-79']['blood_pressure'][3],
+        usersRatingsCountByAge['80-above']['blood_pressure'][3]
+      ],
+      backgroundColor: ['#BB3A01'],
+      borderColor: ['#BB3A01']
+    }, {
+      label: 'Hypertensive Crisis',
+      data: [
+        usersRatingsCountByAge['0-19']['blood_pressure'][4], 
+        usersRatingsCountByAge['20-39']['blood_pressure'][4],
+        usersRatingsCountByAge['40-59']['blood_pressure'][4],
+        usersRatingsCountByAge['60-79']['blood_pressure'][4],
+        usersRatingsCountByAge['80-above']['blood_pressure'][4]
+      ],
+      backgroundColor: ['#990711'],
+      borderColor: ['#990711']  
+    }]
+  }
+
+  const bloodPressureByAgeConfig = {
+    type: 'bar',
+    data: bloodPressureByAgeData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Users Blood Pressure Rating Pervasiveness by Age'
+        },
+      },
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Age'
+          }
+        },
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'User'
+          }
+        }
+      }
+    }
+  };
+
+  const bloodSaturationByAgeData = {
+    labels: ['0-19', '20-39', '40-59', '60-79', '80 and above'],
+    datasets: [{
+      label: 'Below Normal',
+      data: [
+        usersRatingsCountByAge['0-19']['blood_saturation'][0], 
+        usersRatingsCountByAge['20-39']['blood_saturation'][0],
+        usersRatingsCountByAge['40-59']['blood_saturation'][0],
+        usersRatingsCountByAge['60-79']['blood_saturation'][0],
+        usersRatingsCountByAge['80-above']['blood_saturation'][0]
+      ],
+      backgroundColor: ['#FFB600'],
+      borderColor: ['#FFB600']
+    }, {
+      label: 'Normal',
+      data: [
+        usersRatingsCountByAge['0-19']['blood_saturation'][1], 
+        usersRatingsCountByAge['20-39']['blood_saturation'][1],
+        usersRatingsCountByAge['40-59']['blood_saturation'][1],
+        usersRatingsCountByAge['60-79']['blood_saturation'][1],
+        usersRatingsCountByAge['80-above']['blood_saturation'][1]
+      ],
+      backgroundColor: ['#A6CE39'],
+      borderColor: ['#A6CE39'] 
+    }, {
+      label: 'Above Normal',
+      data: [
+        usersRatingsCountByAge['0-19']['blood_saturation'][2], 
+        usersRatingsCountByAge['20-39']['blood_saturation'][2],
+        usersRatingsCountByAge['40-59']['blood_saturation'][2],
+        usersRatingsCountByAge['60-79']['blood_saturation'][2],
+        usersRatingsCountByAge['80-above']['blood_saturation'][2]
+      ],
+      backgroundColor: ['#990711'],
+      borderColor: ['#990711']
+    }]
+  }
+
+  const bloodSaturationByAgeConfig = {
+    type: 'bar',
+    data: bloodSaturationByAgeData,
+    options: {
+      plugins: {
+        title: {
+          display: true,
+          text: 'Users Blood Saturation Rating Pervasiveness by Age'
+        },
+      },
+      responsive: true,
+      scales: {
+        x: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'Age'
+          }
+        },
+        y: {
+          stacked: true,
+          title: {
+            display: true,
+            text: 'User'
+          }
+        }
+      }
+    }
+  };
+
+  var usersRatingByAgeChart = new Chart(
+    document.getElementById('usersRatingByAgeChart'),
+    pulseRateByAgeConfig
+  );
+  function showUsersRatingByAgeChart(id) {
+    usersRatingByAgeChart.destroy();
+    if (id == 'pulseRateByAge') {
+      usersRatingByAgeChart = new Chart(
+        document.getElementById('usersRatingByAgeChart'),
+        pulseRateByAgeConfig
+      );
+    }
+    else if (id == 'bloodPressureByAge') {
+      usersRatingByAgeChart = new Chart(
+        document.getElementById('usersRatingByAgeChart'),
+        bloodPressureByAgeConfig
+      );
+    }
+    else if (id == 'bloodSaturationByAge') {
+      usersRatingByAgeChart = new Chart(
+        document.getElementById('usersRatingByAgeChart'),
+        bloodSaturationByAgeConfig
+      );
+    }
+  }
+  document.getElementById("showPulseRateByAge").addEventListener("click", function() {
+    showUsersRatingByAgeChart("pulseRateByAge");
+  });
+  document.getElementById("showBloodPressureByAge").addEventListener("click", function() {
+    showUsersRatingByAgeChart("bloodPressureByAge");
+  });
+  document.getElementById("showBloodSaturationByAge").addEventListener("click", function() {
+    showUsersRatingByAgeChart("bloodSaturationByAge");
+  });
 </script>
 @endsection

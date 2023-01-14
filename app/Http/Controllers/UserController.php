@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Reading;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -31,6 +32,7 @@ class UserController extends Controller
             'Content-Type' => 'image/png'
         );
         $image = QrCode::size(1023)
+                ->margin(1)
                 ->format('png')
                 ->generate($data);
         $path = 'qrcodes/' . $user_id . '.png';
@@ -84,18 +86,39 @@ class UserController extends Controller
     }
 
     private function determinePulseRate($age, $pulse_rate){
-        $low = $this->getLowPulseRate($age);
-        $high = $this->getHighPulseRate($age);
-        if($pulse_rate < $low){
-            $rating = 0;
-        }
-        else if($pulse_rate < $high){
-            $rating = 1;
-        }
-        else{
-            $rating = 2;
-        }
-        return $rating;
+        if($age <= 1){
+            $low = 100;
+            $high = 160;
+          }
+          else if($age <= 3){
+            $low = 80;
+            $high = 130;  
+          }
+          else if($age <= 5){
+            $low = 80;
+            $high = 120;  
+          }
+          else if($age <= 10){
+            $low = 70;
+            $high = 110;  
+          }
+          else if($age <= 14){
+            $low = 60;
+            $high = 105;  
+          }
+          else{
+            $low = 60;
+            $high = 100;
+          }
+          if($pulse_rate < $low){
+            return 0;
+          }
+          else if($pulse_rate < $high){
+            return 1;
+          }
+          else{
+            return 2;
+          }
     }
 
     // American Heart Association
@@ -138,7 +161,12 @@ class UserController extends Controller
 
     private function getPreviousRecentReading($user_id){
         $readings = Reading::where('user_id',$user_id)->latest('created_at')->get();
-        $previous_recent_reading = $readings[1];
+        if(count($readings)>1){
+            $previous_recent_reading = $readings[1];
+        }
+        else{
+            $previous_recent_reading = 'null';
+        }
         return $previous_recent_reading;
     }
 
@@ -203,6 +231,22 @@ class UserController extends Controller
         return $daily_per_month_readings;
     }
 
+    private function getDailyPerMonthYearReadings($user_id, $month, $year){
+        $daily_per_month_readings = array();
+        $with_31 = [1,3,5,7,8,10,12];
+        if(in_array($month, $with_31)){
+            $days = 31;
+        }
+        else{
+            $days = 30;
+        }
+        for($day = 1; $day <= $days; $day++){
+            $daily_readings = Reading::where('user_id',$user_id)->whereYear('created_at', $year)->whereMonth('created_at', $month)->whereDay('created_at', $day)->get();  
+            array_push($daily_per_month_readings, $daily_readings);
+        }
+        return $daily_per_month_readings;
+    }
+
     private function getDailyPerMonthYearlyReadings($user_id){
         $daily_per_month_yearly_readings = array();
         for($month = 1; $month <= 12; $month++){
@@ -210,6 +254,24 @@ class UserController extends Controller
             array_push($daily_per_month_yearly_readings, $daily_per_month_readings);
         }
         return $daily_per_month_yearly_readings;
+    }
+
+    private function getDailyReadings($user_id){
+        $readings = Reading::where('user_id', $user_id)->get()->groupBy(function($item){
+            return $item->created_at->format('Y-m-d');
+        });
+        return $readings;
+    }
+
+    private function getPastMonthsReadings($user_id){
+        $daily_past_month_readings = array();
+        for($month = 11; $month >= 0; $month--){
+            $temp_month = Carbon::now()->subMonths($month)->month;
+            $temp_year = Carbon::now()->subMonths($month)->year;
+            $daily_per_month_readings = $this->getDailyPerMonthYearReadings($user_id, $temp_month, $temp_year);
+            array_push($daily_past_month_readings, $daily_per_month_readings);
+        }
+        return $daily_past_month_readings;
     }
 
     private function getReadingsFromRange($user_id, $from, $to){
@@ -230,6 +292,342 @@ class UserController extends Controller
             array_push($daily_readings_by_date_range, $daily_readings);
         }
         return $daily_readings_by_date_range;
+    }
+
+    private function getUsersByAge($age){
+        $from = Carbon::today()->subYears($age);
+        $to = Carbon::today()->subYears($age + 1);
+        $users = User::where('type', 'normal')->whereBetween('birthday', [$to, $from])->get();
+        return $users;
+    }
+
+    private function getUsersByAgeRange($from_age, $to_age){
+        $from = Carbon::today()->subYears($from_age);
+        $to = Carbon::today()->subYears($to_age);
+        $users = User::where('type', 'normal')->whereBetween('birthday', [$to, $from])->get();
+        return $users;    
+    }
+
+    private function getUsersByMunicipality($municipality){
+        $users = User::where('type', 'normal')->where('municipality', $municipality);
+        return $users;
+    }
+
+    private function getUsersByBaranggay($municipality, $baranggay){
+        $users = User::where('type', 'normal')->where('municipality', $municipality)->where('baranggay', $baranggay);
+        return $users;
+    }
+
+    private function sortUsersByMunicipality(){
+        $municipalities = ['Boac', 'Buenavista', 'Gasan', 'Mogpog', 'Sta.Cruz', 'Torrijos'];
+        $users = array();
+        foreach($municipalities as $municipality){
+            $temp_users = $this->getUsersByMunicipality($municipality);
+            array_push($users, $temp_users);
+        }
+        return $users;
+    }
+
+    private function getUserOverallRatings($user_id){
+        $daily_readings = $this->getDailyReadings($user_id);
+        $user = User::find($user_id);
+        $user_pulse_rate_ratings = [0, 0, 0];
+        $user_blood_pressure_ratings = [0, 0, 0, 0, 0];
+        $user_blood_saturation_ratings = [0, 0, 0];
+        foreach($daily_readings as $daily_reading){
+            $pr_temp = [0, 0, 0];
+            $bp_temp = [0, 0, 0, 0, 0];
+            $sp_temp = [0, 0, 0];
+            foreach($daily_reading as $reading){
+                $pr_rating = $this->determinePulseRate(Carbon::parse($user->birthday)->age, $reading->pulse_rate);
+                if($pr_rating == 0){
+                    $pr_temp[0]++;
+                }
+                else if($pr_rating == 1){
+                    $pr_temp[1]++;
+                }
+                else if($pr_rating == 2){
+                    $pr_temp[2]++;
+                }
+                $bp_rating = $this->determineBloodPressure($reading->systolic, $reading->diastolic);
+                if($bp_rating == 0){
+                    $bp_temp[0]++;
+                }
+                else if($bp_rating == 1){
+                    $bp_temp[1]++;
+                }
+                else if($bp_rating == 2){
+                    $bp_temp[2]++;
+                }
+                else if($bp_rating == 3){
+                    $bp_temp[3]++;
+                }
+                else if($bp_rating == 4){
+                    $bp_temp[4]++;
+                }
+                $sp_rating = $this->determineBloodSaturation($reading->blood_saturation);
+                if($sp_rating == 0){
+                    $sp_temp[0]++;
+                }
+                else if($sp_rating == 1){
+                    $sp_temp[1]++;
+                }
+                else if($sp_rating == 2){
+                    $sp_temp[2]++;
+                }
+            }
+            if($pr_temp[2] > 0){
+                $user_pulse_rate_ratings[2]++;
+            }
+            else if($pr_temp[0] > 0){
+                $user_pulse_rate_ratings[0]++;
+            }
+            else{
+                $user_pulse_rate_ratings[1]++;
+            }
+            if($bp_temp[4] > 0){
+                $user_blood_pressure_ratings[4]++;
+            }
+            else if($bp_temp[3] > 0){
+                $user_blood_pressure_ratings[3]++;
+            }
+            else if($bp_temp[2] > 0){
+                $user_blood_pressure_ratings[2]++;
+            }
+            else if($bp_temp[1] > 0){
+                $user_blood_pressure_ratings[1]++;
+            }
+            else{
+                $user_blood_pressure_ratings[0]++;
+            }
+            if($sp_temp[2] > 0){
+                $user_blood_saturation_ratings[2]++;
+            }
+            else if($sp_temp[0] > 0){
+                $user_blood_saturation_ratings[0]++;
+            }
+            else{
+                $user_blood_saturation_ratings[1]++;
+            }
+        }
+        if($user_pulse_rate_ratings[2] > 0){
+            $pulse_rate_rating = 2;
+        }
+        else if($user_pulse_rate_ratings[0] > 0){
+            $pulse_rate_rating = 0;
+        }
+        else{
+            $pulse_rate_rating = 1;
+        }
+        if($user_blood_pressure_ratings[4] > 0){
+            $blood_pressure_rating = 4;
+        }
+        else if($user_blood_pressure_ratings[3] > 0){
+            $blood_pressure_rating = 3;
+        }
+        else if($user_blood_pressure_ratings[2] > 0){
+            $blood_pressure_rating = 2;
+        }
+        else if($user_blood_pressure_ratings[1] > 0){
+            $blood_pressure_rating = 1;
+        }
+        else{
+            $blood_pressure_rating = 0;
+        }
+        if($user_blood_saturation_ratings[2] > 0){
+            $blood_saturation_rating = 2;
+        }
+        else if($user_blood_saturation_ratings[0] > 0){
+            $blood_saturation_rating = 0;
+        }
+        else{
+            $blood_saturation_rating = 1;
+        }
+        $ratings = [
+            'pulse_rate' => $pulse_rate_rating,
+            'blood_pressure' => $blood_pressure_rating,
+            'blood_saturation' => $blood_saturation_rating
+        ];
+        return $ratings;
+    }
+
+    private function getUsersRatings(){
+        $users = $this->getAllUsers();
+        $user_ratings = array();
+        foreach($users as $user){
+            $user_rating = $this->getUserOverallRatings($user->id);
+            array_push($user_ratings, $user_rating);
+        }
+        return $user_ratings;
+    }
+
+    private function getUsersRatingsByAge($age){
+        $users = $this->getUsersByAge($age);
+        $user_ratings = array();
+        foreach($users as $user){
+            $user_rating = $this->getUserOverallRatings($user->id);
+            array_push($user_ratings, $user_rating);
+        }
+        return $user_ratings;
+    }
+
+    private function sortUsersRatings(){
+        $users_by_municipality = $this->sortUsersByMunicipality();
+        $users_rating_by_municipality = array();
+        foreach($users_by_municipality as $user_by_municipality){
+            $users_rating = array();
+            foreach($user_by_municipality as $users){
+                foreach($users as $user){
+                    $user_rating = $this->getUserOverallRatings($user->id);
+                    array_push($user_ratings, $user_rating);
+                }    
+            }
+            array_push($users_rating_by_municipality, $users_rating);
+        }
+    }
+
+    private function getUsersRatingsByMunicipality($municipality){
+        $users = $this->getUsersByMunicipality($municipality);
+        $user_ratings = array();
+        foreach($users as $user){
+            $user_rating = $this->getUserOverallRatings($user->id);
+            array_push($user_ratings, $user_rating);
+        }
+        return $user_ratings;
+    }
+
+    private function getUsersRatingsByBaranggay($municipality, $baranggay){
+        $users = $this->getUsersByBaranggay($municipality, $baranggay);
+        $user_ratings = array();
+        foreach($users as $user){
+            $user_rating = $this->getUserOverallRatings($user->id);
+            array_push($user_ratings, $user_rating);
+        }
+        return $user_ratings;    
+    }
+
+    private function getUserRatingsCountByGender(){
+        $males = User::where('type', 'normal')->where('gender', 'male')->get();
+        $females = User::where('type', 'normal')->where('gender', 'female')->get();
+        $male_pulse_rate_ratings = [0, 0, 0];
+        $male_blood_pressure_ratings = [0, 0, 0, 0, 0];
+        $male_blood_saturation_ratings = [0, 0, 0];
+        foreach($males as $user){
+            $rating = $this->getUserOverallRatings($user->id);
+            $male_pulse_rate_ratings[$rating['pulse_rate']]++;
+            $male_blood_pressure_ratings[$rating['blood_pressure']]++;
+            $male_blood_saturation_ratings[$rating['blood_saturation']]++;
+        }
+        $female_pulse_rate_ratings = [0, 0, 0];
+        $female_blood_pressure_ratings = [0, 0, 0, 0, 0];
+        $female_blood_saturation_ratings = [0, 0, 0];
+        foreach($females as $user){
+            $rating = $this->getUserOverallRatings($user->id);
+            $female_pulse_rate_ratings[$rating['pulse_rate']]++;
+            $female_blood_pressure_ratings[$rating['blood_pressure']]++;
+            $female_blood_saturation_ratings[$rating['blood_saturation']]++;
+        }
+        $male_ratings = [
+            'pulse_rate' => $male_pulse_rate_ratings, 
+            'blood_pressure' => $male_blood_pressure_ratings, 
+            'blood_saturation' => $male_blood_saturation_ratings
+        ];
+        $female_ratings = [
+            'pulse_rate' => $female_pulse_rate_ratings, 
+            'blood_pressure' => $female_blood_pressure_ratings,
+            'blood_saturation' => $female_blood_saturation_ratings
+        ];
+        $ratings = [
+            'male' => $male_ratings,
+            'female' => $female_ratings,
+        ];
+        return $ratings;
+    }
+
+    private function getUsersRatingsCountByAge(){
+        $users_0_to_19 = $this->getUsersByAgeRange(0, 19);
+        $users_20_to_39 = $this->getUsersByAgeRange(19, 39);
+        $users_40_to_59 = $this->getUsersByAgeRange(39, 59);
+        $users_60_to_79 = $this->getUsersByAgeRange(59, 79);
+        $users_80_above = $this->getUsersByAgeRange(79, 200);
+        $users_0_to_19_pulse_rate_ratings = [0, 0, 0];
+        $users_0_to_19_blood_pressure_ratings = [0, 0, 0, 0, 0];
+        $users_0_to_19_blood_saturation_ratings = [0, 0, 0];
+        foreach($users_0_to_19 as $user){
+            $rating = $this->getUserOverallRatings($user->id);
+            $users_0_to_19_pulse_rate_ratings[$rating['pulse_rate']]++;
+            $users_0_to_19_blood_pressure_ratings[$rating['blood_pressure']]++;
+            $users_0_to_19_blood_saturation_ratings[$rating['blood_saturation']]++;    
+        }
+        $users_20_to_39_pulse_rate_ratings = [0, 0, 0];
+        $users_20_to_39_blood_pressure_ratings = [0, 0, 0, 0, 0];
+        $users_20_to_39_blood_saturation_ratings = [0, 0, 0];
+        foreach($users_20_to_39 as $user){
+            $rating = $this->getUserOverallRatings($user->id);
+            $users_20_to_39_pulse_rate_ratings[$rating['pulse_rate']]++;
+            $users_20_to_39_blood_pressure_ratings[$rating['blood_pressure']]++;
+            $users_20_to_39_blood_saturation_ratings[$rating['blood_saturation']]++;    
+        }
+        $users_40_to_59_pulse_rate_ratings = [0, 0, 0];
+        $users_40_to_59_blood_pressure_ratings = [0, 0, 0, 0, 0];
+        $users_40_to_59_blood_saturation_ratings = [0, 0, 0];
+        foreach($users_40_to_59 as $user){
+            $rating = $this->getUserOverallRatings($user->id);
+            $users_40_to_59_pulse_rate_ratings[$rating['pulse_rate']]++;
+            $users_40_to_59_blood_pressure_ratings[$rating['blood_pressure']]++;
+            $users_40_to_59_blood_saturation_ratings[$rating['blood_saturation']]++;    
+        }
+        $users_60_to_79_pulse_rate_ratings = [0, 0, 0];
+        $users_60_to_79_blood_pressure_ratings = [0, 0, 0, 0, 0];
+        $users_60_to_79_blood_saturation_ratings = [0, 0, 0];
+        foreach($users_60_to_79 as $user){
+            $rating = $this->getUserOverallRatings($user->id);
+            $users_60_to_79_pulse_rate_ratings[$rating['pulse_rate']]++;
+            $users_60_to_79_blood_pressure_ratings[$rating['blood_pressure']]++;
+            $users_60_to_79_blood_saturation_ratings[$rating['blood_saturation']]++;    
+        }
+        $users_80_above_pulse_rate_ratings = [0, 0, 0];
+        $users_80_above_blood_pressure_ratings = [0, 0, 0, 0, 0];
+        $users_80_above_blood_saturation_ratings = [0, 0, 0];
+        foreach($users_80_above as $user){
+            $rating = $this->getUserOverallRatings($user->id);
+            $users_80_above_pulse_rate_ratings[$rating['pulse_rate']]++;
+            $users_80_above_blood_pressure_ratings[$rating['blood_pressure']]++;
+            $users_80_above_blood_saturation_ratings[$rating['blood_saturation']]++;    
+        }
+        $users_0_to_19_ratings = [
+            'pulse_rate' => $users_0_to_19_pulse_rate_ratings, 
+            'blood_pressure' => $users_0_to_19_blood_pressure_ratings, 
+            'blood_saturation' => $users_0_to_19_blood_saturation_ratings
+        ];
+        $users_20_to_39_ratings = [
+            'pulse_rate' => $users_20_to_39_pulse_rate_ratings, 
+            'blood_pressure' => $users_20_to_39_blood_pressure_ratings, 
+            'blood_saturation' => $users_20_to_39_blood_saturation_ratings
+        ];
+        $users_40_to_59_ratings = [
+            'pulse_rate' => $users_40_to_59_pulse_rate_ratings, 
+            'blood_pressure' => $users_40_to_59_blood_pressure_ratings, 
+            'blood_saturation' => $users_40_to_59_blood_saturation_ratings
+        ];
+        $users_60_to_79_ratings = [
+            'pulse_rate' => $users_60_to_79_pulse_rate_ratings, 
+            'blood_pressure' => $users_60_to_79_blood_pressure_ratings, 
+            'blood_saturation' => $users_60_to_79_blood_saturation_ratings
+        ];
+        $users_80_above_ratings = [
+            'pulse_rate' => $users_80_above_pulse_rate_ratings, 
+            'blood_pressure' => $users_80_above_blood_pressure_ratings, 
+            'blood_saturation' => $users_80_above_blood_saturation_ratings
+        ];
+        $ratings = [
+            '0-19' => $users_0_to_19_ratings, 
+            '20-39' => $users_20_to_39_ratings,
+            '40-59' => $users_40_to_59_ratings,
+            '60-79' => $users_60_to_79_ratings,
+            '80-above' => $users_80_above_ratings
+        ];
+        return $ratings;
     }
 
     private function getThisMonthReadingDates($user_id){
@@ -632,8 +1030,10 @@ class UserController extends Controller
 
     private function getMonthlyNewUsersPerMonth(){
         $monthly_new_users_per_month = array();
-        for($month = 1; $month <= 12; $month++){
-            $new_monthly_users = User::whereYear('created_at', date('Y'))->whereMonth('created_at', $month)->where('type','normal')->get();
+        for($month = 11; $month >= 0; $month--){
+            $temp_month = Carbon::now()->subMonths($month)->month;
+            $temp_year = Carbon::now()->subMonths($month)->year;
+            $new_monthly_users = User::whereYear('created_at', $temp_year)->whereMonth('created_at', $temp_month)->where('type','normal')->get();
             $per_month_users = count($new_monthly_users);
             array_push($monthly_new_users_per_month,$per_month_users);
         }
@@ -818,7 +1218,6 @@ class UserController extends Controller
             'baranggay' => 'required|different:null',
             'password' => 'required|regex:/^.*(?=[^A-Z\n]*[A-Z]).{8,}.*$/',
             'password_confirmation' => 'required|same:password',
-            'bio' => 'max:200',
             'profile_picture' => 'mimes:jpeg,bmp,png'
         ],
         [
@@ -839,7 +1238,6 @@ class UserController extends Controller
             'password.regex' => 'Password should be at least 8 characters long and contain at least one uppercase letter',
             'password_confirmation.required' => 'Please confirm your password',
             'password_confirmation.same' => 'Passwords does not match',
-            'bio.max' => 'Bio field exceeded maximum characters allowed',
             'profile_picture.mime' => 'The file is not an image file'
         ]);
         if($validator->fails()){
@@ -918,7 +1316,7 @@ class UserController extends Controller
             'this_month_readings' => $this->getThisMonthReadings($user->id),
             'daily_readings_from_range' => $daily_readings_from_range,
             'readings_from_range' => $readings_from_range,
-            'daily_per_month_yearly_readings' => $this->getDailyPerMonthYearlyReadings($user->id)
+            'daily_past_month_readings' => $this->getPastMonthsReadings($user->id)
         ]);
     }
 
@@ -1012,7 +1410,9 @@ class UserController extends Controller
             'users_average_systolic' => $this->getUsersAverageSystolic($users),
             'users_average_diastolic' => $this->getUsersAverageDiastolic($users),
             'users_average_blood_saturation' => $this->getUsersAverageBloodSaturation($users),
-            'address' => $address
+            'address' => $address,
+            'users_ratings_count_by_gender' => $this->getUserRatingsCountByGender(),
+            'users_ratings_count_by_age' => $this->getUsersRatingsCountByAge()
         ]);
     }
 
@@ -1161,7 +1561,7 @@ class UserController extends Controller
             'this_month_readings' => $this->getThisMonthReadings($user->id),
             'daily_readings_from_range' => $daily_readings_from_range,
             'readings_from_range' => $readings_from_range,
-            'daily_per_month_yearly_readings' => $this->getDailyPerMonthYearlyReadings($user->id)
+            'daily_past_month_readings' => $this->getPastMonthsReadings($user->id)
         ]);
     }
 

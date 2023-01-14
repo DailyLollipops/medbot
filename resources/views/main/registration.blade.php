@@ -204,6 +204,7 @@
   }
   function on_failure(){
     var test = {{Js::from(old('baranggay') )}};
+    var municipality = {{Js::from(old('municipality'))}};
     if(test != null){
       change_baranggay_dropdown();
       var dropdown = document.getElementById('baranggay');

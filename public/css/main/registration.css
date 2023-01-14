@@ -171,12 +171,12 @@
 
 @media (max-width: 575px) {
   .u-section-1 .u-sheet-1 {
-    min-height: 1646px;
+    min-height: 1800px;
   }
 
   .u-section-1 .u-group-1 {
     margin-bottom: 25px;
-    min-height: 1508px;
+    min-height: 1650px;
     width: auto;
     margin-right: initial;
     margin-left: initial;
@@ -199,7 +199,7 @@
   }
 
   .u-section-1 .u-image-1 {
-    margin-top: -1249px;
+    margin-top: -1400px;
   }
 
   .u-section-1 .u-btn-2 {
