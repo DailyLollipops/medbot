@@ -23,7 +23,7 @@ and changing some settings such as your database provider. After configuring you
 php artisan migrate --seed
 ```
 ### Hosting
-To host the project on online hosting services, use the `deployment` branch
+The links on the blade templates may be required to be changed when hosted
 
 #### P.S.
 This is my first project so don't hate me for directly commiting to main XD 
