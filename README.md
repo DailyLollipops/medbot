@@ -25,6 +25,9 @@ php artisan migrate --seed
 ### Hosting
 To host the project on online hosting services, use the `deployment` branch
 
+#### P.S.
+This is my first project so don't hate me for directly commiting to main XD 
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
